@@ -1,0 +1,8 @@
+{
+  "recommendations": [
+    "esbenp.prettier-vscode",
+    "dbaeumer.vscode-eslint",
+    "wayou.vscode-todo-highlight",
+    "yoavbls.pretty-ts-errors"
+  ]
+}
