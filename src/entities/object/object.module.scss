@@ -1,0 +1,213 @@
+.section {
+  position: relative;
+}
+
+.content {
+  width: 100vw;
+  height: 100vh;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+.imageWrapper {
+  position: absolute;
+  transform-origin: center top;
+  overflow: hidden;
+  width: 100%;
+  height: 100vh;
+}
+
+.image {
+  display: block;
+  min-height: 100vh;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.imageOverlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  padding-top: var(--header-height);
+  background: linear-gradient(360deg, rgba(0, 0, 0, 0) 59.99%, rgba(0, 0, 0, 0.4) 100%);
+}
+
+.imageText {
+  display: flex;
+  flex-direction: column;
+  gap: rem(20px);
+  text-align: center;
+  color: var(--color-white);
+  padding-top: rem(60px);
+  max-width: rem(435px);
+
+  @media (min-width: 1024px) {
+    max-width: rem(530px);
+  }
+  @media (min-width: 1600px) {
+    padding-top: 0;
+    gap: rem(60px);
+    max-width: rem(740px);
+  }
+}
+
+.wrapper2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+.slider {
+  img {
+    height: 56vh !important;
+  }
+}
+
+.container2 {
+  text-align: center;
+  max-width: rem(400px);
+
+  h3 {
+    margin-top: 60px;
+  }
+  p {
+    margin-top: 40px;
+  }
+}
+
+.wrapper3 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100vh;
+  width: 100%;
+  background-color: var(--color-bg);
+}
+
+.container3 {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: rem(55px);
+  text-align: center;
+  height: 100%;
+  padding-top: rem(80px);
+  padding-bottom: rem(110px);
+
+  @media (min-width: 1024px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    text-align: left;
+    gap: rem(30px);
+    padding-top: 0;
+    padding-bottom: 0;
+  }
+  @media (min-width: 1300px) {
+    gap: rem(40px);
+  }
+  @media (min-width: 1600px) {
+    gap: rem(70px);
+  }
+
+  h2 {
+    max-width: rem(320px);
+    @media (min-width: 1024px) {
+      max-width: none;
+      text-align: right;
+      flex: 0 0 rem(330px);
+    }
+    @media (min-width: 1600px) {
+      flex: 0 0 rem(535px);
+    }
+  }
+}
+
+.beachImage {
+  position: relative;
+  height: rem(340px);
+  width: rem(250px);
+
+  @media (min-width: 1024px) {
+    height: rem(350px);
+    width: rem(230px);
+  }
+  @media (min-width: 1300px) {
+    height: rem(350px);
+    width: rem(312px);
+  }
+  @media (min-width: 1600px) {
+    margin-left: rem(20px);
+    width: rem(320px);
+    height: rem(440px);
+  }
+
+  img {
+    position: relative;
+    z-index: 2;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
+
+  &::before {
+    content: '';
+    position: absolute;
+    display: block;
+    width: rem(94px);
+    height: rem(94px);
+    top: rem(-47px);
+    left: rem(-47px);
+    border-radius: 50%;
+    background-color: var(--color-green);
+    @media (min-width: 1024px) {
+      width: rem(120px);
+      height: rem(120px);
+      top: rem(-60px);
+      left: rem(-60px);
+    }
+    @media (min-width: 1300px) {
+      width: rem(160px);
+      height: rem(160px);
+      top: rem(-80px);
+      left: rem(-80px);
+    }
+    @media (min-width: 1600px) {
+      width: rem(200px);
+      height: rem(200px);
+      top: rem(-130px);
+      left: rem(-100px);
+    }
+  }
+}
+
+.beachText {
+  margin-top: rem(5px);
+
+  @media (min-width: 1024px) {
+    margin-top: 0;
+    width: rem(305px);
+  }
+  @media (min-width: 1300px) {
+    width: rem(350px);
+  }
+  @media (min-width: 1600px) {
+    width: rem(366px);
+    margin-right: 8.9673913%;
+  }
+
+  p {
+    max-width: rem(400px);
+  }
+}

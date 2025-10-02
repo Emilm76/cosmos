@@ -3,6 +3,7 @@ import { ReactNode } from 'react'
 import './globals.scss'
 import { LenisScrollProvider } from './providers/lenis-provider'
 import localFont from 'next/font/local'
+import { FontSizeProvider } from './providers/font-size-provider'
 
 export const metadata: Metadata = {
   title: 'COSMOS',
@@ -21,7 +22,9 @@ export default function RootLayout({
   return (
     <html lang="ru" className={TTFirstNeue.className}>
       <body>
-        <LenisScrollProvider>{children}</LenisScrollProvider>
+        <FontSizeProvider>
+          <LenisScrollProvider>{children}</LenisScrollProvider>
+        </FontSizeProvider>
       </body>
     </html>
   )

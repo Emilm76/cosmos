@@ -1,18 +1,7 @@
-@use 'sass:math';
-
-// Функции
-$html-font-size: 16px;
-@function stripUnit($value) {
-  @return math.div($value, ($value * 0 + 1));
-}
-@function rem($pxValue) {
-  @return #{math.div(stripUnit($pxValue), stripUnit($html-font-size))}rem;
-}
-
 // Переменные
 :root {
-  --container-padding: 20px;
-  --header-height: 64px;
+  --container-padding: 1.25rem; // 20px
+  --header-height: 4rem; // 64px
 
   --color-white: #ffffff;
   --color-dark: #1d1d1b;
@@ -47,8 +36,8 @@ $html-font-size: 16px;
   --easeInOutBack: cubic-bezier(0.68, -0.6, 0.32, 1.6);
 
   @media (min-width: 1024px) {
-    --container-padding: 40px;
-    --header-height: 82px;
+    --container-padding: 2.5rem; // 40px
+    --header-height: 5.125rem; // 82px
   }
 }
 
@@ -60,6 +49,16 @@ html,
 body {
   min-height: 100vh;
   max-width: 100vw;
+  scrollbar-width: none;
+  overflow-y: scroll;
+  &::-webkit-scrollbar {
+    width: 0;
+    height: 0;
+  }
+}
+
+.lenis-prevent,
+.hide-scroll {
   scrollbar-width: none;
   overflow-y: scroll;
   &::-webkit-scrollbar {
@@ -223,32 +222,26 @@ main {
   padding-right: var(--container-padding);
 }
 
-.section-pt {
-  padding-top: 120px;
-  @media (min-width: 768px) {
-    padding-top: 160px;
-  }
-  @media (min-width: 1300px) {
-    padding-top: 200px;
-  }
-  @media (min-width: 1750px) {
-    padding-top: 230px;
-  }
-}
-
-.h-pb {
-  padding-bottom: 32px;
-  @media (min-width: 768px) {
-    padding-bottom: 48px;
-  }
-  @media (min-width: 1300px) {
-    padding-bottom: 80px;
-  }
-}
-
-.content,
-.horizontal-scroll {
+// TODO: добавить класс для will-change
+.will-change {
   will-change: transform, translate;
+}
+
+.mobile-slide {
+  @media (max-width: 1023px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    overflow: hidden;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    translate: 0 100%;
+    transition: translate 0.1s var(--easeInOutQuart);
+    &.active {
+      translate: none;
+    }
+  }
 }
 
 .dark-content {
@@ -258,4 +251,78 @@ main {
 
 .green {
   color: var(--color-green);
+}
+
+.bullet-link {
+  position: relative;
+  display: inline-block;
+  padding-left: 0;
+  transition-duration: 0.25s;
+  transition-timing-function: var(--easeInOutQuart);
+  transition-property: color, padding-left;
+
+  &::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 0;
+    transform: translateY(-50%);
+    width: rem(6px);
+    height: rem(6px);
+    background-color: #fff;
+    border-radius: 50%;
+    opacity: 0;
+    transition-duration: 0.25s;
+    transition-timing-function: var(--easeInOutQuart);
+    transition-property: opacity, background-color;
+  }
+
+  &:hover {
+    color: var(--color-green);
+    padding-left: rem(16px);
+    &::before {
+      opacity: 1;
+      background-color: var(--color-green);
+    }
+  }
+
+  &--md {
+    &::before {
+      width: rem(8px);
+      height: rem(8px);
+    }
+    &:hover {
+      padding-left: rem(18px);
+    }
+  }
+
+  &--lg {
+    &::before {
+      width: rem(16px);
+      height: rem(16px);
+    }
+    &:hover {
+      padding-left: rem(36px);
+    }
+  }
+}
+
+.black-section {
+  background-color: var(--color-dark);
+  color: var(--color-white);
+}
+.white-section {
+  background-color: var(--color-bg);
+  color: var(--color-dark);
+}
+
+.embla {
+  overflow: hidden;
+}
+.embla__container {
+  display: flex;
+}
+.embla__slide {
+  flex: 0 0 100%;
+  min-width: 0;
 }

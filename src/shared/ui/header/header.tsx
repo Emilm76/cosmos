@@ -6,9 +6,11 @@ import clsx from 'clsx'
 import { PhoneIcon } from '../icons/phone'
 import Image from 'next/image'
 import Img from '@/images/burger.jpg'
+import { LogoIcon } from '../icons/logo'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
+  const [isLoadImg, setIsLoadImg] = useState(false)
   const lenis = useLenis()
 
   useEffect(() => {
@@ -27,70 +29,64 @@ export function Header() {
 
   function toggleBurger() {
     setIsBurgerOpen((lastState) => !lastState)
+    if (document.documentElement.clientWidth >= 768 && !isLoadImg) setIsLoadImg(true)
   }
 
   return (
     <>
-      <header className={clsx(styles.header, isBurgerOpen && styles.dark)}>
+      <header className={clsx(styles.header, isBurgerOpen && [styles.open, styles.dark])}>
         <div className={clsx(styles.container, 'container')}>
           <button className={styles.phoneBtn} type="button">
             <PhoneIcon />
-            <span>Заказать звонок</span>
+            <span className="bullet-link">Заказать звонок</span>
           </button>
           <div className={styles.right}>
-            <button type="button">Выбрать планировку</button>
+            <button className="bullet-link" type="button">
+              Выбрать планировку
+            </button>
             <button
               type="button"
-              className={clsx(styles.burgerBtn, isBurgerOpen && styles.open)}
+              className={clsx(styles.burgerBtn, isBurgerOpen ? styles.close : styles.open)}
               onClick={toggleBurger}
               aria-label="Открыть или закрыть меню"
             ></button>
           </div>
         </div>
+
+        <LogoIcon className={styles.logo} />
       </header>
 
       <div className={clsx(styles.burger, isBurgerOpen && styles.open)}>
-        {/* <div className={styles.burgerLogo}></div> */}
-        {/* TODO: логотип */}
-
-        <div className={clsx(styles.burgerWrapper, 'container')}>
+        <div className={clsx(styles.burgerWrapper, 'container lenis-prevent')}>
           <nav>
-            <div className={styles.li}>
-              <a className="h2" href="">
-                Концепция
-              </a>
+            <a className={styles.li} href="">
+              <div className={clsx(styles.burgerTitle, 'h2')}>Концепция</div>
               <div className="green">Пролог</div>
-            </div>
-            <div className={styles.li}>
-              <a className="h2" href="">
-                Локация
-              </a>
+            </a>
+            <a className={styles.li} href="">
+              <div className={clsx(styles.burgerTitle, 'h2')}>Локация</div>
               <div className="green">Глава 1</div>
-            </div>
-            <div className={styles.li}>
-              <a className="h2" href="">
-                Комфорт
-              </a>
+            </a>
+            <a className={styles.li} href="">
+              <div className={clsx(styles.burgerTitle, 'h2')}>Комфорт</div>
               <div className="green">Глава 2</div>
-            </div>
-            <div className={styles.li}>
-              <a className="h2" href="">
-                Выбор квартир
-              </a>
+            </a>
+            <a className={styles.li} href="">
+              <div className={clsx(styles.burgerTitle, 'h2')}>Выбор квартир</div>
               <div className="green">Глава 3</div>
-            </div>
+            </a>
           </nav>
 
           <div className={styles.burgerNav2}>
             <div className={styles.list2}>
-              <button className="subtitle" type="button">
+              <button className="subtitle bullet-link bullet-link--md" type="button">
                 Галерея
               </button>
-              <button className="subtitle" type="button">
+              <button className="subtitle bullet-link bullet-link--md" type="button">
                 Документы
               </button>
             </div>
-            <Image className={styles.burgerImg} src={Img} alt="" />
+            {isLoadImg && <Image className={styles.burgerImg} src={Img} loading="eager" alt="" />}
           </div>
         </div>
       </div>

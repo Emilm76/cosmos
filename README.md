@@ -4,6 +4,10 @@
 
 `DATABASE_URI="postgresql://postgres:postgres@localhost:5432/postgres?schema=public"`
 
+## Правила разработки
+
+1. Использовать `rem` вместо `px`
+
 ## Deploy
 
 1. Перед деплоем обязательно запустить команды

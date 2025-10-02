@@ -1,0 +1,43 @@
+.slider {
+  position: relative;
+}
+
+.slide {
+  position: relative;
+  img {
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    background: linear-gradient(180deg, rgba(0, 0, 0, 0) 75%, rgba(0, 0, 0, 0.2) 95%);
+  }
+}
+
+.dots {
+  position: absolute;
+  bottom: rem(10px);
+  left: 0;
+  width: 100%;
+  display: flex;
+  gap: rem(4px);
+  padding: 0 rem(40px);
+}
+
+.dot {
+  height: rem(4px);
+  background-color: var(--color-white);
+  border-radius: rem(2px);
+  opacity: 0.5;
+  flex-grow: 1;
+  transition-duration: 0.3s;
+  transition-timing-function: var(--easeInOutQuart);
+  transition-property: opacity;
+  &.selected {
+    opacity: 1;
+  }
+}

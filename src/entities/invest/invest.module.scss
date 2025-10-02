@@ -1,0 +1,123 @@
+.section {
+  position: relative;
+}
+
+.content {
+  width: 100vw;
+  height: 100vh;
+}
+
+.wrapper {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  overflow: hidden;
+}
+
+// slide1
+.slide1 {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+  gap: rem(60px);
+
+  @media (min-width: 1024px) {
+    height: 100%;
+    flex-direction: row;
+    text-align: left;
+    gap: rem(40px);
+  }
+  @media (min-width: 1600px) {
+    gap: rem(90px);
+  }
+
+  .image1 {
+    position: relative;
+    width: rem(250px);
+    height: rem(340px);
+    @media (min-width: 1024px) {
+      width: rem(340px);
+      height: rem(360px);
+    }
+    @media (min-width: 1600px) {
+      width: rem(320px);
+      height: rem(440px);
+    }
+    &::before {
+      @media (max-width: 1023px) {
+        content: '';
+        position: absolute;
+        display: block;
+        width: rem(94px);
+        height: rem(94px);
+        top: rem(-47px);
+        left: rem(-47px);
+        border-radius: 50%;
+        background-color: var(--color-green);
+      }
+    }
+  }
+  .image2 {
+    display: none;
+    @media (min-width: 1024px) {
+      position: relative;
+      display: block;
+      width: rem(260px);
+      height: rem(360px);
+    }
+    @media (min-width: 1600px) {
+      width: rem(460px);
+      height: rem(440px);
+    }
+    &::before {
+      @media (min-width: 1024px) {
+        content: '';
+        position: absolute;
+        display: block;
+        border-radius: 50%;
+        background-color: var(--color-green);
+
+        width: rem(120px);
+        height: rem(120px);
+        top: rem(-60px);
+        left: rem(-60px);
+      }
+      @media (min-width: 1300px) {
+        width: rem(160px);
+        height: rem(160px);
+        top: rem(-80px);
+        left: rem(-80px);
+      }
+      @media (min-width: 1600px) {
+        width: rem(200px);
+        height: rem(200px);
+        top: rem(-130px);
+        left: rem(-100px);
+      }
+    }
+  }
+  img {
+    position: relative;
+    z-index: 2;
+    height: 100%;
+    width: 100%;
+    object-fit: cover;
+  }
+}
+
+.slide2 {
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+  }
+}

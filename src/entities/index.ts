@@ -1,1 +1,5 @@
 export { WelcomeSection } from './welcome/welcome'
+export { CitySection } from './city/city'
+export { ObjectSection } from './object/object'
+export { LocationSection } from './location/location'
+export { InvestSection } from './invest/invest'
