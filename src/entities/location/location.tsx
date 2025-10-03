@@ -5,48 +5,11 @@ import { MyImage } from '@/shared'
 import BasikImg from '@/images/basik.jpg'
 import RestikImg from '@/images/restik.jpg'
 import MapImg from '@/images/map.jpg'
-import { useEffect, useRef, useState } from 'react'
+import { useState } from 'react'
+import { CustomScrollbar } from '@/shared'
 
 export function LocationSection() {
-  const scrollRef = useRef<HTMLDivElement | null>(null)
-  const scrollbarRef = useRef<HTMLDivElement | null>(null)
-  const thumbRef = useRef<HTMLDivElement | null>(null)
-  const [thumbWidth, setThumbWidth] = useState(0)
-  const [thumbLeft, setThumbLeft] = useState(0)
   const [isMapLoad, setIsMapLoad] = useState(false)
-
-  // scrollbar for image
-  useEffect(() => {
-    const el = scrollRef.current
-    const scrollbar = scrollbarRef.current
-    if (!isMapLoad || !el || !scrollbar) return
-
-    const updateThumb = () => {
-      if (window.innerWidth >= 1024) return
-      const { scrollLeft, scrollWidth, clientWidth } = el
-      const scrollbarWidth = scrollbar.clientWidth
-      const ratio = clientWidth / scrollWidth
-      const newWidth = scrollbarWidth * ratio
-      const newLeft = (scrollLeft / scrollWidth) * scrollbarWidth
-      if (newWidth === scrollbarWidth) setThumbWidth(0)
-      else setThumbWidth(newWidth)
-      setThumbLeft(newLeft)
-    }
-
-    updateThumb()
-    el.addEventListener('scroll', updateThumb)
-    window.addEventListener('resize', updateThumb)
-    return () => {
-      el.removeEventListener('scroll', updateThumb)
-      window.removeEventListener('resize', updateThumb)
-    }
-  }, [isMapLoad])
-
-  const isShowScrollbar = () => {
-    console.log(thumbWidth)
-
-    return thumbWidth !== 0
-  }
 
   return (
     <section className={clsx(styles.section, 'black-section')}>
@@ -117,27 +80,21 @@ export function LocationSection() {
             </div>
           </div>
 
-          {/* translate: none; */}
+          {/* style={{translate: 'none'}} */}
           <div className={clsx(styles.slide3, 'mobile-slide active')}>
-            <div className={clsx(styles.image, 'hide-scroll')} ref={scrollRef}>
-              <MyImage src={MapImg} onLoad={() => setIsMapLoad(true)} alt="" />
-            </div>
-            <button className={styles.btn} type="button">
-              <span>
-                Смотреть <br />
-                на карте
-              </span>
-            </button>
-            <div
-              className={clsx(styles.scrollbar, isShowScrollbar() && styles.show)}
-              ref={scrollbarRef}
+            <CustomScrollbar
+              isReady={isMapLoad}
+              contentClassName={styles.imageWrapper}
+              scrollbarClassName={styles.scrollbar}
             >
-              <div
-                className={styles.scrollThumb}
-                style={{ width: `${thumbWidth}px`, left: `${thumbLeft}px` }}
-                ref={thumbRef}
-              ></div>
-            </div>
+              <MyImage src={MapImg} onLoad={() => setIsMapLoad(true)} alt="" />
+              <a href="https://yandex.ru/maps/-/CLBrAPnR" target="_blank" className={styles.btn}>
+                <span>
+                  Смотреть <br />
+                  на карте
+                </span>
+              </a>
+            </CustomScrollbar>
           </div>
         </div>
       </div>

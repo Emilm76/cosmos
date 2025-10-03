@@ -1,8 +1,11 @@
-import { MyImage } from '@/shared'
+import { ChartIcon, ClassIcon, MyImage } from '@/shared'
 import styles from './invest.module.scss'
 import clsx from 'clsx'
 import Img1 from '@/images/sea-view.jpg'
 import Img2 from '@/images/boat.jpg'
+import Img3 from '@/images/fasad.jpg'
+import Img4 from '@/images/mebel.jpg'
+import { CustomScrollbar } from '@/shared'
 
 export function InvestSection() {
   return (
@@ -21,13 +24,74 @@ export function InvestSection() {
               и доход
             </h2>
           </div>
-          <div className={clsx(styles.slide2, 'mobile-slide black-section active')}>
-            <h3 className="h3">Крым сегодня</h3>
-            <p className="subtitle">
-              один из лидеров России по темпам инвестиционной активности. Более 2 трлн ₽ инвестиций
-              с 2014 года, половина из которых — частные вложения. Рост турпотока до 10 млн человек
-              в год к 2030 году формирует устойчивый спрос на качественные объекты размещения.
-            </p>
+
+          <div
+            className={clsx(styles.slide2, 'mobile-slide black-section ')}
+            // style={{ translate: 'none' }}
+          >
+            <div className={clsx(styles.container, 'container')}>
+              <div className={styles.text}>
+                <h3 className="h3">Крым сегодня</h3>
+                <p className="subtitle">
+                  один из лидеров России по темпам инвестиционной активности. Более 2 трлн ₽
+                  инвестиций с 2014 года, половина из которых — частные вложения. Рост турпотока
+                  до 10 млн человек в год к 2030 году формирует устойчивый спрос на качественные
+                  объекты размещения.
+                </p>
+              </div>
+            </div>
+            <CustomScrollbar
+              contentClassName={styles.chartWrapper}
+              scrollbarClassName={styles.scrollbar}
+              isReady={true}
+            >
+              <ChartIcon className={styles.chart} />
+            </CustomScrollbar>
+          </div>
+
+          <div
+            className={clsx(styles.slide3, 'mobile-slide black-section active')}
+            style={{ translate: 'none' }}
+          >
+            <div className={styles.image}>
+              <MyImage src={Img3} sizes="(max-width: 768px) 50vh" alt="" />
+            </div>
+            <div className={clsx(styles.container, 'container')}>
+              <h3 className="h3">Место, где ваш капитал работает на вас</h3>
+              <p>
+                Высокий турпоток, развитая инфраструктура и уникальное расположение Cosmos Smart
+                Evpatoriya Hotel на первой линии делают этот проект одним из самых перспективных
+                для вложений. Управление объектом берёт на себя федеральный оператор с опытом более
+                20 лет, обеспечивая стабильную загрузку, высокий уровень сервиса и прогнозируемую
+                доходность.
+              </p>
+            </div>
+          </div>
+
+          <div
+            className={clsx(styles.slide4, 'mobile-slide black-section active')}
+            style={{ translate: 'none' }}
+          >
+            <div className={styles.image}>
+              <MyImage src={Img4} sizes="(max-width: 768px) 50vh" alt="" />
+            </div>
+            <div className={clsx(styles.container, 'container')}>
+              <h3 className="h3">Ваш доход — без забот</h3>
+              <p>
+                Вы становитесь владельцем готового номера, а вся операционная деятельность —
+                от маркетинга и бронирования до обслуживания и безопасности — находится в руках
+                профессиональной команды Cosmos Hotel Group. Вы отдыхаете, мы — работаем на вашу
+                доходность.
+              </p>
+            </div>
+            <div className={clsx(styles.container2, 'container')}>
+              <ul role="list">
+                <li>
+                  <ClassIcon className={styles.icon} />
+                  <span>Управление загрузкой отеля</span>
+                </li>
+              </ul>
+            </div>
           </div>
         </div>
       </div>

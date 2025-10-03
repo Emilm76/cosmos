@@ -16,7 +16,6 @@ export default function Home() {
         {/* <CitySection /> */}
         {/* <ObjectSection /> */}
         {/* <LocationSection /> */}
-        {/* <MapSection /> */}
         <InvestSection />
       </main>
       <InterstroyLogo />

@@ -244,30 +244,14 @@
   }
 }
 
+.imageWrapper {
+  height: 100%;
+}
 .scrollbar {
-  display: none;
   @media (max-width: 1024px) {
-    display: block;
-    opacity: 0;
-    pointer-events: none;
-    position: absolute;
+    position: absolute !important;
     left: rem(40px);
     right: rem(40px);
     bottom: rem(63px);
-    height: rem(4px);
-    border-radius: rem(2px);
-    background-color: rgba(255, 255, 255, 0.5);
-    &.show {
-      opacity: 1;
-      pointer-events: auto;
-    }
   }
-}
-
-.scrollThumb {
-  position: absolute;
-  top: 0;
-  height: 100%;
-  border-radius: rem(2px);
-  background-color: var(--color-white);
 }
