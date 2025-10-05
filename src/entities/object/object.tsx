@@ -101,9 +101,9 @@ export function ObjectSection() {
           <MobileSlider
             className={styles.slider}
             slides={[
-              { src: BeachImg, alt: '' },
-              { src: RichManImg, alt: '' },
-              { src: FriendsImg, alt: '' },
+              { img: { src: BeachImg, alt: '' } },
+              { img: { src: RichManImg, alt: '' } },
+              { img: { src: FriendsImg, alt: '' } },
             ]}
           />
           <div className={clsx(styles.container2, 'container')}>

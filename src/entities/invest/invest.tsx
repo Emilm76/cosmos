@@ -1,4 +1,14 @@
-import { ChartIcon, ClassIcon, MyImage } from '@/shared'
+import {
+  BedIcon,
+  ChartIcon,
+  ClassIcon,
+  EatIcon,
+  MyImage,
+  PeopleIcon,
+  SafetyIcon,
+  ServiceIcon,
+  SpaIcon,
+} from '@/shared'
 import styles from './invest.module.scss'
 import clsx from 'clsx'
 import Img1 from '@/images/sea-view.jpg'
@@ -75,22 +85,49 @@ export function InvestSection() {
             <div className={styles.image}>
               <MyImage src={Img4} sizes="(max-width: 768px) 50vh" alt="" />
             </div>
-            <div className={clsx(styles.container, 'container')}>
-              <h3 className="h3">Ваш доход — без забот</h3>
-              <p>
-                Вы становитесь владельцем готового номера, а вся операционная деятельность —
-                от маркетинга и бронирования до обслуживания и безопасности — находится в руках
-                профессиональной команды Cosmos Hotel Group. Вы отдыхаете, мы — работаем на вашу
-                доходность.
-              </p>
-            </div>
-            <div className={clsx(styles.container2, 'container')}>
-              <ul role="list">
-                <li>
-                  <ClassIcon className={styles.icon} />
-                  <span>Управление загрузкой отеля</span>
-                </li>
-              </ul>
+            <div className={styles.conteinerWrapper}>
+              {/*  */}
+              <div className={clsx(styles.container, 'container')}>
+                <h3 className="h3">Ваш доход — без забот</h3>
+                <p>
+                  Вы становитесь владельцем готового номера, а вся операционная деятельность —
+                  от маркетинга и бронирования до обслуживания и безопасности — находится в руках
+                  профессиональной команды Cosmos Hotel Group. Вы отдыхаете, мы — работаем на вашу
+                  доходность.
+                </p>
+              </div>
+              <div className={clsx(styles.container2, 'container')}>
+                <ul role="list">
+                  <li>
+                    <ClassIcon className={styles.icon} />
+                    <span>Управление загрузкой отеля</span>
+                  </li>
+                  <li>
+                    <PeopleIcon className={styles.icon} />
+                    <span>Подбор и обучение персонала</span>
+                  </li>
+                  <li>
+                    <BedIcon className={styles.icon} />
+                    <span>Управление номерным фондом</span>
+                  </li>
+                  <li>
+                    <SafetyIcon className={styles.icon} />
+                    <span>Обеспечение безопасности</span>
+                  </li>
+                  <li>
+                    <ServiceIcon className={styles.icon} />
+                    <span>Контроль качества сервиса</span>
+                  </li>
+                  <li>
+                    <SpaIcon className={styles.icon} />
+                    <span>Содержание инфраструктуры: бассейн, SPA, пляж</span>
+                  </li>
+                  <li>
+                    <EatIcon className={styles.icon} />
+                    <span>Управление ресторанной службой</span>
+                  </li>
+                </ul>
+              </div>
             </div>
           </div>
         </div>

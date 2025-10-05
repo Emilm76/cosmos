@@ -6,7 +6,13 @@ import { ImageProps } from 'next/image'
 import { MyImage } from '@/shared'
 import { DotButton, useDotButton } from './dot-button'
 
-export function MobileSlider({ slides, className }: { slides: ImageProps[]; className?: string }) {
+export function MobileSlider({
+  slides,
+  className,
+}: {
+  slides: { img: ImageProps; className?: string }[]
+  className?: string
+}) {
   const [emblaRef, emblaApi] = useEmblaCarousel({
     breakpoints: {
       '(min-width: 1024px)': { active: false },
@@ -20,8 +26,8 @@ export function MobileSlider({ slides, className }: { slides: ImageProps[]; clas
       <div className="embla__viewport" ref={emblaRef}>
         <div className="embla__container">
           {slides.map((slide, index) => (
-            <div className={clsx(styles.slide, 'embla__slide')} key={index}>
-              <MyImage src={slide.src} alt={slide.alt} key={index} />
+            <div className={clsx(styles.slide, slide.className, 'embla__slide')} key={index}>
+              <MyImage {...slide.img} key={index} />
             </div>
           ))}
         </div>
