@@ -1,28 +1,49 @@
 'use client'
 import { ReactNode, useEffect } from 'react'
 
+const defaultFontSize = 16
+let currentFontSize = defaultFontSize
+
+function setFontSizeByHeight(bpHeight: number) {
+  const newSize = Math.max(10, Math.round(window.innerHeight / (bpHeight / defaultFontSize)))
+  if (newSize !== currentFontSize) {
+    document.documentElement.style.fontSize = `${newSize}px`
+    currentFontSize = newSize
+  }
+}
+
+function setFontSizeByWidth(bpWidth: number) {
+  const newSize = Math.min(24, Math.round(window.innerWidth / (bpWidth / defaultFontSize)))
+  if (newSize !== currentFontSize) {
+    document.documentElement.style.fontSize = `${newSize}px`
+    currentFontSize = newSize
+  }
+}
+
+function setDefaultFontSize() {
+  document.documentElement.style.fontSize = defaultFontSize + 'px'
+  currentFontSize = defaultFontSize
+}
+
 export function FontSizeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
-    let currentSize = 16
-
     const updateFontSize = () => {
       if (window.innerWidth < 1300) return
 
-      if (window.innerHeight < 810) {
-        const newSize = Math.max(10, Math.round(window.innerHeight / (810 / 16)))
-        if (newSize !== currentSize) {
-          document.documentElement.style.fontSize = `${newSize}px`
-          currentSize = newSize
-        }
-      } else if (window.innerWidth < 1925) {
-        document.documentElement.style.fontSize = `16px`
-        currentSize = 16
-      } else if (window.innerWidth > 1925) {
-        const newSize = Math.min(24, Math.round(window.innerWidth / (1920 / 16)))
-        if (newSize !== currentSize) {
-          document.documentElement.style.fontSize = `${newSize}px`
-          currentSize = newSize
-        }
+      if (window.innerWidth < 1600) {
+        if (window.innerHeight < 710) {
+          setFontSizeByHeight(710)
+        } else setDefaultFontSize()
+      }
+
+      if (window.innerWidth >= 1600) {
+        if (window.innerHeight < 810) {
+          setFontSizeByHeight(810)
+        } else setDefaultFontSize()
+      }
+
+      if (window.innerWidth >= 1925) {
+        setFontSizeByWidth(1920)
       }
     }
 

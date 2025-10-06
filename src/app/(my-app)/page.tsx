@@ -5,6 +5,7 @@ import {
   LocationSection,
   InvestSection,
   RelaxSection,
+  CultureSection,
 } from '@/entities'
 import { Header, InterstroyLogo } from '@/shared'
 
@@ -18,7 +19,8 @@ export default function Home() {
         {/* <ObjectSection /> */}
         {/* <LocationSection /> */}
         {/* <InvestSection /> */}
-        <RelaxSection />
+        {/* <RelaxSection /> */}
+        <CultureSection />
       </main>
       <InterstroyLogo />
     </>
