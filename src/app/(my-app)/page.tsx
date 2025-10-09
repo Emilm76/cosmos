@@ -6,6 +6,10 @@ import {
   InvestSection,
   RelaxSection,
   CultureSection,
+  HorizontalSection,
+  VideoSection,
+  FeaturesSection,
+  PlansSection,
 } from '@/entities'
 import { Header, InterstroyLogo } from '@/shared'
 
@@ -14,13 +18,24 @@ export default function Home() {
     <>
       <Header />
       <main>
-        {/* <WelcomeSection /> */}
-        {/* <CitySection /> */}
+        {/* Концепция */}
+        <WelcomeSection />
+
+        {/* Локация */}
+        <CitySection />
         {/* <ObjectSection /> */}
         {/* <LocationSection /> */}
         {/* <InvestSection /> */}
+
+        {/* Комфорт */}
         {/* <RelaxSection /> */}
-        <CultureSection />
+        {/* <CultureSection /> */}
+        {/* <HorizontalSection /> */}
+        {/* <VideoSection /> */}
+        {/* <FeaturesSection /> */}
+
+        {/* Выбор квартир */}
+        {/* <PlansSection /> */}
       </main>
       <InterstroyLogo />
     </>

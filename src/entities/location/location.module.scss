@@ -203,7 +203,7 @@
     }
 
     span {
-      translate: 0 9px;
+      translate: 0 rem(9px);
       transition: translate 0.25s var(--easeInOutQuart);
     }
 
@@ -215,7 +215,7 @@
       border-radius: 50%;
       background-color: var(--color-dark);
       opacity: 0;
-      translate: 0 -9px;
+      translate: 0 rem(-9px);
       transition-duration: 0.25s;
       transition-timing-function: var(--easeInOutQuart);
       transition-property: translate, opacity;

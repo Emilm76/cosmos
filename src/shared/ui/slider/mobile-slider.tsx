@@ -2,24 +2,33 @@
 import styles from './mobile-slider.module.scss'
 import useEmblaCarousel from 'embla-carousel-react'
 import clsx from 'clsx'
-import { ImageProps } from 'next/image'
-import { MyImage } from '@/shared'
 import { DotButton, useDotButton } from './dot-button'
+import { ReactNode, useCallback, useEffect } from 'react'
+import { EmblaCarouselType } from 'embla-carousel'
 
 export function MobileSlider({
   slides,
   className,
+  onSlideChange,
 }: {
-  slides: { img: ImageProps; className?: string }[]
+  slides: {
+    content: ReactNode
+    className?: string
+  }[]
   className?: string
+  onSlideChange?: (number: number) => void
 }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel({
-    breakpoints: {
-      '(min-width: 1024px)': { active: false },
-    },
-  })
+  const [emblaRef, emblaApi] = useEmblaCarousel()
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
+
+  const callbackSlideSelect = useCallback((emblaApi: EmblaCarouselType) => {
+    if (onSlideChange) onSlideChange(emblaApi.selectedScrollSnap())
+  }, [])
+
+  useEffect(() => {
+    if (emblaApi && onSlideChange) emblaApi.on('select', callbackSlideSelect)
+  }, [emblaApi, callbackSlideSelect])
 
   return (
     <div className={clsx(className, styles.slider, 'embla')}>
@@ -27,7 +36,7 @@ export function MobileSlider({
         <div className="embla__container">
           {slides.map((slide, index) => (
             <div className={clsx(styles.slide, slide.className, 'embla__slide')} key={index}>
-              <MyImage {...slide.img} key={index} />
+              {slide.content}
             </div>
           ))}
         </div>

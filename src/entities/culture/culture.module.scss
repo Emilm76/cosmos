@@ -154,7 +154,7 @@
   }
 
   h3 {
-    padding-top: 20px;
+    padding-top: rem(20px);
     @media (min-width: 768px) {
       position: absolute;
       left: 0;
@@ -178,6 +178,6 @@
     width: 44.82%; // rem(260px);
   }
   @media (min-width: 1600px) {
-    height: 440px;
+    height: rem(440px);
   }
 }

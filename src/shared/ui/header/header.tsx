@@ -3,15 +3,20 @@ import { useLenis } from 'lenis/react'
 import { useEffect, useState } from 'react'
 import styles from './header.module.scss'
 import clsx from 'clsx'
-import { PhoneIcon } from '../icons/phone'
 import Image from 'next/image'
 import Img from '@/images/burger.jpg'
-import { LogoIcon } from '../icons/logo'
+import { useHeader } from '@/context/header-context'
+import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon } from '@/shared'
+import { useMediaQuery } from 'react-responsive'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
   const [isLoadImg, setIsLoadImg] = useState(false)
+  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
+  const [isDocumentsOpen, setIsDocumentsOpen] = useState(false)
+  const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const lenis = useLenis()
+  const { transparent } = useHeader()
 
   useEffect(() => {
     if (!lenis) return
@@ -32,16 +37,53 @@ export function Header() {
     if (document.documentElement.clientWidth >= 768 && !isLoadImg) setIsLoadImg(true)
   }
 
+  function handleShowGalleryClick() {
+    setIsBurgerOpen(false)
+    setIsGalleryOpen(true)
+  }
+  function handleShowDocumentsClick() {
+    setIsBurgerOpen(false)
+    setIsDocumentsOpen(true)
+  }
+
+  function handleBackButtonClick() {
+    if (isGalleryOpen) setIsGalleryOpen(false)
+    if (isDocumentsOpen) setIsDocumentsOpen(false)
+  }
+
+  const isCurtainOpen = isGalleryOpen || isDocumentsOpen
+
   return (
     <>
-      <header className={clsx(styles.header, isBurgerOpen && [styles.open, styles.dark])}>
+      <header
+        className={clsx(
+          styles.header,
+          isBurgerOpen && styles.open,
+          (isBurgerOpen || isDocumentsOpen) && styles.dark,
+          transparent && styles.transparent,
+        )}
+      >
         <div className={clsx(styles.container, 'container')}>
-          <button className={styles.phoneBtn} type="button">
-            <PhoneIcon />
-            <span className="bullet-link">Заказать звонок</span>
-          </button>
+          <div className={styles.left}>
+            <button className={styles.phoneBtn} type="button">
+              <PhoneIcon />
+              <span className="bullet-link">Заказать звонок</span>
+            </button>
+            <button
+              className={clsx(styles.backBtn, !isBurgerOpen && isCurtainOpen && styles.show)}
+              onClick={handleBackButtonClick}
+              type="button"
+            >
+              <ArrowLeftIcon />
+              <span>Назад</span>
+            </button>
+          </div>
+
           <div className={styles.right}>
-            <button className="bullet-link" type="button">
+            <button
+              className={clsx('bullet-link', isMobile && isCurtainOpen && styles.displayNone)}
+              type="button"
+            >
               Выбрать планировку
             </button>
             <button
@@ -53,7 +95,7 @@ export function Header() {
           </div>
         </div>
 
-        <LogoIcon className={styles.logo} />
+        <LogoIcon className={clsx(styles.logo, isCurtainOpen && styles.show)} />
       </header>
 
       <div className={clsx(styles.burger, isBurgerOpen && styles.open)}>
@@ -79,10 +121,21 @@ export function Header() {
 
           <div className={styles.burgerNav2}>
             <div className={styles.list2}>
-              <button className="subtitle bullet-link bullet-link--md" type="button">
+              <button
+                className={clsx('subtitle bullet-link bullet-link--md', isGalleryOpen && 'active')}
+                onClick={handleShowGalleryClick}
+                type="button"
+              >
                 Галерея
               </button>
-              <button className="subtitle bullet-link bullet-link--md" type="button">
+              <button
+                className={clsx(
+                  'subtitle bullet-link bullet-link--md',
+                  isDocumentsOpen && 'active',
+                )}
+                onClick={handleShowDocumentsClick}
+                type="button"
+              >
                 Документы
               </button>
             </div>
@@ -90,6 +143,9 @@ export function Header() {
           </div>
         </div>
       </div>
+
+      <Gallery isOpen={isGalleryOpen} />
+      <Documents isOpen={isDocumentsOpen} />
     </>
   )
 }

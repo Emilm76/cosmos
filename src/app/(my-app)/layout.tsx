@@ -4,6 +4,7 @@ import './globals.scss'
 import { LenisScrollProvider } from './providers/lenis-provider'
 import localFont from 'next/font/local'
 import { FontSizeProvider } from './providers/font-size-provider'
+import { HeaderProvider } from '@/context/header-context'
 
 export const metadata: Metadata = {
   title: 'COSMOS',
@@ -22,9 +23,11 @@ export default function RootLayout({
   return (
     <html lang="ru" className={TTFirstNeue.className}>
       <body>
-        <FontSizeProvider>
-          <LenisScrollProvider>{children}</LenisScrollProvider>
-        </FontSizeProvider>
+        <HeaderProvider>
+          <FontSizeProvider>
+            <LenisScrollProvider>{children}</LenisScrollProvider>
+          </FontSizeProvider>
+        </HeaderProvider>
       </body>
     </html>
   )

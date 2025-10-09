@@ -1,0 +1,125 @@
+.section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.content {
+  position: relative;
+  width: 100%;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  background-color: var(--color-bg);
+
+  .img {
+    height: 100vh;
+  }
+}
+
+.gridContainer {
+  position: relative;
+}
+
+.videoContainer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+}
+
+.grid {
+  --gap-x: 1.875rem; // 30px;
+  --gap-y: 1.875rem; // 30px;
+
+  --width: 58%;
+  --width-prev: 17.8%;
+  --height: calc((150vh - var(--gap-y) * 2) / 3);
+  --height-out: calc((150vh - 100vh) / 2);
+  --height-in: calc(var(--height) - var(--height-out));
+
+  --left: calc(var(--width-prev) + var(--gap-x));
+  --top: calc(var(--height-in) + var(--gap-y));
+
+  --left-plus-width: calc(var(--left) + var(--width));
+  --top-plus-height: calc(var(--top) + var(--height));
+
+  display: grid;
+  grid-template-columns: var(--width-prev) var(--width) var(--width-prev);
+  //justify-content: space-between;
+  column-gap: var(--gap-x);
+  height: 100vh;
+  width: 100vw;
+  overflow: hidden;
+  background-color: var(--color-bg);
+
+  clip-path: polygon(
+    0 0,
+    0 100%,
+    var(--left) 100%,
+    var(--left) var(--top),
+    var(--left-plus-width) var(--top),
+    var(--left-plus-width) var(--top-plus-height),
+    var(--left) var(--top-plus-height),
+    var(--left) 100%,
+    100% 100%,
+    100% 0
+  );
+
+  @media (min-width: 1300px) {
+    --gap-x: 2.5rem; // 40px;
+    --gap-y: 2.5rem; // 40px;
+    --width: 46%;
+    --width-prev: 23.8%;
+  }
+  @media (min-width: 1600px) {
+    --gap-x: 5.625rem; // 90px;
+    --gap-y: 5rem; // 80px;
+    --width: 40.625%;
+    --width-prev: 25%;
+  }
+}
+.column {
+  position: relative;
+}
+.columnInner {
+  display: flex;
+  flex-direction: column;
+  row-gap: var(--gap-y);
+  height: 100vh;
+  width: 100%;
+  @media (min-width: 1600px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 150vh;
+    top: 50%;
+    translate: 0 -50%;
+  }
+  .item {
+    position: relative;
+    overflow: hidden;
+    flex: 1 1;
+  }
+}
+
+.centerColumn {
+  .columnInner {
+    position: absolute;
+    top: 0;
+    left: 0;
+    height: 150vh;
+    top: 50%;
+    translate: 0 -50%;
+  }
+}

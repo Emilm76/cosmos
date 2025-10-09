@@ -2,20 +2,20 @@
   position: fixed;
   z-index: 90;
   left: 50%;
-  bottom: 20px;
+  bottom: rem(20px);
   translate: -50% 0;
   display: block;
-  width: 142px;
-  height: 23.3px;
+  width: rem(142px);
+  height: rem(23.3px);
   pointer-events: none;
 
   color: rgba(255, 255, 255, 0.4);
 
   @media (min-width: 1024px) {
-    left: 40px;
-    bottom: 40px;
+    left: rem(40px);
+    bottom: rem(40px);
     translate: none;
-    width: 237px;
-    height: 39px;
+    width: rem(237px);
+    height: rem(39px);
   }
 }

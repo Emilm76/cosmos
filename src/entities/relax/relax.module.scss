@@ -78,15 +78,15 @@
       max-width: none;
       padding: 0;
       margin: 0;
-      padding-left: 40px;
-      padding-right: 150px;
+      padding-left: rem(40px);
+      padding-right: rem(150px);
     }
     @media (min-width: 1300px) {
-      padding-right: 290px;
+      padding-right: rem(290px);
     }
     @media (min-width: 1600px) {
-      padding-left: 90px;
-      padding-right: 500px;
+      padding-left: rem(90px);
+      padding-right: rem(500px);
     }
     h2 {
       @media (min-width: 1024px) {
@@ -95,10 +95,10 @@
     }
     p {
       @media (min-width: 1024px) {
-        max-width: 400px;
+        max-width: rem(400px);
       }
       @media (min-width: 1600px) {
-        max-width: 500px;
+        max-width: rem(500px);
       }
     }
   }
@@ -213,8 +213,8 @@
       text-align: left;
       padding: 0;
       margin: 0;
-      padding-left: 85px;
-      padding-right: 85px;
+      padding-left: rem(85px);
+      padding-right: rem(85px);
     }
     p {
       @media (min-width: 1024px) {

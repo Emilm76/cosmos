@@ -71,7 +71,7 @@ export function CitySection() {
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
           <div className={styles.imageWrapper}>
-            <img className={styles.image} src="img/demin-plan.jpg" alt="" />
+            <img className={styles.image} src="img/demin-plan-dark.jpg" alt="" />
             <div className={styles.imageOverlay} ref={imageOverlay}>
               <div className={clsx(styles.imageText, 'container')}>
                 <h2 className="h2" ref={overlayTitle}>

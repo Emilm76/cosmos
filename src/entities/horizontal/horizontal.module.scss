@@ -1,0 +1,84 @@
+.section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+}
+
+.content {
+  position: relative;
+  width: max-content;
+  height: 100%;
+}
+
+.wrapper {
+  display: flex;
+  flex-wrap: nowrap;
+}
+
+.slide {
+  display: flex;
+  flex-direction: column;
+  width: 100vw;
+  background-color: var(--color-bg);
+
+  @media (min-width: 1024px) {
+    position: relative;
+    flex-direction: row;
+  }
+
+  .image {
+    //flex: 0 1 50%;
+    height: 45%; // 320px
+    width: 100%;
+    flex-grow: 1;
+    @media (min-width: 1024px) {
+      overflow: hidden;
+      height: 100%;
+      width: 41%;
+      flex-grow: 0;
+    }
+    @media (min-width: 1300px) {
+      width: 40%;
+    }
+    @media (min-width: 1600px) {
+      width: 45.3%;
+    }
+  }
+
+  .textCard {
+    padding: rem(60px) 0 rem(80px);
+    //flex-grow: 1;
+    @media (min-width: 1024px) {
+      padding: 0;
+      flex: 0 0 59%;
+    }
+    @media (min-width: 1300px) {
+      flex: 0 0 60%;
+    }
+    @media (min-width: 1600px) {
+      flex: 0 0 54.7%;
+    }
+  }
+  .container {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: rem(40px);
+    height: 100%;
+    max-width: rem(440px);
+    text-align: center;
+    @media (min-width: 1024px) {
+      gap: rem(140px);
+      max-width: none;
+    }
+    @media (min-width: 1600px) {
+      gap: rem(200px);
+    }
+    p {
+      @media (min-width: 1024px) {
+        max-width: rem(500px);
+      }
+    }
+  }
+}
