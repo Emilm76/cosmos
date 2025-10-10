@@ -1,6 +1,5 @@
 'use client'
 import clsx from 'clsx'
-import { useLenis } from 'lenis/react'
 import { ComponentPropsWithRef, useCallback, useEffect, useState } from 'react'
 import styles from './gallery.module.scss'
 import useEmblaCarousel from 'embla-carousel-react'
@@ -23,21 +22,6 @@ const slides = [
 export function Gallery({ isOpen }: { isOpen: boolean }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start' })
   const [slidesInView, setSlidesInView] = useState<number[]>([])
-  const lenis = useLenis()
-
-  useEffect(() => {
-    if (!lenis) return
-
-    if (isOpen) {
-      lenis.stop()
-    } else {
-      lenis.start()
-    }
-
-    return () => {
-      lenis.start()
-    }
-  }, [isOpen, lenis])
 
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi)

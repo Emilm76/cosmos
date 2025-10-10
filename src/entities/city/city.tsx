@@ -5,79 +5,115 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import clsx from 'clsx'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { MyImage } from '@/shared'
+import DeminImg from '@/images/demin-plan-dark.jpg'
+import BeachImg from '@/images/beach.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
 
+type DivRef = HTMLDivElement | null
+
 export function CitySection() {
-  const content = useRef<HTMLDivElement | null>(null)
-  const imageOverlay = useRef<HTMLDivElement | null>(null)
-  const overlayTitle = useRef<HTMLDivElement | null>(null)
-  const overlayText = useRef<HTMLDivElement | null>(null)
-  const rep = useRef<HTMLDivElement | null>(null)
+  const content = useRef<DivRef>(null)
+  const wrapper = useRef<DivRef>(null)
+  const title = useRef<DivRef>(null)
+  const text = useRef<DivRef>(null)
+  const image = useRef<DivRef>(null)
+  const side = useRef<DivRef>(null)
+  const subtitle = useRef<DivRef>(null)
 
-  // useGSAP(() => {
-  //   if (content.current === null) return
+  useGSAP(() => {
+    const animationHeight = () => window.innerHeight * 3
 
-  //   const animationHeight = () => (content.current?.offsetHeight || 0) * 2
-  //   const animationHeight10 = () => animationHeight() * 0.1
-  //   //const animationHeight25 = () => animationHeight() * 0.25
-  //   const animationHeight50 = () => animationHeight() * 0.5
+    gsap.to(content.current, {
+      ease: 'none',
+      scrollTrigger: {
+        trigger: content.current,
+        scrub: true,
+        start: 'top top',
+        end: () => 'top+=' + animationHeight(),
+        pin: true,
+        pinSpacing: true,
+        // markers: true,
+      },
+    })
 
-  //   const tlOverlay = gsap.timeline({
-  //     defaults: { ease: 'none' },
-  //     scrollTrigger: {
-  //       trigger: content.current,
-  //       scrub: true,
-  //       start: 'top top',
-  //       end: () => 'top+=' + animationHeight(),
-  //       //markers: true,
-  //     },
-  //   })
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: wrapper.current,
+        scrub: 0.4,
+        start: 'top top',
+        end: () => 'top+=' + animationHeight(),
+      },
+    })
 
-  //   gsap.to(content.current, {
-  //     ease: 'none',
-  //     scrollTrigger: {
-  //       trigger: content.current,
-  //       scrub: true,
-  //       start: 'top top',
-  //       end: () => 'top+=' + animationHeight(),
-  //       /*end: function () {},*/
-  //       pin: true,
-  //       pinSpacing: true, // false
-  //       //markers: true,
-  //     },
-  //   })
+    tl.to(
+      title.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          0: { y: '12rem', opacity: 0 },
+          15: { y: 0, opacity: 1 },
+          35: { y: 0, opacity: 1 },
+          80: { y: 0, opacity: 0 },
+        },
+      },
+      0,
+    )
+    tl.to(
+      text.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          0: { y: '12rem', opacity: 0 },
+          15: { y: 0, opacity: 1 },
+          // 35: { y: 0, opacity: 1 },
+          // 80: { y: 0, opacity: 0 },
+        },
+      },
+      0,
+    )
 
-  //   gsap.to(rep.current, {
-  //     ease: 'none',
-  //     x: '-100%',
-  //     scrollTrigger: {
-  //       trigger: content.current,
-  //       scrub: true,
-  //       //pin: true,
-  //       start: () => `top+=${animationHeight50()} bottom`,
-  //       end: () => `top+=${animationHeight()} bottom`,
-  //       markers: true,
-  //     },
-  //   })
-
-  //   tlOverlay
-  //     .fromTo(overlayTitle.current, { top: '20%' }, { top: 0 })
-  //     .fromTo(overlayText.current, { top: '20%' }, { top: 0 }, '<')
-  // })
+    tl.to(
+      side.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: { 35: { x: 0 }, 99: { x: '-100%' } },
+      },
+      0,
+    )
+    tl.to(
+      subtitle.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: { 35: { x: '-20rem' }, 99: { x: 0 } },
+      },
+      0,
+    )
+    tl.to(
+      image.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: { 35: { x: 0 }, 99: { x: '-50%' } },
+      },
+      0,
+    )
+  })
 
   return (
-    <section className={clsx(styles.section, 'black-section')}>
+    <section className={clsx(styles.section, 'black-section')} style={{ marginBottom: '200vh' }}>
       <div className={styles.content} ref={content}>
-        <div className={styles.wrapper}>
+        <div className={styles.wrapper} ref={wrapper}>
           <div className={styles.imageWrapper}>
-            <img className={styles.image} src="img/demin-plan-dark.jpg" alt="" />
-            <div className={styles.imageOverlay} ref={imageOverlay}>
+            <div className={styles.image} ref={image}>
+              <MyImage src={DeminImg} alt="" />
+            </div>
+            <div className={styles.imageOverlay}>
               <div className={clsx(styles.imageText, 'container')}>
-                <h2 className="h2" ref={overlayTitle}>
+                <h2 className="h2" ref={title}>
                   Евпатория — курорт будущего
                 </h2>
-                <p ref={overlayText}>
+                <p ref={text}>
                   Это город с историей и один из самых солнечных в Крыму. Культурная столица
                   западного побережья, где более 280 солнечных дней в году, мягкий климат, тёплое
                   море и всеми любимые песчаные пляжи создают идеальные условия сравнимые с Ниццей.
@@ -91,12 +127,13 @@ export function CitySection() {
           </div>
         </div>
 
-        {/* style={{ translate: '-100% 0' }} */}
-        <div className={styles.rep} ref={rep}>
+        <div className={styles.rep} ref={side}>
           <div className={clsx(styles.repContainer, 'container')}>
-            <h2 className="h2">Начало новой истории</h2>
+            <h2 className="h2" ref={subtitle}>
+              Начало новой истории
+            </h2>
             <div className={styles.beachImage}>
-              <img src="img/beach.jpg" alt="" />
+              <MyImage src={BeachImg} alt="" />
             </div>
             <div className={styles.beachText}>
               <h3 className="subtitle">Cosmos Smart Evpatoriya Hotel</h3>

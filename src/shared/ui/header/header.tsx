@@ -21,7 +21,7 @@ export function Header() {
   useEffect(() => {
     if (!lenis) return
 
-    if (isBurgerOpen) {
+    if (isBurgerOpen || isGalleryOpen || isDocumentsOpen) {
       lenis.stop()
     } else {
       lenis.start()
@@ -30,7 +30,7 @@ export function Header() {
     return () => {
       lenis.start()
     }
-  }, [isBurgerOpen, lenis])
+  }, [isBurgerOpen, isGalleryOpen, isDocumentsOpen, lenis])
 
   function toggleBurger() {
     setIsBurgerOpen((lastState) => !lastState)

@@ -23,7 +23,7 @@ export default function Home() {
 
         {/* Локация */}
         <CitySection />
-        {/* <ObjectSection /> */}
+        <ObjectSection />
         {/* <LocationSection /> */}
         {/* <InvestSection /> */}
 

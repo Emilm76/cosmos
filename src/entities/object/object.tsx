@@ -15,63 +15,47 @@ import { MobileSlider } from '@/shared'
 
 gsap.registerPlugin(ScrollTrigger)
 
+type DivRef = HTMLDivElement | null
+
+const slides = [
+  {
+    img: <MyImage src={BeachImg} alt="" />,
+    title: (
+      <>
+        Разнообразные <br />
+        планировки
+      </>
+    ),
+    text: 'Для комфортной жизни и отдыха',
+  },
+  {
+    img: <MyImage src={RichManImg} alt="" />,
+    title: (
+      <>
+        Панорамные виды <br />
+        на море
+      </>
+    ),
+    text: 'Каждое утро — как картина',
+  },
+  {
+    img: <MyImage src={FriendsImg} alt="" />,
+    title: (
+      <>
+        Дизайнерский <br />
+        ремонт
+      </>
+    ),
+    text: 'Эстетика премиального интерьера в каждом номере',
+  },
+]
+
 export function ObjectSection() {
-  const content = useRef<HTMLDivElement | null>(null)
-  const imageOverlay = useRef<HTMLDivElement | null>(null)
-  const overlayTitle = useRef<HTMLDivElement | null>(null)
-  const overlayText = useRef<HTMLDivElement | null>(null)
-  const rep = useRef<HTMLDivElement | null>(null)
-
-  // useGSAP(() => {
-  //   if (content.current === null) return
-
-  //   const animationHeight = () => (content.current?.offsetHeight || 0) * 2
-  //   const animationHeight10 = () => animationHeight() * 0.1
-  //   //const animationHeight25 = () => animationHeight() * 0.25
-  //   const animationHeight50 = () => animationHeight() * 0.5
-
-  //   const tlOverlay = gsap.timeline({
-  //     defaults: { ease: 'none' },
-  //     scrollTrigger: {
-  //       trigger: content.current,
-  //       scrub: true,
-  //       start: 'top top',
-  //       end: () => 'top+=' + animationHeight(),
-  //       //markers: true,
-  //     },
-  //   })
-
-  //   gsap.to(content.current, {
-  //     ease: 'none',
-  //     scrollTrigger: {
-  //       trigger: content.current,
-  //       scrub: true,
-  //       start: 'top top',
-  //       end: () => 'top+=' + animationHeight(),
-  //       /*end: function () {},*/
-  //       pin: true,
-  //       pinSpacing: true, // false
-  //       //markers: true,
-  //     },
-  //   })
-
-  //   gsap.to(rep.current, {
-  //     ease: 'none',
-  //     x: '-100%',
-  //     scrollTrigger: {
-  //       trigger: content.current,
-  //       scrub: true,
-  //       //pin: true,
-  //       start: () => `top+=${animationHeight50()} bottom`,
-  //       end: () => `top+=${animationHeight()} bottom`,
-  //       markers: true,
-  //     },
-  //   })
-
-  //   tlOverlay
-  //     .fromTo(overlayTitle.current, { top: '20%' }, { top: 0 })
-  //     .fromTo(overlayText.current, { top: '20%' }, { top: 0 }, '<')
-  // })
+  const content = useRef<DivRef>(null)
+  const imageOverlay = useRef<DivRef>(null)
+  const overlayTitle = useRef<DivRef>(null)
+  const overlayText = useRef<DivRef>(null)
+  const rep = useRef<DivRef>(null)
 
   return (
     <section className={clsx(styles.section, 'white-section')}>
@@ -100,11 +84,7 @@ export function ObjectSection() {
         <div className={styles.wrapper2}>
           <MobileSlider
             className={styles.slider}
-            slides={[
-              { img: { src: BeachImg, alt: '' } },
-              { img: { src: RichManImg, alt: '' } },
-              { img: { src: FriendsImg, alt: '' } },
-            ]}
+            slides={slides.map((slide) => ({ className: styles.img, content: slide.img }))}
           />
           <div className={clsx(styles.container2, 'container')}>
             <h3 className="h3">Быть может, вам ближе джаз, а может — классика</h3>

@@ -1,7 +1,6 @@
 'use client'
 import clsx from 'clsx'
-import { useLenis } from 'lenis/react'
-import { useEffect, useState } from 'react'
+import { useState } from 'react'
 import styles from './documents.module.scss'
 
 type Document = {
@@ -20,22 +19,7 @@ const docs: Document[] = [
 ]
 
 export function Documents({ isOpen }: { isOpen: boolean }) {
-  const lenis = useLenis()
   const [activeTab, setActiveTab] = useState<1 | 2>(1)
-
-  useEffect(() => {
-    if (!lenis) return
-
-    if (isOpen) {
-      lenis.stop()
-    } else {
-      lenis.start()
-    }
-
-    return () => {
-      lenis.start()
-    }
-  }, [isOpen, lenis])
 
   return (
     <div className={clsx(styles.modal, 'lenis-prevent', isOpen && styles.open)}>

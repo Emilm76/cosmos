@@ -22,6 +22,9 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="ru" className={TTFirstNeue.className}>
+      <head>
+        <script>{`history.scrollRestoration = "manual"`}</script>
+      </head>
       <body>
         <HeaderProvider>
           <FontSizeProvider>
