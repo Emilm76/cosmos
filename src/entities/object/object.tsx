@@ -1,10 +1,7 @@
 'use client'
 import styles from './object.module.scss'
-//import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
-import gsap from 'gsap'
 import clsx from 'clsx'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { MyImage } from '@/shared'
 import SeaImg from '@/images/sea.jpg'
 import BeachImg from '@/images/beach-2.jpg'
@@ -12,108 +9,238 @@ import Beach2Img from '@/images/beach-3.jpg'
 import RichManImg from '@/images/rich-man.jpg'
 import FriendsImg from '@/images/friends.jpg'
 import { MobileSlider } from '@/shared'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+import { useMediaQuery } from 'react-responsive'
 
 gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const slides = [
-  {
-    img: <MyImage src={BeachImg} alt="" />,
-    title: (
-      <>
-        Разнообразные <br />
-        планировки
-      </>
-    ),
-    text: 'Для комфортной жизни и отдыха',
-  },
-  {
-    img: <MyImage src={RichManImg} alt="" />,
-    title: (
-      <>
-        Панорамные виды <br />
-        на море
-      </>
-    ),
-    text: 'Каждое утро — как картина',
-  },
-  {
-    img: <MyImage src={FriendsImg} alt="" />,
-    title: (
-      <>
-        Дизайнерский <br />
-        ремонт
-      </>
-    ),
-    text: 'Эстетика премиального интерьера в каждом номере',
-  },
-]
+const animationHeightCount = 6
+const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function ObjectSection() {
+  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
+
   const content = useRef<DivRef>(null)
-  const imageOverlay = useRef<DivRef>(null)
-  const overlayTitle = useRef<DivRef>(null)
-  const overlayText = useRef<DivRef>(null)
-  const rep = useRef<DivRef>(null)
+  const slide2 = useRef<DivRef>(null)
+  const slide3 = useRef<DivRef>(null)
+  const leftSide = useRef<DivRef>(null)
+  const rightSide = useRef<DivRef>(null)
+  const bg = useRef<DivRef>(null)
+  const subtitle = useRef<DivRef>(null)
+  const hr = useRef<DivRef>(null)
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    const animationHeight = () => window.innerHeight * animationHeightCount
+
+    // For pinning effect
+    ScrollTrigger.create({
+      trigger: content.current,
+      start: 'top top',
+      end: 'max',
+      scrub: true,
+      pin: true,
+      pinSpacing: false,
+    })
+
+    // For animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: content.current,
+        scrub: 0.4,
+        start: 'top top',
+        end: () => 'top+=' + animationHeight(),
+      },
+    })
+
+    mm.add('(max-width: 1023px)', () => {
+      // tl.to(
+      //   slide2.current,
+      //   {
+      //     ease: 'sine.inOut',
+      //     keyframes: {
+      //       5: { x: '100%' },
+      //       40: { x: 0 },
+      //       41: { x: 0 },
+      //       70: { x: '-100%' },
+      //     },
+      //   },
+      //   0,
+      // )
+    })
+    mm.add('(min-width: 1024px)', () => {
+      tl.to(
+        leftSide.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            5: { x: '-100%' },
+            40: { x: 0 },
+            41: { y: 0 },
+            70: { y: '-20vh' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        rightSide.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            5: { x: '100%' },
+            40: { x: 0 },
+            41: { y: 0 },
+            70: { y: '-20vh' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        hr.current,
+        {
+          ease: 'none',
+          keyframes: {
+            40: { opacity: 0 },
+            41: { opacity: 1 },
+          },
+        },
+        0,
+      )
+    })
+
+    tl.to(
+      bg.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          15: { opacity: 0 },
+          35: { opacity: 1 },
+        },
+      },
+      0,
+    )
+
+    tl.to(
+      slide2.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          70: { x: 0 },
+          99: { x: '-100%' },
+        },
+      },
+      0,
+    )
+    tl.to(
+      slide3.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          70: { x: '100%' },
+          99: { x: 0 },
+        },
+      },
+      0,
+    )
+
+    tl.to(
+      subtitle.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: { 75: { x: '-10rem' }, 99: { x: 0 } },
+      },
+      0,
+    )
+  })
 
   return (
-    <section className={clsx(styles.section, 'white-section')}>
+    <section
+      className={clsx(styles.section, 'white-section')}
+      style={{ marginBottom: animationHeightCSS }}
+    >
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
-          <div className={styles.imageWrapper}>
-            <MyImage
-              className={styles.image}
-              src={SeaImg}
-              sizes="(max-width: 768px) 100vh, 100vw"
-              alt=""
-            />
-            <div className={styles.imageOverlay} ref={imageOverlay}>
-              <div className={clsx(styles.imageText, 'container')}>
-                <h2 className="h2" ref={overlayTitle}>
-                  Ваша привилегия
-                </h2>
-                <p className="subtitle" ref={overlayText}>
-                  Этот объект — не для всех
-                </p>
+          <div className={clsx(styles.slide1, 'slide mobile-slide')}>
+            <div className={styles.imageWrapper}>
+              <MyImage
+                className={styles.image}
+                src={SeaImg}
+                sizes="(max-width: 768px) 100vh, 100vw"
+                alt=""
+              />
+              <div className={styles.imageOverlay}>
+                <div className={clsx(styles.imageText, 'container')}>
+                  <h2 className="h2">Ваша привилегия</h2>
+                  <p className="subtitle">Этот объект — не для всех</p>
+                </div>
               </div>
             </div>
           </div>
-        </div>
 
-        <div className={styles.wrapper2}>
-          <MobileSlider
-            className={styles.slider}
-            slides={slides.map((slide) => ({ className: styles.img, content: slide.img }))}
-          />
-          <div className={clsx(styles.container2, 'container')}>
-            <h3 className="h3">Быть может, вам ближе джаз, а может — классика</h3>
-            <p>
-              Может быть, вы цените изысканную кухню, и ваш любимый предмет интерьера — канделябр.
-              Или, напротив, вы любитель нарочито простых и понятных вкусов.
-              <br />
-              <br />
-              Но здесь всё соединяется в одном пространстве — в апарт-отеле, открывающем новый
-              формат жизни у моря.
-              <br />
-              <br />
-              Это выбор, полный надёжности и лёгкой интриги, которую хочется открыть первым.
-            </p>
-          </div>
-        </div>
+          <div className={clsx(styles.slide2, 'slide mobile-slide')} ref={slide2}>
+            {isMobile && (
+              <MobileSlider
+                className={styles.slider}
+                slides={[
+                  { content: <MyImage src={BeachImg} alt="" />, className: styles.sliderSlide },
+                  { content: <MyImage src={RichManImg} alt="" />, className: styles.sliderSlide },
+                  { content: <MyImage src={FriendsImg} alt="" />, className: styles.sliderSlide },
+                ]}
+              />
+            )}
 
-        {/* style={{ translate: '-100% 0' }} */}
-        <div className={styles.wrapper3} ref={rep}>
-          <div className={clsx(styles.container3, 'container')}>
-            <h2 className="h2">Сердце курортной Евпатории</h2>
-            <div className={styles.beachImage}>
-              <MyImage src={Beach2Img} alt="" />
-            </div>
-            <div className={styles.beachText}>
+            {isDesktop && (
+              <>
+                <div className={styles.imgBg} ref={bg}>
+                  <MyImage src={BeachImg} alt="" />
+                </div>
+                <div className={styles.leftBlock} ref={leftSide}>
+                  <div className={styles.img1}>
+                    <MyImage src={RichManImg} alt="" />
+                  </div>
+                  <div className={styles.img2}>
+                    <MyImage src={FriendsImg} alt="" />
+                  </div>
+                </div>
+              </>
+            )}
+
+            <div className={clsx(styles.container2, 'container')} ref={rightSide}>
+              <h3 className="h3">Быть может, вам ближе джаз, а может — классика</h3>
               <p>
-                Здесь начинаются маршруты к самым красивым местам Крыма — от золотых пляжей до диких
-                скал и заповедных бухт.
+                Может быть, вы цените изысканную кухню, и ваш любимый предмет интерьера — канделябр.
+                Или, напротив, вы любитель нарочито простых и понятных вкусов.
+                <br />
+                <br />
+                Но здесь всё соединяется в одном пространстве — в апарт-отеле, открывающем новый
+                формат жизни у моря.
+                <br />
+                <br />
+                Это выбор, полный надёжности и лёгкой интриги, которую хочется открыть первым.
               </p>
+            </div>
+          </div>
+
+          <div className={clsx(styles.slide3, 'slide mobile-slide')} ref={slide3}>
+            <div className={styles.hr} ref={hr}></div>
+            <div className={clsx(styles.container3, 'container')}>
+              <h2 className="h2" ref={subtitle}>
+                Сердце курортной Евпатории
+              </h2>
+              <div className={styles.beachImage}>
+                <MyImage src={Beach2Img} alt="" />
+              </div>
+              <div className={styles.beachText}>
+                <p>
+                  Здесь начинаются маршруты к самым красивым местам Крыма — от золотых пляжей
+                  до диких скал и заповедных бухт.
+                </p>
+              </div>
             </div>
           </div>
         </div>

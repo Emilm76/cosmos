@@ -11,32 +11,398 @@ import Slide5Img from '@/images/white-vine.jpg'
 import Slide6Img from '@/images/red-vine.jpg'
 import Sea2Img from '@/images/sea-3.jpg'
 import { useMediaQuery } from 'react-responsive'
+import { useRef, useState } from 'react'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+import MainImg from '@/images/architecture.jpg'
+import Img1 from '@/images/yacht.jpg'
+import Img2 from '@/images/diving.jpg'
+import Img3 from '@/images/fishing.jpg'
+import Img4 from '@/images/sapboard.jpg'
+import Img5 from '@/images/windserf.jpg'
+import Img6 from '@/images/kiting.jpg'
+
+gsap.registerPlugin(ScrollTrigger)
+
+type DivRef = HTMLDivElement | null
+
+const animationHeightCount = 20
+const animationHeightCSS = animationHeightCount * 100 + 'vh'
+
+const slides2 = [
+  {
+    img: <MyImage src={Slide4Img} alt="" />,
+    text: 'Более 70 виноделен с экскурсиями и дегустациями',
+  },
+  {
+    img: <MyImage src={Slide5Img} alt="" />,
+    text: 'Устричные и мидийные фермы',
+  },
+  {
+    img: <MyImage src={Slide6Img} alt="" />,
+    text: 'Ремесленные сыроварни и локальные продукты',
+  },
+]
+
+const steps = {
+  moreStart: 0,
+  moreEnd: 20,
+  slide2Start: 21,
+  slide2RoundStart: 26,
+  slide2End: 30,
+  slide3Start: 31,
+  slide3End: 40,
+  slide4Start: 41,
+  slide4End: 50,
+  slide4GalleryStart: 50, // = slide4End
+  slide4GalleryEnd: 60,
+  slide5Start: 61,
+  slide5End: 70,
+  slide6Start: 71,
+  slide6End: 80,
+  slide6ScrollStart: 81,
+  slide6ScrollEnd: 99,
+}
 
 export function RelaxSection() {
+  const [currentSlideIndex, setCurrentSlideIndex] = useState(0)
   const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
 
+  const content = useRef<DivRef>(null)
+  const seaImage = useRef<DivRef>(null)
+  const title = useRef<DivRef>(null)
+  const slide2 = useRef<DivRef>(null)
+  const img1 = useRef<DivRef>(null)
+  const img2 = useRef<DivRef>(null)
+  const img3 = useRef<DivRef>(null)
+  const img3Round = useRef<DivRef>(null)
+  const slide3 = useRef<DivRef>(null)
+  const slide3Bg = useRef<DivRef>(null)
+  const slide3Inner = useRef<DivRef>(null)
+  const slide4 = useRef<DivRef>(null)
+  const slide5 = useRef<DivRef>(null)
+  const slide5Inner = useRef<DivRef>(null)
+
+  useGSAP(() => {
+    const mm = gsap.matchMedia()
+    const animationHeight = () => window.innerHeight * animationHeightCount
+    const scrollHeight = () => ((title.current?.offsetWidth || 0) - window.innerWidth) * -1
+    const slide5SrollHeight = () =>
+      ((slide5Inner.current?.scrollHeight || 0) - (slide5.current?.offsetHeight || 0)) * -1
+
+    // For pinning effect
+    ScrollTrigger.create({
+      trigger: content.current,
+      start: 'top top',
+      end: 'max',
+      scrub: true,
+      pin: true,
+      pinSpacing: false,
+    })
+
+    // For animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: content.current,
+        scrub: 0.4,
+        start: 'top top',
+        end: () => 'top+=' + animationHeight(),
+      },
+    })
+
+    mm.add('(max-width: 1023px)', () => {
+      tl.to(
+        title.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3Start]: { x: 0, y: 0 },
+            [steps.slide3End]: { x: scrollHeight, y: () => window.innerHeight * -1 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        seaImage.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.moreStart]: { scale: 1 },
+            [steps.slide3End]: { scale: 1.2 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3Start]: { y: '100%' },
+            [steps.slide3End]: { y: 0 },
+            [steps.slide4Start]: { x: 0 },
+            [steps.slide4End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide4Start]: { x: '100%' },
+            [steps.slide4End]: { x: 0 },
+            [steps.slide5Start]: { x: 0 },
+            [steps.slide5End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+    })
+
+    mm.add('(min-width: 1024px)', () => {
+      tl.to(
+        title.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.moreStart]: { x: 0, y: 0 },
+            [steps.moreEnd]: { x: scrollHeight, y: () => window.innerHeight * -1 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        seaImage.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.moreStart]: { scale: 1 },
+            [steps.moreEnd]: { scale: 1.2 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.moreStart]: { y: '100%' },
+            [steps.moreEnd]: { y: 0 },
+            [steps.slide3Start]: { x: 0 },
+            [steps.slide3End]: { x: '-130vw' },
+            [steps.slide4Start]: { x: '-130vw' },
+            [steps.slide4End]: { x: '-230vw' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img3Round.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2RoundStart]: { scale: 0 },
+            [steps.slide2End]: { scale: 1 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide3Bg.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide4Start]: { width: '305px', height: '360px' },
+            [steps.slide4End]: { width: '100vw', height: '100vh' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide4Start]: { x: '100%' },
+            [steps.slide4End]: { x: 0 },
+            [steps.slide5Start]: { x: 0 },
+            [steps.slide5End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide3Inner.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide4GalleryStart]: { x: 0 },
+            [steps.slide4GalleryEnd]: { x: '-75vw' },
+          },
+        },
+        0,
+      )
+    })
+
+    mm.add('(max-width: 1599px)', () => {
+      tl.to(
+        img1.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { y: '-100%', height: 350, width: 215 },
+            [steps.slide2End]: { y: '-50%', height: 360, width: 260 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { height: '100%', width: 430 },
+            [steps.slide2End]: { height: 360, width: 340 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { y: '100%', height: 350, width: 215 },
+            [steps.slide2End]: { y: '50%', height: 360, width: 260 },
+          },
+        },
+        0,
+      )
+    })
+    mm.add('(min-width: 1600px)', () => {
+      tl.to(
+        img1.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { y: '-100%', height: 440, width: 320 },
+            [steps.slide2End]: { y: '-50%', height: 440, width: 320 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { height: '100%', width: '36.5%' },
+            [steps.slide2End]: { height: 440, width: 460 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { y: '100%', height: 440, width: 320 },
+            [steps.slide2End]: { y: '50%', height: 440, width: 320 },
+          },
+        },
+        0,
+      )
+    })
+
+    tl.to(
+      slide4.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          [steps.slide5Start]: { x: '100%' },
+          [steps.slide5End]: { x: 0 },
+          [steps.slide6Start]: { x: 0 },
+          [steps.slide6End]: { x: '-100%' },
+        },
+      },
+      0,
+    )
+
+    tl.to(
+      slide5.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          [steps.slide6Start]: { x: '100%' },
+          [steps.slide6End]: { x: 0 },
+        },
+      },
+      0,
+    )
+    tl.to(
+      slide5Inner.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          [steps.slide6ScrollStart]: { y: 0 },
+          [steps.slide6ScrollEnd]: { y: slide5SrollHeight },
+        },
+      },
+      0,
+    )
+  })
+
+  const slide = slides2[currentSlideIndex]
+
   return (
-    <section className={styles.section}>
-      <div className={styles.content}>
+    <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
+      <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
           <div className={clsx(styles.slide1, 'slide mobile-slide')}>
-            <MyImage src={SeaImg} sizes="(max-width: 768px) 100vh, 100vw" alt="" />
-            <h2 className={clsx(styles.title, 'h1')}>Когда каждый день — открытие</h2>
+            <div className={styles.seaImage} ref={seaImage}>
+              <MyImage src={SeaImg} sizes="(max-width: 768px) 100vh, 100vw" alt="" />
+            </div>
+            <h2 className={clsx(styles.title, 'h1')} ref={title}>
+              <span>Когда каждый день — открытие</span>
+            </h2>
           </div>
 
-          <div
-            className={clsx(styles.slide2, 'white-section slide mobile-slide')}
-            style={{ translate: '-50% -100%' }}
-          >
-            <MobileSlider
-              className={styles.slider}
-              slides={[
-                { className: styles.img1, img: { src: Slide1Img, alt: '' } },
-                { className: styles.img2, img: { src: Slide2Img, alt: '' } },
-                { className: styles.img3, img: { src: Slide3Img, alt: '' } },
-              ]}
-            />
+          <div className={clsx(styles.slide2, 'white-section slide mobile-slide')} ref={slide2}>
+            {isMobile && (
+              <MobileSlider
+                slides={[
+                  { className: styles.img, content: <MyImage src={Slide1Img} alt="" /> },
+                  { className: styles.img, content: <MyImage src={Slide2Img} alt="" /> },
+                  { className: styles.img, content: <MyImage src={Slide3Img} alt="" /> },
+                ]}
+              />
+            )}
+            {isDesktop && (
+              <>
+                <div className={styles.img1} ref={img1}>
+                  <MyImage src={Slide1Img} alt="" />
+                </div>
+                <div className={styles.img2} ref={img2}>
+                  <MyImage src={Slide2Img} alt="" />
+                </div>
+                <div className={styles.img3} ref={img3}>
+                  <div className={styles.img3Round} ref={img3Round}></div>
+                  <MyImage src={Slide3Img} alt="" />
+                </div>
+              </>
+            )}
             <div className={clsx(styles.text, 'container')}>
               <h2 className="h2">
                 Природа <br />
@@ -49,49 +415,118 @@ export function RelaxSection() {
             </div>
           </div>
 
-          <div
-            className={clsx(styles.slide3, 'white-section slide mobile-slide active')}
-            style={{ translate: '0 -200%' }}
-          >
-            <div className={styles.bg}>
+          <div className={clsx(styles.slide3, 'white-section slide mobile-slide ')} ref={slide3}>
+            <div className={styles.bg} ref={slide3Bg}>
               <MyImage src={Sea2Img} alt="" />
               <div className={styles.shadow}></div>
             </div>
-            <div className={styles.slideInner}>
+            <div className={styles.slideInner} ref={slide3Inner}>
               {isMobile && (
-                <MobileSlider
-                  slides={[
-                    { img: { src: Slide4Img, alt: '' } },
-                    { img: { src: Slide5Img, alt: '' } },
-                    { img: { src: Slide6Img, alt: '' } },
-                  ]}
-                />
+                <>
+                  <MobileSlider
+                    onSlideChange={setCurrentSlideIndex}
+                    slides={[
+                      { className: styles.img, content: <MyImage src={Slide4Img} alt="" /> },
+                      { className: styles.img, content: <MyImage src={Slide5Img} alt="" /> },
+                      { className: styles.img, content: <MyImage src={Slide6Img} alt="" /> },
+                    ]}
+                  />
+                  <div className={clsx(styles.text, 'container')}>
+                    <h2 className="h2">Гастрономия</h2>
+                    <p>{slide.text}</p>
+                  </div>
+                </>
               )}
               {isDesktop && (
                 <div className={styles.gastroGrid}>
                   <div className={styles.li}>
-                    <div className={styles.img}>
-                      <MyImage src={Slide4Img} alt="" />
-                    </div>
-                    <p>Более 70 виноделен с экскурсиями и дегустациями</p>
+                    <div className={styles.img}>{slides2[0].img}</div>
+                    <p>{slides2[0].text}</p>
                   </div>
                   <div className={styles.li}>
-                    <div className={styles.img}>
-                      <MyImage src={Slide5Img} alt="" />
-                    </div>
-                    <p>Устричные и мидийные фермы</p>
+                    <div className={styles.img}>{slides2[1].img}</div>
+                    <p>{slides2[1].text}</p>
                   </div>
                   <div className={styles.li}>
-                    <div className={styles.img}>
-                      <MyImage src={Slide6Img} alt="" />
-                    </div>
-                    <p>Ремесленные сыроварни и локальные продукты</p>
+                    <div className={styles.img}>{slides2[2].img}</div>
+                    <p>{slides2[2].text}</p>
                   </div>
                 </div>
               )}
               <div className={clsx(styles.text, 'container')}>
                 <h2 className="h2">Гастрономия</h2>
-                <p>Более 70 виноделен с экскурсиями и дегустациями</p>
+              </div>
+            </div>
+          </div>
+
+          <div className={clsx(styles.slide4, 'black-section slide mobile-slide')} ref={slide4}>
+            <div className={styles.image}>
+              <MyImage src={MainImg} sizes="(max-width: 768px) 50vh" alt="" />
+            </div>
+            <div className={clsx(styles.container, 'container')}>
+              <h2 className="h3">
+                Культура <br />и архитектура
+              </h2>
+              <p>
+                Евпатория — город с историей более 2500 лет, сохранивший уникальные памятники,
+                старинные улочки и атмосферу разных эпох. С 1914 года символом города по праву
+                считается легендарный трамвай желаний.
+              </p>
+            </div>
+          </div>
+
+          <div className={clsx(styles.slide5, 'black-section slide mobile-slide')} ref={slide5}>
+            <div className={clsx(styles.container, 'container')} ref={slide5Inner}>
+              <h2 className="h3">Активный отдых</h2>
+              <div className={styles.cardsGrid}>
+                <div className={styles.card}>
+                  <div className={styles.cardInner}>
+                    <div className={styles.image}>
+                      <MyImage src={Img1} alt="" />
+                    </div>
+                    <h3 className="subtitle">Яхтинг</h3>
+                  </div>
+                </div>
+                <div className={styles.card}>
+                  <div className={styles.cardInner}>
+                    <div className={styles.image}>
+                      <MyImage src={Img2} alt="" />
+                    </div>
+                    <h3 className="subtitle">Дайвинг</h3>
+                  </div>
+                </div>
+                <div className={styles.card}>
+                  <div className={styles.cardInner}>
+                    <div className={styles.image}>
+                      <MyImage src={Img3} alt="" />
+                    </div>
+                    <h3 className="subtitle">Морская рыбалка</h3>
+                  </div>
+                </div>
+                <div className={styles.card}>
+                  <div className={styles.cardInner}>
+                    <div className={styles.image}>
+                      <MyImage src={Img4} alt="" />
+                    </div>
+                    <h3 className="subtitle">Сапборды</h3>
+                  </div>
+                </div>
+                <div className={styles.card}>
+                  <div className={styles.cardInner}>
+                    <div className={styles.image}>
+                      <MyImage src={Img5} alt="" />
+                    </div>
+                    <h3 className="subtitle">Виндсёрфинг</h3>
+                  </div>
+                </div>
+                <div className={styles.card}>
+                  <div className={styles.cardInner}>
+                    <div className={styles.image}>
+                      <MyImage src={Img6} alt="" />
+                    </div>
+                    <h3 className="subtitle">Кайтинг</h3>
+                  </div>
+                </div>
               </div>
             </div>
           </div>

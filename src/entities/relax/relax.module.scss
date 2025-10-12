@@ -26,13 +26,17 @@
     color: var(--color-white);
     width: rem(950px);
     @media (min-width: 1024px) {
-      width: rem(1860px);
+      width: rem(1900px);
       bottom: rem(40px);
+      padding: 0 rem(40px);
     }
     @media (min-width: 1600px) {
-      width: rem(2630px);
+      width: rem(2670px);
       bottom: rem(67px);
-      padding: 0 rem(40px);
+      padding: 0 rem(60px);
+    }
+    span {
+      display: inline-block;
     }
   }
 
@@ -40,27 +44,32 @@
     height: 100%;
   }
 }
+.seaImage {
+  height: 100%;
+}
+
+.img {
+  height: 56vh;
+}
 
 .slide2 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  translate: 0 100%;
+
   display: flex;
   flex-direction: column;
   text-align: center;
   @media (min-width: 1024px) {
-    width: 220vw;
+    width: 100vw;
     flex-direction: row;
   }
   @media (min-width: 1300px) {
   }
   @media (min-width: 1600px) {
-  }
-
-  .slider {
-    position: relative;
-    @media (min-width: 1024px) {
-      height: 100vh;
-      width: 100vw;
-      flex: 0 0 100vw;
-    }
   }
 
   .text {
@@ -71,15 +80,25 @@
     gap: rem(20px);
     padding-bottom: rem(10px);
     max-width: rem(440px);
+
     @media (min-width: 1024px) {
+      position: absolute;
+      top: 0;
+      left: 0;
+      height: 100%;
+      translate: 100vw 0;
+
       flex-direction: row;
       align-items: center;
       justify-content: space-between;
       max-width: none;
       padding: 0;
       margin: 0;
+      background-color: var(--color-bg);
+
       padding-left: rem(40px);
       padding-right: rem(150px);
+      width: 130vw;
     }
     @media (min-width: 1300px) {
       padding-right: rem(290px);
@@ -103,14 +122,17 @@
     }
   }
 
+  .desktopSlides {
+  }
+
   .img1 {
     @media (min-width: 1024px) {
       position: absolute;
-      top: rem(60px);
+      top: 50%;
       left: 14.4%;
       height: rem(350px);
       width: rem(215px);
-      translate: -50% 0;
+      translate: -50% -100%;
     }
     @media (min-width: 1300px) {
       width: 20%;
@@ -124,11 +146,12 @@
   .img2 {
     @media (min-width: 1024px) {
       position: absolute;
-      top: 0;
+      z-index: 2;
+      top: 50%;
       left: 50%;
       height: 100%;
       width: rem(430px);
-      translate: -50% 0;
+      translate: -50% -50%;
     }
     @media (min-width: 1300px) {
       width: 33%;
@@ -140,11 +163,15 @@
   .img3 {
     @media (min-width: 1024px) {
       position: absolute;
-      bottom: rem(60px);
+      bottom: 50%;
       right: 14.4%;
       height: rem(350px);
       width: rem(215px);
-      translate: 50% 0;
+      translate: 50% 100%;
+      img {
+        position: relative;
+        z-index: 2;
+      }
     }
     @media (min-width: 1300px) {
       width: 20%;
@@ -155,6 +182,31 @@
       height: rem(440px);
     }
   }
+  .img3Round {
+    @media (min-width: 1024px) {
+      width: 120px;
+      height: 120px;
+      background-color: var(--color-green);
+      border-radius: 50%;
+      position: absolute;
+      top: -60px;
+      left: -60px;
+      scale: 0;
+    }
+    @media (min-width: 1300px) {
+      width: 160px;
+      height: 160px;
+      left: -80px;
+      top: -80px;
+    }
+    @media (min-width: 1600px) {
+      width: 200px;
+      height: 200px;
+      top: -130px;
+      left: auto;
+      right: -100px;
+    }
+  }
 }
 
 .slide3 {
@@ -162,12 +214,28 @@
   color: var(--color-white);
   text-align: center;
 
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  translate: 100vw 0;
+
   .bg {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
     height: 100%;
+    @media (min-width: 1024px) {
+      top: 50%;
+      translate: 0 -50%;
+      width: 305px;
+      height: 360px;
+    }
+    @media (min-width: 1600px) {
+      width: rem(365px);
+      height: 440px;
+    }
   }
   .shadow {
     background-color: rgba(0, 0, 0, 0.5);
@@ -189,13 +257,13 @@
       flex-direction: row-reverse;
       align-items: center;
       justify-content: flex-start;
-      width: 155vw;
+      width: 175vw;
     }
     @media (min-width: 1300px) {
-      width: 130vw;
+      width: 175vw;
     }
     @media (min-width: 1600px) {
-      width: 117vw;
+      width: 175vw;
     }
   }
 
@@ -210,7 +278,7 @@
     @media (min-width: 1024px) {
       display: block;
       max-width: none;
-      text-align: left;
+      text-align: right;
       padding: 0;
       margin: 0;
       padding-left: rem(85px);
@@ -226,13 +294,26 @@
 
 .gastroGrid {
   display: grid;
-  grid-template-columns: repeat(3, 1fr);
+  grid-template-columns: repeat(3, rem(305px));
   gap: rem(40px);
+  justify-content: center;
+  @media (min-width: 1024px) {
+    width: 100vw;
+    flex: 0 0 100vw;
+    padding: 0 var(--container-padding);
+  }
   @media (min-width: 1600px) {
     gap: rem(90px);
+    grid-template-columns: repeat(3, rem(365px));
   }
   .li {
     position: relative;
+    @media (min-width: 1024px) {
+      max-width: rem(305px);
+    }
+    @media (min-width: 1600px) {
+      max-width: rem(365px);
+    }
     p {
       position: absolute;
       left: 0;
@@ -242,11 +323,189 @@
     }
     .img {
       height: rem(360px);
-      width: rem(307px);
+      width: 100%;
       @media (min-width: 1600px) {
-        width: rem(365px);
         height: rem(440px);
       }
     }
+  }
+}
+
+.slide4 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  translate: 100vw 0;
+
+  text-align: center;
+
+  @media (min-width: 1024px) {
+    display: flex;
+    text-align: left;
+  }
+
+  .image {
+    height: 52%; // 370px
+
+    @media (min-width: 1024px) {
+      width: rem(420px);
+      flex: 0 0 rem(420px);
+      height: 100%;
+    }
+    @media (min-width: 1300px) {
+      width: 40%;
+      flex: 0 0 40%;
+    }
+    @media (min-width: 1600px) {
+      width: 45.3%;
+      flex: 0 0 45.3%;
+    }
+  }
+
+  .container {
+    margin-top: rem(50px);
+    max-width: rem(440px);
+    @media (min-width: 1024px) {
+      max-width: none;
+      margin: 0;
+      flex: 1 1 auto; // 49.22%;
+      //width: 49.22%;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+    }
+  }
+  h2 {
+    @media (min-width: 1024px) {
+      word-wrap: break-word;
+      width: rem(465px);
+      margin-left: auto;
+    }
+    @media (min-width: 1300px) {
+      width: rem(580px);
+    }
+    @media (min-width: 1600px) {
+      width: 100%;
+      max-width: rem(920px);
+    }
+  }
+  p {
+    margin-top: rem(20px);
+    @media (min-width: 768px) {
+      margin-top: rem(40px);
+    }
+    @media (min-width: 1024px) {
+      max-width: rem(304px);
+      margin-left: auto;
+    }
+    @media (min-width: 1300px) {
+      max-width: rem(350px);
+    }
+    @media (min-width: 1600px) {
+      max-width: rem(366px);
+      margin-top: rem(80px);
+      margin-right: 17%;
+    }
+  }
+}
+
+.slide5 {
+  position: absolute;
+  top: 0;
+  left: 0;
+  height: 100%;
+  translate: 100vw 0;
+
+  padding-top: var(--header-height);
+  //overflow-y: auto;
+
+  .container {
+    padding-top: rem(60px);
+    padding-bottom: rem(160px);
+    @media (min-width: 768px) {
+      padding-bottom: rem(240px);
+    }
+    @media (min-width: 1024px) {
+      display: grid;
+      grid-template-columns: auto 59.3%;
+      justify-content: space-between;
+    }
+    @media (min-width: 1300px) {
+      grid-template-columns: auto 47.5%; // 580px
+    }
+    @media (min-width: 1600px) {
+      grid-template-columns: auto rem(820px);
+    }
+  }
+  h2 {
+    text-align: center;
+    max-width: rem(260px);
+    margin: 0 auto;
+    margin-bottom: rem(40px);
+    @media (min-width: 768px) {
+      max-width: none;
+      margin-bottom: rem(74px);
+    }
+    @media (min-width: 1024px) {
+      text-align: left;
+      max-width: rem(450px);
+    }
+    @media (min-width: 1600px) {
+      padding-top: rem(320px);
+    }
+  }
+}
+
+.cardsGrid {
+  display: flex;
+  flex-direction: column;
+  gap: rem(40px);
+  @media (min-width: 768px) {
+    gap: 0;
+  }
+}
+
+.card {
+  .image {
+    width: rem(280px);
+    height: rem(300px);
+    @media (min-width: 768px) {
+      width: 100%;
+      height: 100%;
+    }
+  }
+
+  &:nth-child(even) {
+    display: flex;
+    justify-content: flex-end;
+  }
+
+  h3 {
+    padding-top: rem(20px);
+    @media (min-width: 768px) {
+      position: absolute;
+      left: 0;
+      bottom: 0;
+      translate: 0 100%;
+    }
+  }
+}
+
+.cardInner {
+  @media (min-width: 768px) {
+    position: relative;
+    width: 46%; // rem(335px);
+    height: rem(300px);
+  }
+  @media (min-width: 1024px) {
+    width: 44.6%;
+    height: rem(360px);
+  }
+  @media (min-width: 1300px) {
+    width: 44.82%; // rem(260px);
+  }
+  @media (min-width: 1600px) {
+    height: rem(440px);
   }
 }

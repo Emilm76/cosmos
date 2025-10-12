@@ -1,12 +1,8 @@
 .section {
   position: relative;
-  //position: absolute;
-  //top: 0;
 }
 
 .content {
-  // position: fixed;
-  // translate: 0 100%;
   width: 100vw;
   height: 100vh;
 }
@@ -71,9 +67,9 @@
 
   h2 {
     max-width: rem(400px);
+    opacity: 0;
     @media (min-width: 1024px) {
       max-width: rem(480px);
-      opacity: 0;
     }
     @media (min-width: 1300px) {
       max-width: rem(520px);
@@ -84,9 +80,9 @@
   }
   p {
     max-width: rem(400px);
+    opacity: 0;
     @media (min-width: 1024px) {
       max-width: rem(305px);
-      opacity: 0;
     }
     @media (min-width: 1300px) {
       max-width: rem(350px);

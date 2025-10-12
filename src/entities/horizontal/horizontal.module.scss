@@ -13,6 +13,7 @@
 .wrapper {
   display: flex;
   flex-wrap: nowrap;
+  height: 100vh;
 }
 
 .slide {
@@ -21,9 +22,16 @@
   width: 100vw;
   background-color: var(--color-bg);
 
+  @media (max-width: 1023px) {
+    position: relative;
+    // width: 100vw;
+    height: 100vh;
+  }
+
   @media (min-width: 1024px) {
     position: relative;
     flex-direction: row;
+    flex: 0 0 100vw;
   }
 
   .image {

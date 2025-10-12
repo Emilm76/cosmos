@@ -100,6 +100,10 @@ picture {
   object-fit: cover;
 }
 
+iframe {
+  border: none;
+}
+
 input::-ms-clear {
   display: none;
 }
@@ -247,8 +251,8 @@ main {
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    translate: 0 100%;
-    transition: translate 0.1s var(--easeInOutQuart);
+    // translate: 0 100%;
+    // transition: translate 0.1s var(--easeInOutQuart);
     &.active {
       translate: none;
     }

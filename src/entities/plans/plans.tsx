@@ -3,9 +3,16 @@ import { MyImage, Slider, ModalPlan } from '@/shared'
 import styles from './plans.module.scss'
 import BgImg from '@/images/demin-plan.jpg'
 import clsx from 'clsx'
-import { useState } from 'react'
-import { Plan } from '@/backend/cases-list/domain/plan'
+import { useRef, useState } from 'react'
 import { useHeader } from '@/context/header-context'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+
+type DivRef = HTMLDivElement | null
+
+const animationHeightCount = 2
+const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const plans: Plan[] = [
   {
@@ -37,6 +44,16 @@ const plans: Plan[] = [
   },
 ]
 
+type Plan = {
+  name: string
+  imagePath: string
+  rooms: number
+  square: number
+  floor: number
+  roomHeight: number
+  view: string
+}
+
 export function PlansSection() {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState<Plan | null>(null)
@@ -53,26 +70,94 @@ export function PlansSection() {
     setTransparent(false)
   }
 
+  const content = useRef<DivRef>(null)
+  const shadow = useRef<DivRef>(null)
+  const title = useRef<DivRef>(null)
+  const slider = useRef<DivRef>(null)
+
+  useGSAP(() => {
+    const animationHeight = () => window.innerHeight * animationHeightCount
+
+    // For pinning effect
+    ScrollTrigger.create({
+      trigger: content.current,
+      start: 'top top',
+      end: 'max',
+      scrub: true,
+      pin: true,
+      pinSpacing: false,
+    })
+
+    // For animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: content.current,
+        scrub: 0.4,
+        start: 'top top',
+        end: () => 'top+=' + animationHeight(),
+      },
+    })
+
+    tl.to(
+      shadow.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          65: { opacity: 0 },
+          90: { opacity: 1 },
+        },
+      },
+      0,
+    )
+    tl.to(
+      title.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          65: { y: '10rem', opacity: 0 },
+          100: { y: 0, opacity: 1 },
+        },
+      },
+      0,
+    )
+    tl.to(
+      slider.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          65: { y: '20rem', opacity: 0 },
+          100: { y: 0, opacity: 1 },
+        },
+      },
+      0,
+    )
+  })
+
   return (
     <>
-      <section className={styles.section}>
-        <div className={styles.content}>
+      <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
+        <div className={styles.content} ref={content}>
           <div className={styles.wrapper}>
-            <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+            <div className={clsx(styles.slide, 'slide mobile-slide')}>
               <div className={styles.bg}>
                 <MyImage src={BgImg} alt="" />
+                <div className={styles.shadow} ref={shadow}></div>
               </div>
 
               <div className={clsx(styles.slideInner, 'container')}>
-                <h2 className="h2">меню планировок</h2>
+                <h2 className="h2" ref={title}>
+                  меню планировок
+                </h2>
 
-                <Slider
-                  slides={plans.map((plan) => ({
-                    className: clsx(styles.planSlide, 'bullet-link-card'),
-                    onClick: () => handleSlideClick(plan),
-                    content: <Slide plan={plan} />,
-                  }))}
-                />
+                <div className={styles.sliderWrapper} ref={slider}>
+                  <Slider
+                    slides={plans.map((plan) => ({
+                      className: clsx(styles.planSlide, 'bullet-link-card'),
+                      onClick: () => handleSlideClick(plan),
+                      content: <Slide plan={plan} />,
+                    }))}
+                  />
+                </div>
               </div>
             </div>
           </div>

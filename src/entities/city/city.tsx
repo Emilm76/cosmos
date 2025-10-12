@@ -13,9 +13,11 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
+const animationHeightCount = 3
+const animationHeightCSS = animationHeightCount * 100 + 'vh'
+
 export function CitySection() {
   const content = useRef<DivRef>(null)
-  const wrapper = useRef<DivRef>(null)
   const title = useRef<DivRef>(null)
   const text = useRef<DivRef>(null)
   const image = useRef<DivRef>(null)
@@ -23,43 +25,57 @@ export function CitySection() {
   const subtitle = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const animationHeight = () => window.innerHeight * 3
+    const mm = gsap.matchMedia()
+    const animationHeight = () => window.innerHeight * animationHeightCount
 
-    gsap.to(content.current, {
-      ease: 'none',
-      scrollTrigger: {
-        trigger: content.current,
-        scrub: true,
-        start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-        pin: true,
-        pinSpacing: true,
-        // markers: true,
-      },
+    // For pinning effect
+    ScrollTrigger.create({
+      trigger: content.current,
+      start: 'top top',
+      end: 'max',
+      scrub: true,
+      pin: true,
+      pinSpacing: false,
     })
 
+    // For animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: wrapper.current,
+        trigger: content.current,
         scrub: 0.4,
         start: 'top top',
         end: () => 'top+=' + animationHeight(),
       },
     })
 
-    tl.to(
-      title.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          0: { y: '12rem', opacity: 0 },
-          15: { y: 0, opacity: 1 },
-          35: { y: 0, opacity: 1 },
-          80: { y: 0, opacity: 0 },
+    mm.add('(max-width: 1023px)', () => {
+      tl.to(
+        title.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            0: { y: '12rem', opacity: 0 },
+            15: { y: 0, opacity: 1 },
+          },
         },
-      },
-      0,
-    )
+        0,
+      )
+    })
+    mm.add('(min-width: 1024px)', () => {
+      tl.to(
+        title.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            0: { y: '12rem', opacity: 0 },
+            15: { y: 0, opacity: 1 },
+            35: { y: 0, opacity: 1 },
+            80: { y: 0, opacity: 0 },
+          },
+        },
+        0,
+      )
+    })
     tl.to(
       text.current,
       {
@@ -67,8 +83,6 @@ export function CitySection() {
         keyframes: {
           0: { y: '12rem', opacity: 0 },
           15: { y: 0, opacity: 1 },
-          // 35: { y: 0, opacity: 1 },
-          // 80: { y: 0, opacity: 0 },
         },
       },
       0,
@@ -101,9 +115,12 @@ export function CitySection() {
   })
 
   return (
-    <section className={clsx(styles.section, 'black-section')} style={{ marginBottom: '200vh' }}>
+    <section
+      className={clsx(styles.section, 'black-section')}
+      style={{ marginBottom: animationHeightCSS }}
+    >
       <div className={styles.content} ref={content}>
-        <div className={styles.wrapper} ref={wrapper}>
+        <div className={styles.wrapper}>
           <div className={styles.imageWrapper}>
             <div className={styles.image} ref={image}>
               <MyImage src={DeminImg} alt="" />

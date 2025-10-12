@@ -11,6 +11,9 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
+const animationHeightCount = 5
+const animationHeightCSS = animationHeightCount * 100 + 'vh'
+
 export function WelcomeSection() {
   const content = useRef<DivRef>(null)
   const wrapper = useRef<DivRef>(null)
@@ -23,8 +26,7 @@ export function WelcomeSection() {
   const side = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const windowHeight = () => window.innerHeight
-    const animationHeight = () => windowHeight() * 5
+    const animationHeight = () => window.innerHeight * animationHeightCount
 
     const tl = gsap.timeline({
       scrollTrigger: {
@@ -110,7 +112,10 @@ export function WelcomeSection() {
   })
 
   return (
-    <section className={clsx(styles.section, 'black-section')} style={{ marginBottom: '500vh' }}>
+    <section
+      className={clsx(styles.section, 'black-section')}
+      style={{ marginBottom: animationHeightCSS }}
+    >
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper} ref={wrapper}>
           <div className={clsx(styles.curtain, 'mobile-slide')}>

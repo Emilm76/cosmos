@@ -1,3 +1,4 @@
+'use client'
 import { MyImage } from '@/shared'
 import styles from './horizontal.module.scss'
 import Img1 from '@/images/service.jpg'
@@ -7,13 +8,64 @@ import Img4 from '@/images/spa-2.jpg'
 import Img5 from '@/images/sport.jpg'
 import Img6 from '@/images/bar.jpg'
 import clsx from 'clsx'
+import gsap from 'gsap'
+import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { useGSAP } from '@gsap/react'
+import { useRef } from 'react'
+
+gsap.registerPlugin(ScrollTrigger)
+
+type DivRef = HTMLDivElement | null
+
+const animationHeightCount = 20
+const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function HorizontalSection() {
+  const content = useRef<DivRef>(null)
+  const wrapper = useRef<DivRef>(null)
+
+  useGSAP(() => {
+    const animationHeight = () => window.innerHeight * animationHeightCount
+    const animationWidth = () => ((wrapper.current?.offsetWidth || 0) - window.innerWidth) * -1
+
+    // For pinning effect
+    ScrollTrigger.create({
+      trigger: content.current,
+      start: 'top top',
+      end: 'max',
+      scrub: true,
+      pin: true,
+      pinSpacing: false,
+    })
+
+    // For animation
+    const tl = gsap.timeline({
+      scrollTrigger: {
+        trigger: content.current,
+        scrub: 0.4,
+        start: 'top top',
+        end: () => 'top+=' + animationHeight(),
+      },
+    })
+
+    tl.to(
+      wrapper.current,
+      {
+        ease: 'sine.inOut',
+        keyframes: {
+          0: { x: 0 },
+          99: { x: animationWidth },
+        },
+      },
+      0,
+    )
+  })
+
   return (
-    <section className={styles.section}>
-      <div className={styles.content} style={{ translate: '-100vw 0' }}>
-        <div className={styles.wrapper}>
-          <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+    <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
+      <div className={styles.content} ref={content}>
+        <div className={styles.wrapper} ref={wrapper}>
+          <div className={clsx(styles.slide, 'slide mobile-slide')}>
             <div className={styles.image}>
               <MyImage src={Img1} alt="" />
             </div>
@@ -31,7 +83,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide')}>
             <div className={styles.image}>
               <MyImage src={Img2} alt="" />
             </div>
@@ -49,7 +101,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide')}>
             <div className={styles.image}>
               <MyImage src={Img3} alt="" />
             </div>
@@ -66,7 +118,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide')}>
             <div className={styles.image}>
               <MyImage src={Img4} alt="" />
             </div>
@@ -83,7 +135,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide')}>
             <div className={styles.image}>
               <MyImage src={Img5} alt="" />
             </div>
@@ -97,7 +149,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide active')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide')}>
             <div className={styles.image}>
               <MyImage src={Img6} alt="" />
             </div>

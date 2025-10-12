@@ -18,13 +18,14 @@
 .bg {
   position: absolute;
   inset: 0;
-  &::after {
-    content: '';
-    display: block;
-    position: absolute;
-    inset: 0;
-    background-color: rgba(0, 0, 0, 0.4);
-  }
+}
+.shadow {
+  content: '';
+  display: block;
+  position: absolute;
+  inset: 0;
+  background-color: rgba(0, 0, 0, 0.4);
+  opacity: 0;
 }
 
 .slideInner {
@@ -36,6 +37,7 @@
   justify-content: center;
   max-width: rem(1512px);
   h2 {
+    opacity: 0;
     text-align: center;
     color: var(--color-white);
     margin-bottom: rem(40px);
@@ -48,6 +50,10 @@
       margin-bottom: rem(80px);
     }
   }
+}
+
+.sliderWrapper {
+  opacity: 0;
 }
 
 .planSlide {
