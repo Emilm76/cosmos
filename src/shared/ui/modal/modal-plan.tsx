@@ -4,7 +4,7 @@ import { useLenis } from 'lenis/react'
 import { useEffect, MouseEvent } from 'react'
 import styles from './modal-plan.module.scss'
 import { CubeIcon, DownloadIcon } from '@/shared'
-import { Plan } from '@/backend/cases-list/domain/plan'
+import Image from 'next/image'
 
 const defaultPlan = {
   name: '',
@@ -14,6 +14,16 @@ const defaultPlan = {
   floor: 0,
   roomHeight: 0,
   view: '',
+}
+
+type Plan = {
+  name: string
+  imagePath: string
+  rooms: number
+  square: number
+  floor: number
+  roomHeight: number
+  view: string
 }
 
 export function ModalPlan({
@@ -63,7 +73,7 @@ export function ModalPlan({
             <div className={styles.grid}>
               <div>
                 {data.imagePath && (
-                  <img
+                  <Image
                     className={styles.planImg}
                     src={data.imagePath}
                     width={740}

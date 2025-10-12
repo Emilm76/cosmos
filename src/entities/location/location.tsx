@@ -70,8 +70,8 @@ export function LocationSection() {
     const animationHeight = () => window.innerHeight * animationHeightCount
     const scrollHeight = () =>
       ((scrollWrapper.current?.scrollHeight || 0) - (scrollWrapper.current?.offsetHeight || 0)) * -1
-    const scrollHeightList = () =>
-      ((list.current?.scrollHeight || 0) - (list.current?.offsetHeight || 0)) * -1
+    // const scrollHeightList = () =>
+    //   ((list.current?.scrollHeight || 0) - (list.current?.offsetHeight || 0)) * -1
 
     // For pinning effect
     ScrollTrigger.create({

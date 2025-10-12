@@ -135,7 +135,7 @@ export function VideoSection() {
               <MobileSlider
                 className={styles.slider}
                 slides={[
-                  { className: styles.img, content: <img src="img/video-preview.jpg" alt="" /> },
+                  { className: styles.img, content: <Video /> },
                   { className: styles.img, content: <MyImage src={Img1} alt="" /> },
                   { className: styles.img, content: <MyImage src={Img2} alt="" /> },
                   { className: styles.img, content: <MyImage src={Img3} quality={60} alt="" /> },
@@ -149,14 +149,7 @@ export function VideoSection() {
             {isDesktop && (
               <div className={styles.gridContainer}>
                 <div className={styles.videoContainer}>
-                  {/* <img src="img/video-preview.jpg" alt="" /> */}
-                  <iframe
-                    src="https://kinescope.io/embed/i6BH3exsTVaH2EPmWue32J"
-                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
-                    allowFullScreen
-                    width="100%"
-                    height="100%"
-                  ></iframe>
+                  <Video />
                 </div>
 
                 <div className={styles.grid} ref={galleryGrid}>
@@ -236,5 +229,19 @@ export function VideoSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+function Video() {
+  /* <img src="img/video-preview.jpg" alt="" /> */
+
+  return (
+    <iframe
+      src="https://kinescope.io/embed/i6BH3exsTVaH2EPmWue32J"
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+      allowFullScreen
+      width="100%"
+      height="100%"
+    ></iframe>
   )
 }
