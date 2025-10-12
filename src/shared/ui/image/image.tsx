@@ -17,7 +17,7 @@ export function MyImage(props: ImageProps) {
           }
         })
       },
-      { rootMargin: '100px' },
+      { rootMargin: '1000px' },
     )
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()
