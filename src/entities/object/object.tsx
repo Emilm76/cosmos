@@ -21,6 +21,18 @@ type DivRef = HTMLDivElement | null
 const animationHeightCount = 6
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
+const steps = {
+  sideBarsStart: 0,
+  imgOpacityStart: 10,
+  imgOpacityEnd: 25,
+  sideBarsEnd: 30,
+  sideBarsBackStart: 31,
+  sideBarsBackEnd: 65,
+  slide2Start: 66,
+  subtitle2Start: 70,
+  slide2End: 99,
+}
+
 export function ObjectSection() {
   const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
@@ -79,10 +91,10 @@ export function ObjectSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            5: { x: '-100%' },
-            40: { x: 0 },
-            41: { y: 0 },
-            70: { y: '-20vh' },
+            [steps.sideBarsStart]: { x: '-100%' },
+            [steps.sideBarsEnd]: { x: 0 },
+            [steps.sideBarsBackStart]: { y: 0 },
+            [steps.sideBarsBackEnd]: { y: '-20vh' },
           },
         },
         0,
@@ -92,10 +104,10 @@ export function ObjectSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            5: { x: '100%' },
-            40: { x: 0 },
-            41: { y: 0 },
-            70: { y: '-20vh' },
+            [steps.sideBarsStart]: { x: '100%' },
+            [steps.sideBarsEnd]: { x: 0 },
+            [steps.sideBarsBackStart]: { y: 0 },
+            [steps.sideBarsBackEnd]: { y: '-20vh' },
           },
         },
         0,
@@ -105,8 +117,8 @@ export function ObjectSection() {
         {
           ease: 'none',
           keyframes: {
-            40: { opacity: 0 },
-            41: { opacity: 1 },
+            [steps.sideBarsEnd]: { opacity: 0 },
+            [steps.sideBarsBackStart]: { opacity: 1 },
           },
         },
         0,
@@ -118,8 +130,8 @@ export function ObjectSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          15: { opacity: 0 },
-          35: { opacity: 1 },
+          [steps.imgOpacityStart]: { opacity: 0 },
+          [steps.imgOpacityEnd]: { opacity: 1 },
         },
       },
       0,
@@ -130,8 +142,8 @@ export function ObjectSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          70: { x: 0 },
-          99: { x: '-100%' },
+          [steps.slide2Start]: { x: 0 },
+          [steps.slide2End]: { x: '-100%' },
         },
       },
       0,
@@ -141,8 +153,8 @@ export function ObjectSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          70: { x: '100%' },
-          99: { x: 0 },
+          [steps.slide2Start]: { x: '100%' },
+          [steps.slide2End]: { x: 0 },
         },
       },
       0,
@@ -152,7 +164,7 @@ export function ObjectSection() {
       subtitle.current,
       {
         ease: 'sine.inOut',
-        keyframes: { 75: { x: '-10rem' }, 99: { x: 0 } },
+        keyframes: { [steps.subtitle2Start]: { x: '-10rem' }, [steps.slide2End]: { x: 0 } },
       },
       0,
     )

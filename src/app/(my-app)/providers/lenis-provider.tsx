@@ -21,11 +21,10 @@ export function LenisScrollProvider({ children }: { children: ReactNode }) {
     <ReactLenis
       root
       options={{
-        duration: 1.5,
+        lerp: 0.06,
+        wheelMultiplier: 0.8,
         autoRaf: false,
         prevent: (node) => node.classList.contains('lenis-prevent'),
-        lerp: 0.06,
-        //wheelMultiplier: 0.8,
       }}
       ref={lenisRef}
     >

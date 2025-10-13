@@ -29,23 +29,23 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 24
+const animationHeightCount = 12
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
   start: 0,
   slideMobileStart: 5,
-  scroll: 10,
-  slide2Start: 11,
-  slide2End: 28,
-  slide3Start: 29,
-  slide3End: 46,
-  slide4Start: 47,
+  scrollEnd: 25,
+  slide2Start: 16,
+  slide2End: 32,
+  slide3Start: 33,
+  slide3End: 48,
+  slide4Start: 49,
   slide4End: 64,
   slide5Start: 65,
-  slide5End: 82,
-  slide6Start: 83,
-  slide6End: 100,
+  slide5End: 80,
+  slide6Start: 81,
+  slide6End: 99,
 }
 
 export function LocationSection() {
@@ -126,7 +126,7 @@ export function LocationSection() {
           ease: 'none',
           keyframes: {
             [steps.start]: { y: 0 },
-            [steps.scroll]: { y: scrollHeight },
+            [steps.scrollEnd]: { y: scrollHeight },
           },
         },
         0,

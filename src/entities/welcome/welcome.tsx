@@ -1,5 +1,5 @@
 'use client'
-import { LogoWithDescriptor } from '@/shared/ui/icons/logo-with-descriptor'
+import { LogoWithDescriptor } from '@/shared'
 import styles from './welcome.module.scss'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
@@ -132,14 +132,7 @@ export function WelcomeSection() {
             <div className={styles.imageWrapper}>
               <div className={styles.videoWrapper}>
                 <div className={styles.video} ref={video}>
-                  {/* <img src="/img/video-preview.jpg" alt="" /> */}
-                  <iframe
-                    src="https://kinescope.io/embed/15PdvWrUBUi7JmBA1zhraz"
-                    allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
-                    allowFullScreen
-                    width="100%"
-                    height="100%"
-                  ></iframe>
+                  <Video />
                 </div>
               </div>
               <div className={styles.videoOverlay} ref={overlay}>
@@ -170,5 +163,19 @@ export function WelcomeSection() {
         </div>
       </div>
     </section>
+  )
+}
+
+function Video() {
+  return <img src="/img/video-preview.jpg" alt="" />
+
+  return (
+    <iframe
+      src="https://kinescope.io/embed/15PdvWrUBUi7JmBA1zhraz"
+      allow="autoplay; fullscreen; picture-in-picture; encrypted-media; gyroscope; accelerometer; clipboard-write; screen-wake-lock;"
+      allowFullScreen
+      width="100%"
+      height="100%"
+    ></iframe>
   )
 }

@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 8
+const animationHeightCount = 5
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const slides = [
@@ -233,7 +233,7 @@ export function VideoSection() {
 }
 
 function Video() {
-  /* <img src="img/video-preview.jpg" alt="" /> */
+  return <img src="img/video-preview.jpg" alt="" />
 
   return (
     <iframe

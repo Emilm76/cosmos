@@ -184,27 +184,27 @@
   }
   .img3Round {
     @media (min-width: 1024px) {
-      width: 120px;
-      height: 120px;
+      width: rem(120px);
+      height: rem(120px);
       background-color: var(--color-green);
       border-radius: 50%;
       position: absolute;
-      top: -60px;
-      left: -60px;
+      top: rem(-60px);
+      left: rem(-60px);
       scale: 0;
     }
     @media (min-width: 1300px) {
-      width: 160px;
-      height: 160px;
-      left: -80px;
-      top: -80px;
+      width: rem(160px);
+      height: rem(160px);
+      left: rem(-80px);
+      top: rem(-80px);
     }
     @media (min-width: 1600px) {
-      width: 200px;
-      height: 200px;
-      top: -130px;
+      width: rem(200px);
+      height: rem(200px);
+      top: rem(-130px);
       left: auto;
-      right: -100px;
+      right: rem(-100px);
     }
   }
 }
@@ -229,12 +229,12 @@
     @media (min-width: 1024px) {
       top: 50%;
       translate: 0 -50%;
-      width: 305px;
-      height: 360px;
+      width: rem(305px);
+      height: rem(360px);
     }
     @media (min-width: 1600px) {
       width: rem(365px);
-      height: 440px;
+      height: rem(440px);
     }
   }
   .shadow {

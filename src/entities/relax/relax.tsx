@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 20
+const animationHeightCount = 12
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const slides2 = [
@@ -47,21 +47,21 @@ const slides2 = [
 
 const steps = {
   moreStart: 0,
-  moreEnd: 20,
-  slide2Start: 21,
-  slide2RoundStart: 26,
-  slide2End: 30,
-  slide3Start: 31,
-  slide3End: 40,
-  slide4Start: 41,
-  slide4End: 50,
-  slide4GalleryStart: 50, // = slide4End
-  slide4GalleryEnd: 60,
-  slide5Start: 61,
-  slide5End: 70,
-  slide6Start: 71,
-  slide6End: 80,
-  slide6ScrollStart: 81,
+  moreEnd: 10,
+  slide2Start: 11,
+  slide2RoundStart: 16,
+  slide2End: 20,
+  slide3Start: 21,
+  slide3End: 30,
+  slide4Start: 31,
+  slide4End: 40,
+  slide4GalleryStart: 40, // = slide4End
+  slide4GalleryEnd: 50,
+  slide5Start: 51,
+  slide5End: 60,
+  slide6Start: 61,
+  slide6End: 70,
+  slide6ScrollStart: 71,
   slide6ScrollEnd: 99,
 }
 
@@ -70,6 +70,7 @@ export function RelaxSection() {
   const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
 
+  const wrapper = useRef<DivRef>(null)
   const content = useRef<DivRef>(null)
   const seaImage = useRef<DivRef>(null)
   const title = useRef<DivRef>(null)
@@ -105,7 +106,7 @@ export function RelaxSection() {
     // For animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: content.current,
+        trigger: wrapper.current,
         scrub: 0.4,
         start: 'top top',
         end: () => 'top+=' + animationHeight(),
@@ -367,7 +368,7 @@ export function RelaxSection() {
   const slide = slides2[currentSlideIndex]
 
   return (
-    <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
+    <section className={styles.section} style={{ marginBottom: animationHeightCSS }} ref={wrapper}>
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
           <div className={clsx(styles.slide1, 'slide mobile-slide')}>

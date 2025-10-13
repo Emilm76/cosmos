@@ -16,7 +16,17 @@ type DivRef = HTMLDivElement | null
 const animationHeightCount = 3
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
+const steps = {
+  textStart: 0,
+  textEnd: 20,
+  slide2Start: 21,
+  slide2End: 60,
+  slide3Start: 61,
+  slide3End: 99,
+}
+
 export function CitySection() {
+  const wrapper = useRef<DivRef>(null)
   const content = useRef<DivRef>(null)
   const title = useRef<DivRef>(null)
   const text = useRef<DivRef>(null)
@@ -41,7 +51,7 @@ export function CitySection() {
     // For animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: content.current,
+        trigger: wrapper.current,
         scrub: 0.4,
         start: 'top top',
         end: () => 'top+=' + animationHeight(),
@@ -54,8 +64,8 @@ export function CitySection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            0: { y: '12rem', opacity: 0 },
-            15: { y: 0, opacity: 1 },
+            [steps.textStart]: { y: '12rem', opacity: 0 },
+            [steps.textEnd]: { y: 0, opacity: 1 },
           },
         },
         0,
@@ -67,10 +77,10 @@ export function CitySection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            0: { y: '12rem', opacity: 0 },
-            15: { y: 0, opacity: 1 },
-            35: { y: 0, opacity: 1 },
-            80: { y: 0, opacity: 0 },
+            [steps.textStart]: { y: '12rem', opacity: 0 },
+            [steps.textEnd]: { y: 0, opacity: 1 },
+            [steps.slide2Start]: { y: 0, opacity: 1 },
+            [steps.slide2End]: { y: 0, opacity: 0 },
           },
         },
         0,
@@ -81,8 +91,8 @@ export function CitySection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          0: { y: '12rem', opacity: 0 },
-          15: { y: 0, opacity: 1 },
+          [steps.textStart]: { y: '12rem', opacity: 0 },
+          [steps.textEnd]: { y: 0, opacity: 1 },
         },
       },
       0,
@@ -92,7 +102,7 @@ export function CitySection() {
       side.current,
       {
         ease: 'sine.inOut',
-        keyframes: { 35: { x: 0 }, 99: { x: '-100%' } },
+        keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-100%' } },
       },
       0,
     )
@@ -100,7 +110,7 @@ export function CitySection() {
       subtitle.current,
       {
         ease: 'sine.inOut',
-        keyframes: { 35: { x: '-20rem' }, 99: { x: 0 } },
+        keyframes: { [steps.slide2Start]: { x: '-20rem' }, [steps.slide3End]: { x: 0 } },
       },
       0,
     )
@@ -108,7 +118,7 @@ export function CitySection() {
       image.current,
       {
         ease: 'sine.inOut',
-        keyframes: { 35: { x: 0 }, 99: { x: '-50%' } },
+        keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-50%' } },
       },
       0,
     )
@@ -118,6 +128,7 @@ export function CitySection() {
     <section
       className={clsx(styles.section, 'black-section')}
       style={{ marginBottom: animationHeightCSS }}
+      ref={wrapper}
     >
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>

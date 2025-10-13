@@ -11,7 +11,7 @@ import { useGSAP } from '@gsap/react'
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 2
+const animationHeightCount = 1
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const plans: Plan[] = [
@@ -70,6 +70,7 @@ export function PlansSection() {
     setTransparent(false)
   }
 
+  const wrapper = useRef<DivRef>(null)
   const content = useRef<DivRef>(null)
   const shadow = useRef<DivRef>(null)
   const title = useRef<DivRef>(null)
@@ -91,7 +92,7 @@ export function PlansSection() {
     // For animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: content.current,
+        trigger: wrapper.current,
         scrub: 0.4,
         start: 'top top',
         end: () => 'top+=' + animationHeight(),
@@ -103,7 +104,7 @@ export function PlansSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          65: { opacity: 0 },
+          0: { opacity: 0 },
           90: { opacity: 1 },
         },
       },
@@ -114,7 +115,7 @@ export function PlansSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          65: { y: '10rem', opacity: 0 },
+          0: { y: '10rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
         },
       },
@@ -125,7 +126,7 @@ export function PlansSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          65: { y: '20rem', opacity: 0 },
+          0: { y: '20rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
         },
       },

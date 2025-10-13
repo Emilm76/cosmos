@@ -17,7 +17,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 20
+const animationHeightCount = 6
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function HorizontalSection() {
@@ -41,7 +41,7 @@ export function HorizontalSection() {
     // For animation
     const tl = gsap.timeline({
       scrollTrigger: {
-        trigger: content.current,
+        trigger: wrapper.current,
         scrub: 0.4,
         start: 'top top',
         end: () => 'top+=' + animationHeight(),

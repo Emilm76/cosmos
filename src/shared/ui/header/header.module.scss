@@ -210,6 +210,15 @@
 }
 
 .li {
+  + .li {
+    margin-top: rem(20px);
+    @media (min-width: 1024px) {
+      margin-top: rem(40px);
+    }
+  }
+}
+
+.liInner {
   display: flex;
   flex-direction: column;
   gap: rem(10px);
@@ -224,14 +233,6 @@
     color: var(--color-grey);
     transition: color 0.15s ease-in-out;
   }
-
-  + .li {
-    margin-top: rem(20px);
-    @media (min-width: 1024px) {
-      margin-top: rem(40px);
-    }
-  }
-
   &:hover {
     .burgerTitle {
       color: var(--color-dark);

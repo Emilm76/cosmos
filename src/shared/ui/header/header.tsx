@@ -6,7 +6,7 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Img from '@/images/burger.jpg'
 import { useHeader } from '@/context/header-context'
-import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon } from '@/shared'
+import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
 import { useMediaQuery } from 'react-responsive'
 
 export function Header() {
@@ -37,6 +37,9 @@ export function Header() {
     if (document.documentElement.clientWidth >= 768 && !isLoadImg) setIsLoadImg(true)
   }
 
+  function handleLinkClick() {
+    setIsBurgerOpen(false)
+  }
   function handleShowGalleryClick() {
     setIsBurgerOpen(false)
     setIsGalleryOpen(true)
@@ -80,12 +83,15 @@ export function Header() {
           </div>
 
           <div className={styles.right}>
-            <button
-              className={clsx('bullet-link', isMobile && isCurtainOpen && styles.displayNone)}
-              type="button"
-            >
-              Выбрать планировку
-            </button>
+            <div onClick={handleLinkClick}>
+              <MyLink
+                href="/apartments"
+                className={clsx('bullet-link', isMobile && isCurtainOpen && styles.displayNone)}
+              >
+                Выбрать планировку
+              </MyLink>
+            </div>
+
             <button
               type="button"
               className={clsx(styles.burgerBtn, isBurgerOpen ? styles.close : styles.open)}
@@ -101,22 +107,30 @@ export function Header() {
       <div className={clsx(styles.burger, isBurgerOpen && styles.open)}>
         <div className={clsx(styles.burgerWrapper, 'container lenis-prevent')}>
           <nav>
-            <a className={styles.li} href="">
-              <div className={clsx(styles.burgerTitle, 'h2')}>Концепция</div>
-              <div className="green">Пролог</div>
-            </a>
-            <a className={styles.li} href="">
-              <div className={clsx(styles.burgerTitle, 'h2')}>Локация</div>
-              <div className="green">Глава 1</div>
-            </a>
-            <a className={styles.li} href="">
-              <div className={clsx(styles.burgerTitle, 'h2')}>Комфорт</div>
-              <div className="green">Глава 2</div>
-            </a>
-            <a className={styles.li} href="">
-              <div className={clsx(styles.burgerTitle, 'h2')}>Выбор квартир</div>
-              <div className="green">Глава 3</div>
-            </a>
+            <div className={styles.li} onClick={handleLinkClick}>
+              <MyLink className={styles.liInner} href="/">
+                <div className={clsx(styles.burgerTitle, 'h2')}>Концепция</div>
+                <div className="green">Пролог</div>
+              </MyLink>
+            </div>
+            <div className={styles.li} onClick={handleLinkClick}>
+              <MyLink className={styles.liInner} href="/location">
+                <div className={clsx(styles.burgerTitle, 'h2')}>Локация</div>
+                <div className="green">Глава 1</div>
+              </MyLink>
+            </div>
+            <div className={styles.li} onClick={handleLinkClick}>
+              <MyLink className={styles.liInner} href="/comfort">
+                <div className={clsx(styles.burgerTitle, 'h2')}>Комфорт</div>
+                <div className="green">Глава 2</div>
+              </MyLink>
+            </div>
+            <div className={styles.li} onClick={handleLinkClick}>
+              <MyLink className={styles.liInner} href="/apartments">
+                <div className={clsx(styles.burgerTitle, 'h2')}>Выбор квартир</div>
+                <div className="green">Глава 3</div>
+              </MyLink>
+            </div>
           </nav>
 
           <div className={styles.burgerNav2}>

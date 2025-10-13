@@ -156,10 +156,13 @@
   }
 }
 
-.list {
-  ul {
-    padding-bottom: rem(80px);
+ul.list {
+  padding-bottom: rem(80px);
+
+  @media (min-width: 1300px) {
+    padding-bottom: rem(120px);
   }
+
   li {
     + li {
       margin-top: rem(40px);
