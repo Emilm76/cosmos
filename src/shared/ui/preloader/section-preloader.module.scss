@@ -1,8 +1,14 @@
-.wrapper {
-  padding-bottom: 10vh;
+.wrapperInner {
+  position: relative;
+  top: 0;
+  left: 0;
+  z-index: 10;
+  translate: none;
 }
 
-.preloader {
+.wrapper,
+.preloader,
+.wrapperInner {
   width: 100vw;
   height: 100vh;
 }

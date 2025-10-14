@@ -12,7 +12,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-export function Preloader({ isShow, isPageLoad }: { isShow: boolean; isPageLoad: boolean }) {
+export function Preloader({ isShow }: { isShow: boolean }) {
   const wrapper = useRef<DivRef>(null)
   const hide = useLoaderStore((s) => s.hide)
 
@@ -42,7 +42,7 @@ export function Preloader({ isShow, isPageLoad }: { isShow: boolean; isPageLoad:
       delay: 0.6,
       ease: 'power2.inOut',
     })
-  }, [isPageLoad, hide])
+  }, [])
 
   return (
     <div className={clsx(styles.wrapper)} ref={wrapper}>

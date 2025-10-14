@@ -17,7 +17,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 6
+const animationHeightCount = 12
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function HorizontalSection() {

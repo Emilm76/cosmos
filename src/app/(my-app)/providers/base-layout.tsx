@@ -1,48 +1,45 @@
 'use client'
-import { ReactNode, useEffect, useState } from 'react'
+import { ReactNode } from 'react'
 import { LenisScrollProvider } from './lenis-provider'
 import { FontSizeProvider } from './font-size-provider'
 import { HeaderProvider } from '@/context/header-context'
-import { Header, InterstroyLogo, Preloader, SectionPreloader } from '@/shared'
-import { useLoaderStore } from '@/store/loader-store'
+import {
+  Header,
+  InterstroyLogo,
+  NextSectionPreloader,
+  Preloader,
+  PrevSectionPreloader,
+} from '@/shared'
 import { usePathname } from 'next/navigation'
+import { useLoaderStore } from '@/store'
 
 export function BaseLayout({
   children,
 }: Readonly<{
   children: ReactNode
 }>) {
-  const pathname = usePathname()
-  const [isPageLoad, setIsPageLoad] = useState(false)
   const loading = useLoaderStore((s) => s.loading)
+  const pathname = usePathname()
 
-  const nextUrl = {
-    '/': '/location',
-    '/location': '/comfort',
-    '/comfort': '/apartments',
-    '/apartments': undefined,
+  const url = {
+    '/': { prev: undefined, next: '/location' },
+    '/location': { prev: '/', next: '/comfort' },
+    '/comfort': { prev: 'location', next: '/apartments' },
+    '/apartments': { prev: '/comfort', next: undefined },
   }[pathname]
-
-  console.log(pathname, nextUrl)
-
-  function handlePageLoad() {
-    setIsPageLoad(true)
-  }
-
-  useEffect(() => {
-    handlePageLoad()
-  }, [])
 
   return (
     <HeaderProvider>
       <FontSizeProvider>
         <LenisScrollProvider>
+          <Preloader isShow={loading} />
           <Header />
 
+          <PrevSectionPreloader prevUrl={url?.prev} />
           <main>{children}</main>
+          <NextSectionPreloader nextUrl={url?.next} />
 
           <InterstroyLogo />
-          <Preloader isShow={loading} isPageLoad={isPageLoad} />
         </LenisScrollProvider>
       </FontSizeProvider>
     </HeaderProvider>

@@ -8,7 +8,11 @@ export { ModalPlan } from './ui/modal/modal-plan'
 export { Gallery } from './ui/gallery/gallery'
 export { Documents } from './ui/documents/documents'
 export { Preloader } from './ui/preloader/preloader'
-export { NextSectionPreloader as SectionPreloader } from './ui/preloader/next-section-preloader'
+export {
+  NextSectionPreloader,
+  PrevSectionPreloader,
+  SectionPreloader,
+} from './ui/preloader/section-preloader'
 export { MyLink } from './ui/link/link'
 
 export { useScrollbar } from './model/use-scrollbar'

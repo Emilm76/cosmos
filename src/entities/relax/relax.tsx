@@ -27,7 +27,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 12
+const animationHeightCount = 16
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const slides2 = [
