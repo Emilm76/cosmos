@@ -17,7 +17,10 @@ export function MyImage(props: ImageProps) {
           }
         })
       },
-      { rootMargin: '1000px' },
+      {
+        // top, right, bottom, left
+        rootMargin: '0px 1000px 1000px 0px',
+      },
     )
     if (ref.current) observer.observe(ref.current)
     return () => observer.disconnect()

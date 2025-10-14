@@ -167,7 +167,11 @@ export function WelcomeSection() {
 }
 
 function Video() {
-  return <img src="/img/video-preview.jpg" alt="" />
+  const isDev = process.env.NODE_ENV === 'development'
+
+  if (isDev) {
+    return <img src="/img/video-preview.jpg" alt="" />
+  }
 
   return (
     <iframe

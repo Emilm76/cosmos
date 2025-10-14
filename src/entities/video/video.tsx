@@ -233,8 +233,14 @@ export function VideoSection() {
 }
 
 function Video() {
-  return <img src="img/video-preview.jpg" alt="" />
+  const isDev = process.env.NODE_ENV === 'development'
 
+  if (isDev) {
+    // if dev
+    return <img src="img/video-preview.jpg" alt="" />
+  }
+
+  // if prod
   return (
     <iframe
       src="https://kinescope.io/embed/i6BH3exsTVaH2EPmWue32J"
