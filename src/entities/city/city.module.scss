@@ -23,8 +23,17 @@
 }
 
 .image {
+  position: relative;
   display: block;
   height: 100vh;
+  // darken image
+  &::after {
+    content: '';
+    display: block;
+    position: absolute;
+    inset: 0;
+    background-color: rgba(0, 0, 2, 0.2);
+  }
 }
 
 .imageOverlay {

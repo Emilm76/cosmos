@@ -7,8 +7,8 @@ import {
   Header,
   InterstroyLogo,
   NextSectionPreloader,
-  Preloader,
   PrevSectionPreloader,
+  SectionPreloader,
 } from '@/shared'
 import { usePathname } from 'next/navigation'
 import { useLoaderStore } from '@/store'
@@ -24,7 +24,7 @@ export function BaseLayout({
   const url = {
     '/': { prev: undefined, next: '/location' },
     '/location': { prev: '/', next: '/comfort' },
-    '/comfort': { prev: 'location', next: '/apartments' },
+    '/comfort': { prev: '/location', next: '/apartments' },
     '/apartments': { prev: '/comfort', next: undefined },
   }[pathname]
 
@@ -32,12 +32,13 @@ export function BaseLayout({
     <HeaderProvider>
       <FontSizeProvider>
         <LenisScrollProvider>
-          <Preloader isShow={loading} />
+          {/* <Preloader isShow={loading} /> */}
           <Header />
 
           <PrevSectionPreloader prevUrl={url?.prev} />
           <main>{children}</main>
           <NextSectionPreloader nextUrl={url?.next} />
+          <SectionPreloader url={url} />
 
           <InterstroyLogo />
         </LenisScrollProvider>

@@ -70,39 +70,20 @@ export function PlansSection() {
     setTransparent(false)
   }
 
-  const wrapper = useRef<DivRef>(null)
   const content = useRef<DivRef>(null)
   const shadow = useRef<DivRef>(null)
   const title = useRef<DivRef>(null)
   const slider = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const animationHeight = () => window.innerHeight * animationHeightCount
-
-    // For pinning effect
-    ScrollTrigger.create({
-      trigger: content.current,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      pin: true,
-      pinSpacing: false,
-    })
-
-    // For animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrapper.current,
-        scrub: 0.4,
-        start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-      },
-    })
+    const tl = gsap.timeline()
 
     tl.to(
       shadow.current,
       {
         ease: 'sine.inOut',
+        duration: 1,
+        delay: 1.3,
         keyframes: {
           0: { opacity: 0 },
           90: { opacity: 1 },
@@ -114,6 +95,8 @@ export function PlansSection() {
       title.current,
       {
         ease: 'sine.inOut',
+        duration: 1,
+        delay: 1.3,
         keyframes: {
           0: { y: '10rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
@@ -125,6 +108,8 @@ export function PlansSection() {
       slider.current,
       {
         ease: 'sine.inOut',
+        duration: 1,
+        delay: 1.3,
         keyframes: {
           0: { y: '20rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
@@ -136,7 +121,7 @@ export function PlansSection() {
 
   return (
     <>
-      <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
+      <section className={styles.section}>
         <div className={styles.content} ref={content}>
           <div className={styles.wrapper}>
             <div className={clsx(styles.slide, 'slide mobile-slide')}>
