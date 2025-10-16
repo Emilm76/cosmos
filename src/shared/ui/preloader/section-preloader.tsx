@@ -136,6 +136,7 @@ export function SectionLoaderMobile() {
   const router = useRouter()
   const pathname = usePathname()
   const wrapper = useRef<DivRef>(null)
+  const isInitial = useRef(true)
 
   const sectionLoadingUrl = useSectionLoaderStore((s) => s.loadingPage)
   const isLoadingPrev = useSectionLoaderStore((s) => s.isLoadingPrev)
@@ -165,14 +166,23 @@ export function SectionLoaderMobile() {
       100: { y: isLoadingPrev ? '100%' : '-100%' },
     }
 
-    gsap.to(wrapper.current, {
-      duration: 0.75,
-      delay: 0.8,
-      keyframes: keyframes,
-      onEnd: () => {
-        sectionLoadingEnd()
-      },
-    })
+    console.log(isInitial.current)
+
+    if (isInitial.current) {
+      setTimeout(animation, 3500)
+      isInitial.current = false
+    } else animation()
+
+    function animation() {
+      gsap.to(wrapper.current, {
+        duration: 0.75,
+        delay: 0.8,
+        keyframes: keyframes,
+        onEnd: () => {
+          sectionLoadingEnd()
+        },
+      })
+    }
   }, [pathname])
 
   return (
@@ -190,6 +200,7 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
   const router = useRouter()
   const pathname = usePathname()
   const preloader = useRef<DivRef>(null)
+  const isInitial = useRef(true)
 
   const sectionLoadingUrl = useSectionLoaderStore((s) => s.loadingPage)
   const isLoadingPrev = useSectionLoaderStore((s) => s.isLoadingPrev)
@@ -226,14 +237,22 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
       100: { position: 'absolute', y: 0 },
     }
 
-    gsap.to(preloader.current, {
-      duration: 0.75,
-      delay: 0.8,
-      keyframes: keyframes,
-      onEnd: () => {
-        //ScrollTrigger.refresh()
-      },
-    })
+    if (isInitial.current) {
+      setTimeout(animation, 3500)
+      isInitial.current = false
+    } else animation()
+
+    function animation() {
+      gsap.to(preloader.current, {
+        duration: 0.75,
+        delay: 0.8,
+        keyframes: keyframes,
+        onEnd: () => {
+          //ScrollTrigger.refresh()
+        },
+      })
+    }
+
     setTimeout(() => {
       lenis.start()
       lenis.scrollTo('main', { immediate: true, force: true, offset: 20 })

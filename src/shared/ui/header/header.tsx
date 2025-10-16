@@ -8,6 +8,7 @@ import Img from '@/images/burger.jpg'
 import { useHeader } from '@/context/header-context'
 import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
 import { useMediaQuery } from 'react-responsive'
+import { useModalStore } from '@/store'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
@@ -16,6 +17,7 @@ export function Header() {
   const [isDocumentsOpen, setIsDocumentsOpen] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const lenis = useLenis()
+  const openModal = useModalStore((s) => s.open)
   const { transparent } = useHeader()
 
   useEffect(() => {
@@ -68,7 +70,11 @@ export function Header() {
       >
         <div className={clsx(styles.container, 'container')}>
           <div className={styles.left}>
-            <button className={styles.phoneBtn} type="button">
+            <button
+              className={styles.phoneBtn}
+              type="button"
+              //onClick={openModal}
+            >
               <PhoneIcon />
               <span className="bullet-link">Заказать звонок</span>
             </button>

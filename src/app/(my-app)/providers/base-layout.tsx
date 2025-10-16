@@ -10,6 +10,7 @@ import {
   SectionLoaderMobile,
   PrevSectionLoaderDesktop,
   SectionPreloader,
+  Modal,
 } from '@/shared'
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
@@ -149,6 +150,8 @@ export function BaseLayout({
             {isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
             {isDesktop && <SectionPreloader url={url} />}
           </div>
+
+          <Modal />
 
           <InterstroyLogo />
         </LenisScrollProvider>

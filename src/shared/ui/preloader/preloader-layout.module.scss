@@ -1,46 +1,85 @@
 .wrapper {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  overflow: hidden;
+  background-color: var(--color-dark);
+}
+
+.wrapperInner {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  translate: -50% -50%;
+
   display: flex;
   justify-content: center;
   align-items: center;
-  background-color: var(--color-dark);
-  width: 100%;
-  height: 100%;
-}
+  width: rem(768px);
+  height: rem(768px);
 
-.logoWrapper {
-  position: relative;
+  @media (min-width: 768px) {
+    width: rem(1024px);
+    height: rem(1024px);
+  }
+
+  @media (min-width: 1024px) {
+    width: 100vw;
+    height: 100vw;
+  }
 }
 
 .logo {
-  width: rem(284px);
-  height: rem(123px);
+  width: rem(200px);
+  opacity: 0;
+
   @media (min-width: 1024px) {
-    width: rem(385px);
-    height: rem(167px);
+    width: rem(500px);
   }
   @media (min-width: 1600px) {
-    width: rem(489px);
-    height: rem(212px);
+    width: 38.8%;
   }
 }
 
-.spinner {
+.round {
   position: absolute;
+  top: 50%;
   left: 50%;
-  bottom: rem(10px);
-  translate: -50% 100%;
-  width: rem(24px);
-  height: rem(24px);
-  color: var(--color-green);
-  // color: var(--color-white);
-  @media (min-width: 1300px) {
-    bottom: rem(15px);
-    width: rem(32px);
-    height: rem(32px);
-  }
-  @media (min-width: 1600px) {
-    bottom: rem(20px);
-    width: rem(48px);
-    height: rem(48px);
-  }
+  translate: -50% -50%;
+}
+
+.round1 {
+  width: 90.6%;
+  height: 90.6%;
+  opacity: 1;
+}
+
+.roundDotted1 {
+  width: 69.9%;
+  height: 69.9%;
+  opacity: 1;
+}
+
+.round2 {
+  width: 47.96%;
+  height: 47.96%;
+  opacity: 0;
+}
+
+.roundDotted2 {
+  width: 29.89%;
+  height: 29.89%;
+  opacity: 0;
+}
+.dots {
+  width: 32%;
+  height: 32%;
+  opacity: 0;
+}
+
+.round3 {
+  width: 19.89%;
+  height: 19.89%;
+  opacity: 0;
 }

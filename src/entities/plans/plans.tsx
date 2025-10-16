@@ -1,5 +1,5 @@
 'use client'
-import { MyImage, Slider, ModalPlan } from '@/shared'
+import { MyImage, Slider, ModalPlan, ImagePriority } from '@/shared'
 import styles from './plans.module.scss'
 import BgImg from '@/images/demin-plan.jpg'
 import clsx from 'clsx'
@@ -122,7 +122,7 @@ export function PlansSection() {
           <div className={styles.wrapper}>
             <div className={clsx(styles.slide, 'slide mobile-slide')}>
               <div className={styles.bg}>
-                <MyImage src={BgImg} alt="" />
+                <ImagePriority src={BgImg} alt="" />
                 <div className={styles.shadow} ref={shadow}></div>
               </div>
 
