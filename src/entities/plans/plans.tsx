@@ -6,13 +6,9 @@ import clsx from 'clsx'
 import { useRef, useState } from 'react'
 import { useHeader } from '@/context/header-context'
 import gsap from 'gsap'
-import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 
 type DivRef = HTMLDivElement | null
-
-const animationHeightCount = 1
-const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const plans: Plan[] = [
   {

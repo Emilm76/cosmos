@@ -22,13 +22,16 @@ export function MobileSlider({
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 
-  const callbackSlideSelect = useCallback((emblaApi: EmblaCarouselType) => {
-    if (onSlideChange) onSlideChange(emblaApi.selectedScrollSnap())
-  }, [])
+  const callbackSlideSelect = useCallback(
+    (emblaApi: EmblaCarouselType) => {
+      if (onSlideChange) onSlideChange(emblaApi.selectedScrollSnap())
+    },
+    [onSlideChange],
+  )
 
   useEffect(() => {
     if (emblaApi && onSlideChange) emblaApi.on('select', callbackSlideSelect)
-  }, [emblaApi, callbackSlideSelect])
+  }, [emblaApi, callbackSlideSelect, onSlideChange])
 
   return (
     <div className={clsx(className, styles.slider, 'embla')}>

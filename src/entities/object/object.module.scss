@@ -1,5 +1,11 @@
 .section {
   position: relative;
+  @media (max-width: 1023px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: 0 100%;
+  }
 }
 
 .content {
@@ -11,7 +17,9 @@
   position: relative;
   width: 100%;
   height: 100vh;
-  overflow: hidden;
+  @media (min-width: 1024px) {
+    overflow: hidden;
+  }
 }
 
 .imageWrapper {
@@ -61,19 +69,15 @@
 }
 
 .slide2 {
-  position: absolute;
-  top: 0;
-  left: 0;
-  translate: 100% 0;
   overflow: hidden;
   background-color: var(--color-bg);
-
-  height: 100vh;
   width: 100%;
 
-  height: 150vh;
-
   @media (min-width: 1024px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: 100% 0;
     //height: 900px;
     height: 120vh;
     translate: none;
@@ -268,8 +272,6 @@
 
 .beachImage {
   position: relative;
-  height: rem(340px);
-  width: rem(250px);
 
   @media (min-width: 1024px) {
     height: rem(350px);

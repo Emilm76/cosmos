@@ -3,11 +3,15 @@ import gsap from 'gsap'
 import 'lenis/dist/lenis.css'
 import { LenisRef, ReactLenis } from 'lenis/react'
 import { ReactNode, useEffect, useRef } from 'react'
+import { useMediaQuery } from 'react-responsive'
 
 export function LenisScrollProvider({ children }: { children: ReactNode }) {
+  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
   const lenisRef = useRef<LenisRef>(null)
 
   useEffect(() => {
+    if (!lenisRef) return
+
     function update(time: number) {
       lenisRef.current?.lenis?.raf(time * 1000)
     }
@@ -17,7 +21,7 @@ export function LenisScrollProvider({ children }: { children: ReactNode }) {
     return () => gsap.ticker.remove(update)
   }, [])
 
-  return (
+  return isDesktop ? (
     <ReactLenis
       root
       options={{
@@ -30,5 +34,7 @@ export function LenisScrollProvider({ children }: { children: ReactNode }) {
     >
       {children}
     </ReactLenis>
+  ) : (
+    children
   )
 }

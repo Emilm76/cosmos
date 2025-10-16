@@ -2,6 +2,12 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  @media (max-width: 1023px) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    translate: 0 100%;
+  }
 }
 
 .content {
@@ -16,8 +22,11 @@
 .slide {
   display: flex;
   flex-direction: column;
-  width: 100vw;
   background-color: var(--color-bg);
+
+  @media (min-width: 1024px) {
+    width: 100vw;
+  }
 
   .img {
     height: 100vh;

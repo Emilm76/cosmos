@@ -130,7 +130,7 @@ export function VideoSection() {
     <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
-          <div className={clsx(styles.slide, 'slide mobile-slide')} ref={slide1}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide12')} ref={slide1}>
             {isMobile && (
               <MobileSlider
                 className={styles.slider}
@@ -191,7 +191,7 @@ export function VideoSection() {
             )}
           </div>
 
-          <div className={clsx(styles.slide2, 'slide mobile-slide')} ref={slide2}>
+          <div className={clsx(styles.slide2, 'slide mobile-slide m3-slide13')} ref={slide2}>
             <div className={styles.bg}>
               <MyImage src={BgImg} quality={70} alt="" />
             </div>

@@ -14,6 +14,7 @@ import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 
 gsap.registerPlugin(ScrollTrigger)
+const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -25,47 +26,49 @@ export function HorizontalSection() {
   const wrapper = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const animationHeight = () => window.innerHeight * animationHeightCount
-    const animationWidth = () => ((wrapper.current?.offsetWidth || 0) - window.innerWidth) * -1
+    mm.add('(min-width: 1024px)', () => {
+      const animationHeight = () => window.innerHeight * animationHeightCount
+      const animationWidth = () => ((wrapper.current?.offsetWidth || 0) - window.innerWidth) * -1
 
-    // For pinning effect
-    ScrollTrigger.create({
-      trigger: content.current,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      pin: true,
-      pinSpacing: false,
-    })
-
-    // For animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrapper.current,
-        scrub: 0.4,
+      // For pinning effect
+      ScrollTrigger.create({
+        trigger: content.current,
         start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-      },
-    })
+        end: 'max',
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+      })
 
-    tl.to(
-      wrapper.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          0: { x: 0 },
-          99: { x: animationWidth },
+      // For animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper.current,
+          scrub: 0.4,
+          start: 'top top',
+          end: () => 'top+=' + animationHeight(),
         },
-      },
-      0,
-    )
+      })
+
+      tl.to(
+        wrapper.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            0: { x: 0 },
+            99: { x: animationWidth },
+          },
+        },
+        0,
+      )
+    })
   })
 
   return (
     <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper} ref={wrapper}>
-          <div className={clsx(styles.slide, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide6')}>
             <div className={styles.image}>
               <MyImage src={Img1} alt="" />
             </div>
@@ -83,7 +86,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide7')}>
             <div className={styles.image}>
               <MyImage src={Img2} alt="" />
             </div>
@@ -101,7 +104,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide8')}>
             <div className={styles.image}>
               <MyImage src={Img3} alt="" />
             </div>
@@ -118,7 +121,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide9')}>
             <div className={styles.image}>
               <MyImage src={Img4} alt="" />
             </div>
@@ -135,7 +138,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide10')}>
             <div className={styles.image}>
               <MyImage src={Img5} alt="" />
             </div>
@@ -149,7 +152,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide11')}>
             <div className={styles.image}>
               <MyImage src={Img6} alt="" />
             </div>

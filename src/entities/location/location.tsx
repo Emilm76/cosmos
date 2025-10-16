@@ -26,6 +26,7 @@ import {
 } from '@/shared'
 
 gsap.registerPlugin(ScrollTrigger)
+const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -66,60 +67,34 @@ export function LocationSection() {
   const listInner = useRef<HTMLUListElement | null>(null)
 
   useGSAP(() => {
-    const mm = gsap.matchMedia()
-    const animationHeight = () => window.innerHeight * animationHeightCount
-    const scrollHeight = () =>
-      ((scrollWrapper.current?.scrollHeight || 0) - (scrollWrapper.current?.offsetHeight || 0)) * -1
-    // const scrollHeightList = () =>
-    //   ((list.current?.scrollHeight || 0) - (list.current?.offsetHeight || 0)) * -1
-
-    // For pinning effect
-    ScrollTrigger.create({
-      trigger: content.current,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      pin: true,
-      pinSpacing: false,
-    })
-
-    // For animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: content.current,
-        scrub: 0.4,
-        start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-      },
-    })
-
-    mm.add('(max-width: 1023px)', () => {
-      tl.to(
-        slide2.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.start]: { x: '100%' },
-            [steps.slideMobileStart]: { x: 0 },
-            [steps.slide2Start]: { x: 0 },
-            [steps.slide2End]: { x: '-100%' },
-          },
-        },
-        0,
-      )
-      // tl.to(
-      //   listInner.current,
-      //   {
-      //     ease: 'none',
-      //     keyframes: {
-      //       [steps.slideMobileStart]: { y: 0 },
-      //       [steps.scroll]: { y: scrollHeightList },
-      //     },
-      //   },
-      //   0,
-      // )
-    })
     mm.add('(min-width: 1024px)', () => {
+      const animationHeight = () => window.innerHeight * animationHeightCount
+      const scrollHeight = () =>
+        ((scrollWrapper.current?.scrollHeight || 0) - (scrollWrapper.current?.offsetHeight || 0)) *
+        -1
+      // const scrollHeightList = () =>
+      //   ((list.current?.scrollHeight || 0) - (list.current?.offsetHeight || 0)) * -1
+
+      // For pinning effect
+      ScrollTrigger.create({
+        trigger: content.current,
+        start: 'top top',
+        end: 'max',
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+      })
+
+      // For animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: content.current,
+          scrub: 0.4,
+          start: 'top top',
+          end: () => 'top+=' + animationHeight(),
+        },
+      })
+
       tl.to(
         scrollContent.current,
         {
@@ -131,97 +106,97 @@ export function LocationSection() {
         },
         0,
       )
+
+      tl.to(
+        slide3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { x: '100%' },
+            [steps.slide2End]: { x: 0 },
+            [steps.slide3Start]: { x: 0 },
+            [steps.slide3End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide4.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3Start]: { x: '100%' },
+            [steps.slide3End]: { x: 0 },
+            [steps.slide4Start]: { x: 0 },
+            [steps.slide4End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img1.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3Start]: { x: '-7rem' },
+            [steps.slide3End]: { x: 0 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3Start]: { x: '-5rem' },
+            [steps.slide3End]: { x: 0 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide5.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide4Start]: { x: '100%' },
+            [steps.slide4End]: { x: 0 },
+            [steps.slide5Start]: { x: 0 },
+            [steps.slide5End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide6.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide5Start]: { x: '100%' },
+            [steps.slide5End]: { x: 0 },
+            [steps.slide6Start]: { x: 0 },
+            [steps.slide6End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide7.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide6Start]: { x: '100%' },
+            [steps.slide6End]: { x: 0 },
+          },
+        },
+        0,
+      )
     })
-
-    tl.to(
-      slide3.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide2Start]: { x: '100%' },
-          [steps.slide2End]: { x: 0 },
-          [steps.slide3Start]: { x: 0 },
-          [steps.slide3End]: { x: '-100%' },
-        },
-      },
-      0,
-    )
-    tl.to(
-      slide4.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide3Start]: { x: '100%' },
-          [steps.slide3End]: { x: 0 },
-          [steps.slide4Start]: { x: 0 },
-          [steps.slide4End]: { x: '-100%' },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      img1.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide3Start]: { x: '-7rem' },
-          [steps.slide3End]: { x: 0 },
-        },
-      },
-      0,
-    )
-    tl.to(
-      img2.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide3Start]: { x: '-5rem' },
-          [steps.slide3End]: { x: 0 },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      slide5.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide4Start]: { x: '100%' },
-          [steps.slide4End]: { x: 0 },
-          [steps.slide5Start]: { x: 0 },
-          [steps.slide5End]: { x: '-100%' },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      slide6.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide5Start]: { x: '100%' },
-          [steps.slide5End]: { x: 0 },
-          [steps.slide6Start]: { x: 0 },
-          [steps.slide6End]: { x: '-100%' },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      slide7.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide6Start]: { x: '100%' },
-          [steps.slide6End]: { x: 0 },
-        },
-      },
-      0,
-    )
   })
 
   return (
@@ -230,7 +205,7 @@ export function LocationSection() {
         <div className={clsx(styles.wrapper, 'black-section')}>
           <div className={styles.wrapperOuter1} ref={scrollWrapper}>
             <div className={styles.wrapperInner1} ref={scrollContent}>
-              <div className={clsx(styles.slide1, 'mobile-slide')}>
+              <div className={clsx(styles.slide1, 'mobile-slide m2-slide6')}>
                 <div className={clsx(styles.container, 'container')}>
                   <h2 className="h2">
                     Сердце <br />
@@ -242,12 +217,15 @@ export function LocationSection() {
                   </div>
                 </div>
               </div>
-              <div className={clsx(styles.slide2, 'mobile-slide')} ref={slide2}>
+              <div className={clsx(styles.slide2, 'mobile-slide m2-slide7')} ref={slide2}>
                 <div className={styles.slideInner}>
-                  <div className={styles.image}>
+                  <div className={clsx(styles.image, 'm2-slide7-img')}>
                     <MyImage src={RestikImg} width={300} height={440} alt="" />
                   </div>
-                  <div className={clsx(styles.container, 'container')} ref={list}>
+                  <div
+                    className={clsx(styles.container, 'container m2-slide7-container')}
+                    ref={list}
+                  >
                     <ul className={styles.list} role="list" ref={listInner}>
                       <li>
                         <div className="green">1 минута</div>
@@ -292,7 +270,7 @@ export function LocationSection() {
             </div>
           </div>
 
-          <div className={clsx(styles.slide3, 'mobile-slide')} ref={slide3}>
+          <div className={clsx(styles.slide3, 'mobile-slide m2-slide8')} ref={slide3}>
             <CustomScrollbar
               isReady={isMapLoad}
               contentClassName={styles.imageWrapper}
@@ -308,7 +286,7 @@ export function LocationSection() {
             </CustomScrollbar>
           </div>
 
-          <div className={clsx(styles.slide4, 'white-section mobile-slide')} ref={slide4}>
+          <div className={clsx(styles.slide4, 'white-section mobile-slide m2-slide9')} ref={slide4}>
             <div className={styles.image1} ref={img1}>
               <MyImage src={Img1} alt="" />
             </div>
@@ -321,7 +299,10 @@ export function LocationSection() {
             </h2>
           </div>
 
-          <div className={clsx(styles.slide5, 'mobile-slide black-section ')} ref={slide5}>
+          <div
+            className={clsx(styles.slide5, 'mobile-slide black-section m2-slide10')}
+            ref={slide5}
+          >
             <div className={clsx(styles.container, 'container')}>
               <div className={styles.text}>
                 <h3 className="h3">Крым сегодня</h3>
@@ -342,7 +323,10 @@ export function LocationSection() {
             </CustomScrollbar>
           </div>
 
-          <div className={clsx(styles.slide6, 'mobile-slide black-section')} ref={slide6}>
+          <div
+            className={clsx(styles.slide6, 'mobile-slide black-section m2-slide11')}
+            ref={slide6}
+          >
             <div className={styles.image}>
               <MyImage src={Img3} sizes="(max-width: 768px) 50vh" alt="" />
             </div>
@@ -358,7 +342,10 @@ export function LocationSection() {
             </div>
           </div>
 
-          <div className={clsx(styles.slide7, 'mobile-slide black-section')} ref={slide7}>
+          <div
+            className={clsx(styles.slide7, 'mobile-slide black-section m2-slide12')}
+            ref={slide7}
+          >
             <div className={styles.image}>
               <MyImage src={Img4} sizes="(max-width: 768px) 50vh" alt="" />
             </div>

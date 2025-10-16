@@ -1,6 +1,9 @@
 .content {
   width: 100%;
   overflow-x: auto;
+  overflow-y: hidden;
+  touch-action: pan-x;
+  -ms-touch-action: pan-x;
   @media (min-width: 1024px) {
     overflow: hidden;
   }

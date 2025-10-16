@@ -10,6 +10,7 @@ import DeminImg from '@/images/demin-plan-dark.jpg'
 import BeachImg from '@/images/beach.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
+const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -35,43 +36,29 @@ export function CitySection() {
   const subtitle = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const mm = gsap.matchMedia()
-    const animationHeight = () => window.innerHeight * animationHeightCount
-
-    // For pinning effect
-    ScrollTrigger.create({
-      trigger: content.current,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      pin: true,
-      pinSpacing: false,
-    })
-
-    // For animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: wrapper.current,
-        scrub: 0.4,
-        start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-      },
-    })
-
-    mm.add('(max-width: 1023px)', () => {
-      tl.to(
-        title.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.textStart]: { y: '12rem', opacity: 0 },
-            [steps.textEnd]: { y: 0, opacity: 1 },
-          },
-        },
-        0,
-      )
-    })
     mm.add('(min-width: 1024px)', () => {
+      const animationHeight = () => window.innerHeight * animationHeightCount
+
+      // For pinning effect
+      ScrollTrigger.create({
+        trigger: content.current,
+        start: 'top top',
+        end: 'max',
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+      })
+
+      // For animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: wrapper.current,
+          scrub: 0.4,
+          start: 'top top',
+          end: () => 'top+=' + animationHeight(),
+        },
+      })
+
       tl.to(
         title.current,
         {
@@ -85,43 +72,43 @@ export function CitySection() {
         },
         0,
       )
-    })
-    tl.to(
-      text.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.textStart]: { y: '12rem', opacity: 0 },
-          [steps.textEnd]: { y: 0, opacity: 1 },
+      tl.to(
+        text.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.textStart]: { y: '12rem', opacity: 0 },
+            [steps.textEnd]: { y: 0, opacity: 1 },
+          },
         },
-      },
-      0,
-    )
+        0,
+      )
 
-    tl.to(
-      side.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-100%' } },
-      },
-      0,
-    )
-    tl.to(
-      subtitle.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: { [steps.slide2Start]: { x: '-20rem' }, [steps.slide3End]: { x: 0 } },
-      },
-      0,
-    )
-    tl.to(
-      image.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-50%' } },
-      },
-      0,
-    )
+      tl.to(
+        side.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-100%' } },
+        },
+        0,
+      )
+      tl.to(
+        subtitle.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide2Start]: { x: '-20rem' }, [steps.slide3End]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        image.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-50%' } },
+        },
+        0,
+      )
+    })
   })
 
   return (
@@ -155,15 +142,15 @@ export function CitySection() {
           </div>
         </div>
 
-        <div className={styles.rep} ref={side}>
+        <div className={clsx(styles.rep, 'mobile-slide m2-slide2')} ref={side}>
           <div className={clsx(styles.repContainer, 'container')}>
             <h2 className="h2" ref={subtitle}>
               Начало новой истории
             </h2>
-            <div className={styles.beachImage}>
+            <div className={clsx(styles.beachImage, 'm2-slide2-img')}>
               <MyImage src={BeachImg} alt="" />
             </div>
-            <div className={styles.beachText}>
+            <div className={clsx(styles.beachText, 'm2-slide2-text')}>
               <h3 className="subtitle">Cosmos Smart Evpatoriya Hotel</h3>
               <p>
                 новый символ курортной Евпатории. Мы создали пространство, в котором каждый гость

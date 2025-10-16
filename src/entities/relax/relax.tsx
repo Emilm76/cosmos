@@ -24,6 +24,7 @@ import Img5 from '@/images/windserf.jpg'
 import Img6 from '@/images/kiting.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
+const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -87,7 +88,6 @@ export function RelaxSection() {
   const slide5Inner = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const mm = gsap.matchMedia()
     const animationHeight = () => window.innerHeight * animationHeightCount
     const scrollHeight = () => ((title.current?.offsetWidth || 0) - window.innerWidth) * -1
     const slide5SrollHeight = () =>
@@ -111,59 +111,6 @@ export function RelaxSection() {
         start: 'top top',
         end: () => 'top+=' + animationHeight(),
       },
-    })
-
-    mm.add('(max-width: 1023px)', () => {
-      tl.to(
-        title.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.slide3Start]: { x: 0, y: 0 },
-            [steps.slide3End]: { x: scrollHeight, y: () => window.innerHeight * -1 },
-          },
-        },
-        0,
-      )
-      tl.to(
-        seaImage.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.moreStart]: { scale: 1 },
-            [steps.slide3End]: { scale: 1.2 },
-          },
-        },
-        0,
-      )
-
-      tl.to(
-        slide2.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.slide3Start]: { y: '100%' },
-            [steps.slide3End]: { y: 0 },
-            [steps.slide4Start]: { x: 0 },
-            [steps.slide4End]: { x: '-100%' },
-          },
-        },
-        0,
-      )
-
-      tl.to(
-        slide3.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.slide4Start]: { x: '100%' },
-            [steps.slide4End]: { x: 0 },
-            [steps.slide5Start]: { x: 0 },
-            [steps.slide5End]: { x: '-100%' },
-          },
-        },
-        0,
-      )
     })
 
     mm.add('(min-width: 1024px)', () => {
@@ -254,9 +201,46 @@ export function RelaxSection() {
         },
         0,
       )
+
+      tl.to(
+        slide4.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide5Start]: { x: '100%' },
+            [steps.slide5End]: { x: 0 },
+            [steps.slide6Start]: { x: 0 },
+            [steps.slide6End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide5.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide6Start]: { x: '100%' },
+            [steps.slide6End]: { x: 0 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide5Inner.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide6ScrollStart]: { y: 0 },
+            [steps.slide6ScrollEnd]: { y: slide5SrollHeight },
+          },
+        },
+        0,
+      )
     })
 
-    mm.add('(max-width: 1599px)', () => {
+    mm.add('(min-width: 1024px) and (max-width: 1599px)', () => {
       tl.to(
         img1.current,
         {
@@ -326,43 +310,6 @@ export function RelaxSection() {
         0,
       )
     })
-
-    tl.to(
-      slide4.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide5Start]: { x: '100%' },
-          [steps.slide5End]: { x: 0 },
-          [steps.slide6Start]: { x: 0 },
-          [steps.slide6End]: { x: '-100%' },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      slide5.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide6Start]: { x: '100%' },
-          [steps.slide6End]: { x: 0 },
-        },
-      },
-      0,
-    )
-    tl.to(
-      slide5Inner.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide6ScrollStart]: { y: 0 },
-          [steps.slide6ScrollEnd]: { y: slide5SrollHeight },
-        },
-      },
-      0,
-    )
   })
 
   const slide = slides2[currentSlideIndex]
@@ -380,7 +327,10 @@ export function RelaxSection() {
             </h2>
           </div>
 
-          <div className={clsx(styles.slide2, 'white-section slide mobile-slide')} ref={slide2}>
+          <div
+            className={clsx(styles.slide2, 'white-section slide mobile-slide m3-slide2')}
+            ref={slide2}
+          >
             {isMobile && (
               <MobileSlider
                 slides={[
@@ -416,7 +366,10 @@ export function RelaxSection() {
             </div>
           </div>
 
-          <div className={clsx(styles.slide3, 'white-section slide mobile-slide ')} ref={slide3}>
+          <div
+            className={clsx(styles.slide3, 'white-section slide mobile-slide m3-slide3')}
+            ref={slide3}
+          >
             <div className={styles.bg} ref={slide3Bg}>
               <MyImage src={Sea2Img} alt="" />
               <div className={styles.shadow}></div>
@@ -439,28 +392,33 @@ export function RelaxSection() {
                 </>
               )}
               {isDesktop && (
-                <div className={styles.gastroGrid}>
-                  <div className={styles.li}>
-                    <div className={styles.img}>{slides2[0].img}</div>
-                    <p>{slides2[0].text}</p>
+                <>
+                  <div className={styles.gastroGrid}>
+                    <div className={styles.li}>
+                      <div className={styles.img}>{slides2[0].img}</div>
+                      <p>{slides2[0].text}</p>
+                    </div>
+                    <div className={styles.li}>
+                      <div className={styles.img}>{slides2[1].img}</div>
+                      <p>{slides2[1].text}</p>
+                    </div>
+                    <div className={styles.li}>
+                      <div className={styles.img}>{slides2[2].img}</div>
+                      <p>{slides2[2].text}</p>
+                    </div>
                   </div>
-                  <div className={styles.li}>
-                    <div className={styles.img}>{slides2[1].img}</div>
-                    <p>{slides2[1].text}</p>
+                  <div className={clsx(styles.text, 'container')}>
+                    <h2 className="h2">Гастрономия</h2>
                   </div>
-                  <div className={styles.li}>
-                    <div className={styles.img}>{slides2[2].img}</div>
-                    <p>{slides2[2].text}</p>
-                  </div>
-                </div>
+                </>
               )}
-              <div className={clsx(styles.text, 'container')}>
-                <h2 className="h2">Гастрономия</h2>
-              </div>
             </div>
           </div>
 
-          <div className={clsx(styles.slide4, 'black-section slide mobile-slide')} ref={slide4}>
+          <div
+            className={clsx(styles.slide4, 'black-section slide mobile-slide m3-slide4')}
+            ref={slide4}
+          >
             <div className={styles.image}>
               <MyImage src={MainImg} sizes="(max-width: 768px) 50vh" alt="" />
             </div>
@@ -476,8 +434,14 @@ export function RelaxSection() {
             </div>
           </div>
 
-          <div className={clsx(styles.slide5, 'black-section slide mobile-slide')} ref={slide5}>
-            <div className={clsx(styles.container, 'container')} ref={slide5Inner}>
+          <div
+            className={clsx(styles.slide5, 'black-section slide mobile-slide m3-slide5')}
+            ref={slide5}
+          >
+            <div
+              className={clsx(styles.container, 'container m3-slide5-container')}
+              ref={slide5Inner}
+            >
               <h2 className="h3">Активный отдых</h2>
               <div className={styles.cardsGrid}>
                 <div className={styles.card}>

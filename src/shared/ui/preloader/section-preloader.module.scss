@@ -28,3 +28,11 @@
     top: 0;
   }
 }
+
+.mobileWrapper {
+  position: fixed;
+  z-index: 90;
+  left: 0;
+  top: 0;
+  translate: none;
+}

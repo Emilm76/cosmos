@@ -15,6 +15,7 @@ import { useGSAP } from '@gsap/react'
 import { useMediaQuery } from 'react-responsive'
 
 gsap.registerPlugin(ScrollTrigger)
+const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -47,45 +48,29 @@ export function ObjectSection() {
   const hr = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const mm = gsap.matchMedia()
-    const animationHeight = () => window.innerHeight * animationHeightCount
-
-    // For pinning effect
-    ScrollTrigger.create({
-      trigger: content.current,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      pin: true,
-      pinSpacing: false,
-    })
-
-    // For animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
-        trigger: content.current,
-        scrub: 0.4,
-        start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-      },
-    })
-
-    mm.add('(max-width: 1023px)', () => {
-      // tl.to(
-      //   slide2.current,
-      //   {
-      //     ease: 'sine.inOut',
-      //     keyframes: {
-      //       5: { x: '100%' },
-      //       40: { x: 0 },
-      //       41: { x: 0 },
-      //       70: { x: '-100%' },
-      //     },
-      //   },
-      //   0,
-      // )
-    })
     mm.add('(min-width: 1024px)', () => {
+      const animationHeight = () => window.innerHeight * animationHeightCount
+
+      // For pinning effect
+      ScrollTrigger.create({
+        trigger: content.current,
+        start: 'top top',
+        end: 'max',
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+      })
+
+      // For animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: content.current,
+          scrub: 0.4,
+          start: 'top top',
+          end: () => 'top+=' + animationHeight(),
+        },
+      })
+
       tl.to(
         leftSide.current,
         {
@@ -123,51 +108,51 @@ export function ObjectSection() {
         },
         0,
       )
+
+      tl.to(
+        bg.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.imgOpacityStart]: { opacity: 0 },
+            [steps.imgOpacityEnd]: { opacity: 1 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { x: 0 },
+            [steps.slide2End]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2Start]: { x: '100%' },
+            [steps.slide2End]: { x: 0 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        subtitle.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.subtitle2Start]: { x: '-10rem' }, [steps.slide2End]: { x: 0 } },
+        },
+        0,
+      )
     })
-
-    tl.to(
-      bg.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.imgOpacityStart]: { opacity: 0 },
-          [steps.imgOpacityEnd]: { opacity: 1 },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      slide2.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide2Start]: { x: 0 },
-          [steps.slide2End]: { x: '-100%' },
-        },
-      },
-      0,
-    )
-    tl.to(
-      slide3.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          [steps.slide2Start]: { x: '100%' },
-          [steps.slide2End]: { x: 0 },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      subtitle.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: { [steps.subtitle2Start]: { x: '-10rem' }, [steps.slide2End]: { x: 0 } },
-      },
-      0,
-    )
   })
 
   return (
@@ -177,7 +162,7 @@ export function ObjectSection() {
     >
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
-          <div className={clsx(styles.slide1, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide1, 'slide mobile-slide m2-slide3')}>
             <div className={styles.imageWrapper}>
               <MyImage
                 className={styles.image}
@@ -194,10 +179,10 @@ export function ObjectSection() {
             </div>
           </div>
 
-          <div className={clsx(styles.slide2, 'slide mobile-slide')} ref={slide2}>
+          <div className={clsx(styles.slide2, 'slide mobile-slide m2-slide4')} ref={slide2}>
             {isMobile && (
               <MobileSlider
-                className={styles.slider}
+                className={clsx(styles.slider, 'm2-slide4-slider')}
                 slides={[
                   { content: <MyImage src={BeachImg} alt="" />, className: styles.sliderSlide },
                   { content: <MyImage src={RichManImg} alt="" />, className: styles.sliderSlide },
@@ -222,7 +207,7 @@ export function ObjectSection() {
               </>
             )}
 
-            <div className={clsx(styles.container2, 'container')} ref={rightSide}>
+            <div className={clsx(styles.container2, 'container m2-slide4-text')} ref={rightSide}>
               <h3 className="h3">Быть может, вам ближе джаз, а может — классика</h3>
               <p>
                 Может быть, вы цените изысканную кухню, и ваш любимый предмет интерьера — канделябр.
@@ -238,13 +223,13 @@ export function ObjectSection() {
             </div>
           </div>
 
-          <div className={clsx(styles.slide3, 'slide mobile-slide')} ref={slide3}>
+          <div className={clsx(styles.slide3, 'slide mobile-slide m2-slide5')} ref={slide3}>
             <div className={styles.hr} ref={hr}></div>
-            <div className={clsx(styles.container3, 'container')}>
+            <div className={clsx(styles.container3, 'container m2-slide5-container')}>
               <h2 className="h2" ref={subtitle}>
                 Сердце курортной Евпатории
               </h2>
-              <div className={styles.beachImage}>
+              <div className={clsx(styles.beachImage, 'm2-slide5-img')}>
                 <MyImage src={Beach2Img} alt="" />
               </div>
               <div className={styles.beachText}>
