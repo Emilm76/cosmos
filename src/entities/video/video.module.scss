@@ -2,6 +2,7 @@
   position: relative;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   @media (max-width: 1023px) {
     position: absolute;
     top: 0;
@@ -30,6 +31,7 @@
 
   .img {
     height: 100vh;
+    height: 100dvh;
   }
 }
 
@@ -66,6 +68,7 @@
   //justify-content: space-between;
   column-gap: var(--gap-x);
   height: 100vh;
+  height: 100dvh;
   width: 100vw;
   overflow: hidden;
   background-color: var(--color-bg);
@@ -104,6 +107,7 @@
   flex-direction: column;
   row-gap: var(--gap-y);
   height: 100vh;
+  height: 100dvh;
   width: 100%;
   @media (min-width: 1600px) {
     position: absolute;
@@ -149,6 +153,7 @@
   left: 0;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
   translate: 100% 0;
   color: var(--color-white);
   .img {

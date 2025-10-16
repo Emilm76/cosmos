@@ -7,6 +7,7 @@
   translate: 0 100%;
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
 
   &.open {
     transition-delay: 1s;
@@ -17,11 +18,13 @@
 .slide {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
 }
 
 .slideImg {
   width: 100vw;
   height: 100vh;
+  height: 100dvh;
 }
 
 .spinner {
