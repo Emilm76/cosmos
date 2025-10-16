@@ -32,3 +32,7 @@ export function MyImage(props: ImageProps) {
     </div>
   )
 }
+
+export function ImagePriority(props: ImageProps) {
+  return <Image {...props} loading="eager" priority />
+}

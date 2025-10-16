@@ -5,7 +5,7 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import clsx from 'clsx'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { MyImage } from '@/shared'
+import { ImagePriority, MyImage } from '@/shared'
 import DeminImg from '@/images/demin-plan-dark.jpg'
 import BeachImg from '@/images/beach.jpg'
 
@@ -121,7 +121,7 @@ export function CitySection() {
         <div className={styles.wrapper}>
           <div className={styles.imageWrapper}>
             <div className={styles.image} ref={image}>
-              <MyImage src={DeminImg} alt="" />
+              <ImagePriority src={DeminImg} alt="" />
             </div>
             <div className={styles.imageOverlay}>
               <div className={clsx(styles.imageText, 'container')}>

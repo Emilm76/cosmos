@@ -29,7 +29,7 @@ export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
     const wrapperItem = wrapper.current
     if (!wrapperItem || !lenis) return
 
-    lenis.scrollTo('main', { immediate: true, force: true })
+    lenis.scrollTo('main', { immediate: true, force: true, offset: 10 })
   }, [pathname, lenis])
 
   // добавляем IntersectionObserver
@@ -78,9 +78,18 @@ export function NextSectionLoaderDesktop({ nextUrl }: { nextUrl?: string }) {
   const lenis = useLenis()
   const wrapper = useRef<DivRef>(null)
   const wrapperInner = useRef<DivRef>(null)
+  const pathname = usePathname()
 
   const sectionLoading = useSectionLoaderStore((s) => s.loadingPage)
   const sectionLoadingStart = useSectionLoaderStore((s) => s.start)
+
+  // scroll to main
+  useEffect(() => {
+    const wrapperItem = wrapper.current
+    if (!wrapperItem || !lenis) return
+
+    lenis.scrollTo('main', { immediate: true, force: true, offset: 10 })
+  }, [pathname, lenis])
 
   // добавляем IntersectionObserver
   useEffect(() => {
@@ -209,6 +218,8 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
   useGSAP(() => {
     if (!lenis) return
 
+    lenis.scrollTo('main', { immediate: true, force: true, offset: 20 })
+
     const keyframes = {
       0: { position: 'fixed', y: 0 },
       99: { position: 'fixed', y: isLoadingPrev ? '100%' : '-100%' },
@@ -220,10 +231,15 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
       delay: 0.8,
       keyframes: keyframes,
       onEnd: () => {
-        lenis.start()
-        sectionLoadingEnd()
+        //ScrollTrigger.refresh()
       },
     })
+    setTimeout(() => {
+      lenis.start()
+      lenis.scrollTo('main', { immediate: true, force: true, offset: 20 })
+      //ScrollTrigger.refresh()
+      sectionLoadingEnd()
+    }, 1600)
   }, [pathname, lenis])
 
   const isPrevDirection = (url?.prev && !isSecondHalf) || !url?.next

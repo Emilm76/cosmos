@@ -1,6 +1,7 @@
 export { Header } from './ui/header/header'
 export { InterstroyLogo } from './ui/logo/logo'
 export { MyImage } from './ui/image/image'
+export { ImagePriority } from './ui/image/image'
 export { MobileSlider } from './ui/slider/mobile-slider'
 export { Slider } from './ui/slider/slider'
 export { CustomScrollbar } from './ui/scrollbar/custom-scrollbar'

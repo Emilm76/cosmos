@@ -1,5 +1,5 @@
 'use client'
-import { MobileSlider, MyImage } from '@/shared'
+import { ImagePriority, MobileSlider, MyImage } from '@/shared'
 import styles from './relax.module.scss'
 import clsx from 'clsx'
 import SeaImg from '@/images/sea-2.jpg'
@@ -320,7 +320,7 @@ export function RelaxSection() {
         <div className={styles.wrapper}>
           <div className={clsx(styles.slide1, 'slide mobile-slide')}>
             <div className={styles.seaImage} ref={seaImage}>
-              <MyImage src={SeaImg} sizes="(max-width: 768px) 100vh, 100vw" alt="" />
+              <ImagePriority src={SeaImg} sizes="(max-width: 768px) 100vh, 100vw" alt="" />
             </div>
             <h2 className={clsx(styles.title, 'h1')} ref={title}>
               <span>Когда каждый день — открытие</span>

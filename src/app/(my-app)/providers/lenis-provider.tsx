@@ -1,5 +1,6 @@
 'use client'
 import gsap from 'gsap'
+//import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import 'lenis/dist/lenis.css'
 import { LenisRef, ReactLenis } from 'lenis/react'
 import { ReactNode, useEffect, useRef } from 'react'
@@ -10,6 +11,7 @@ export function LenisScrollProvider({ children }: { children: ReactNode }) {
   const lenisRef = useRef<LenisRef>(null)
 
   useEffect(() => {
+    //gsap.registerPlugin(ScrollTrigger)
     if (!lenisRef) return
 
     function update(time: number) {
@@ -17,6 +19,9 @@ export function LenisScrollProvider({ children }: { children: ReactNode }) {
     }
 
     gsap.ticker.add(update)
+
+    // ensure ScrollTrigger has correct measurements once Lenis is active
+    //ScrollTrigger.refresh()
 
     return () => gsap.ticker.remove(update)
   }, [])
@@ -30,6 +35,7 @@ export function LenisScrollProvider({ children }: { children: ReactNode }) {
         autoRaf: false,
         prevent: (node) => node.classList.contains('lenis-prevent'),
       }}
+      //onScroll={ScrollTrigger.update}
       ref={lenisRef}
     >
       {children}
