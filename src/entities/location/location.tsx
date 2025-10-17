@@ -30,32 +30,25 @@ const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 12
+const animationHeightCount = 9
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
   start: 0,
-  slideMobileStart: 5,
-  scrollEnd: 25,
-  slide2Start: 16,
-  slide2End: 32,
-  slide3Start: 33,
-  slide3End: 48,
-  slide4Start: 49,
-  slide4End: 64,
-  slide5Start: 65,
-  slide5End: 80,
-  slide6Start: 81,
-  slide6End: 99,
+  slide2: 5,
+  slide3: 24,
+  slide4: 43,
+  slide5: 62,
+  slide6: 81,
+  end: 100,
 }
 
 export function LocationSection() {
   const [isMapLoad, setIsMapLoad] = useState(false)
 
   const content = useRef<DivRef>(null)
-  const scrollWrapper = useRef<DivRef>(null)
-  const scrollContent = useRef<DivRef>(null)
   const slide2 = useRef<DivRef>(null)
+  const scrollContent = useRef<DivRef>(null)
   const slide3 = useRef<DivRef>(null)
   const slide4 = useRef<DivRef>(null)
   const img1 = useRef<DivRef>(null)
@@ -70,8 +63,7 @@ export function LocationSection() {
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
       const scrollHeight = () =>
-        ((scrollWrapper.current?.scrollHeight || 0) - (scrollWrapper.current?.offsetHeight || 0)) *
-        -1
+        ((slide2.current?.scrollHeight || 0) - (slide2.current?.offsetHeight || 0)) * -1
       // const scrollHeightList = () =>
       //   ((list.current?.scrollHeight || 0) - (list.current?.offsetHeight || 0)) * -1
 
@@ -98,24 +90,34 @@ export function LocationSection() {
       tl.to(
         scrollContent.current,
         {
-          ease: 'none',
+          ease: 'sine.inOut',
           keyframes: {
             [steps.start]: { y: 0 },
-            [steps.scrollEnd]: { y: scrollHeight },
+            [steps.slide2]: { y: scrollHeight },
           },
         },
         0,
       )
 
       tl.to(
+        slide2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide2]: { x: 0 },
+            [steps.slide3]: { x: '-100%' },
+          },
+        },
+        0,
+      )
+      tl.to(
         slide3.current,
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { x: '100%' },
-            [steps.slide2End]: { x: 0 },
-            [steps.slide3Start]: { x: 0 },
-            [steps.slide3End]: { x: '-100%' },
+            [steps.slide2]: { x: '100%' },
+            [steps.slide3]: { x: 0 },
+            [steps.slide4]: { x: '-120vw' },
           },
         },
         0,
@@ -125,10 +127,9 @@ export function LocationSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide3Start]: { x: '100%' },
-            [steps.slide3End]: { x: 0 },
-            [steps.slide4Start]: { x: 0 },
-            [steps.slide4End]: { x: '-100%' },
+            [steps.slide3]: { x: '100vw' },
+            [steps.slide4]: { x: '-20vw' },
+            [steps.slide5]: { x: '-160vw' },
           },
         },
         0,
@@ -139,8 +140,8 @@ export function LocationSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide3Start]: { x: '-7rem' },
-            [steps.slide3End]: { x: 0 },
+            [steps.slide3]: { x: '-7rem' },
+            [steps.slide4]: { x: 0 },
           },
         },
         0,
@@ -150,8 +151,8 @@ export function LocationSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide3Start]: { x: '-5rem' },
-            [steps.slide3End]: { x: 0 },
+            [steps.slide3]: { x: '-5rem' },
+            [steps.slide4]: { x: 0 },
           },
         },
         0,
@@ -162,10 +163,9 @@ export function LocationSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide4Start]: { x: '100%' },
-            [steps.slide4End]: { x: 0 },
-            [steps.slide5Start]: { x: 0 },
-            [steps.slide5End]: { x: '-100%' },
+            [steps.slide4]: { x: '120vw' },
+            [steps.slide5]: { x: '-20vw' },
+            [steps.slide6]: { x: '-160vw' },
           },
         },
         0,
@@ -176,10 +176,9 @@ export function LocationSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide5Start]: { x: '100%' },
-            [steps.slide5End]: { x: 0 },
-            [steps.slide6Start]: { x: 0 },
-            [steps.slide6End]: { x: '-100%' },
+            [steps.slide5]: { x: '119.2vw' },
+            [steps.slide6]: { x: '-20.2vw' },
+            [steps.end]: { x: '-160vw' },
           },
         },
         0,
@@ -190,8 +189,8 @@ export function LocationSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide6Start]: { x: '100%' },
-            [steps.slide6End]: { x: 0 },
+            [steps.slide6]: { x: '119.2vw' },
+            [steps.end]: { x: '-20.2vw' },
           },
         },
         0,
@@ -203,7 +202,7 @@ export function LocationSection() {
     <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
       <div className={styles.content} ref={content}>
         <div className={clsx(styles.wrapper, 'black-section')}>
-          <div className={styles.wrapperOuter1} ref={scrollWrapper}>
+          <div className={styles.wrapperOuter1} ref={slide2}>
             <div className={styles.wrapperInner1} ref={scrollContent}>
               <div className={clsx(styles.slide1, 'mobile-slide m2-slide6')}>
                 <div className={clsx(styles.container, 'container')}>
@@ -217,7 +216,7 @@ export function LocationSection() {
                   </div>
                 </div>
               </div>
-              <div className={clsx(styles.slide2, 'mobile-slide m2-slide7')} ref={slide2}>
+              <div className={clsx(styles.slide2, 'mobile-slide m2-slide7')}>
                 <div className={styles.slideInner}>
                   <div className={clsx(styles.image, 'm2-slide7-img')}>
                     <MyImage src={RestikImg} width={300} height={440} alt="" />
@@ -303,42 +302,46 @@ export function LocationSection() {
             className={clsx(styles.slide5, 'mobile-slide black-section m2-slide10')}
             ref={slide5}
           >
-            <div className={clsx(styles.container, 'container')}>
-              <div className={styles.text}>
-                <h3 className="h3">Крым сегодня</h3>
-                <p className="subtitle">
-                  один из лидеров России по темпам инвестиционной активности. Более 2 трлн ₽
-                  инвестиций с 2014 года, половина из которых — частные вложения. Рост турпотока
-                  до 10 млн человек в год к 2030 году формирует устойчивый спрос на качественные
-                  объекты размещения.
-                </p>
+            <div className={styles.slide5Inner}>
+              <div className={clsx(styles.container, 'container')}>
+                <div className={styles.text}>
+                  <h3 className="h3">Крым сегодня</h3>
+                  <p className="subtitle">
+                    один из лидеров России по темпам инвестиционной активности. Более 2 трлн ₽
+                    инвестиций с 2014 года, половина из которых — частные вложения. Рост турпотока
+                    до 10 млн человек в год к 2030 году формирует устойчивый спрос на качественные
+                    объекты размещения.
+                  </p>
+                </div>
               </div>
+              <CustomScrollbar
+                contentClassName={styles.chartWrapper}
+                scrollbarClassName={styles.scrollbar2}
+                isReady={true}
+              >
+                <ChartIcon className={styles.chart} />
+              </CustomScrollbar>
             </div>
-            <CustomScrollbar
-              contentClassName={styles.chartWrapper}
-              scrollbarClassName={styles.scrollbar2}
-              isReady={true}
-            >
-              <ChartIcon className={styles.chart} />
-            </CustomScrollbar>
           </div>
 
           <div
             className={clsx(styles.slide6, 'mobile-slide black-section m2-slide11')}
             ref={slide6}
           >
-            <div className={styles.image}>
-              <MyImage src={Img3} sizes="(max-width: 768px) 50vh" alt="" />
-            </div>
-            <div className={clsx(styles.container, 'container')}>
-              <h3 className="h3">Место, где ваш капитал работает на вас</h3>
-              <p>
-                Высокий турпоток, развитая инфраструктура и уникальное расположение Cosmos Smart
-                Evpatoriya Hotel на первой линии делают этот проект одним из самых перспективных
-                для вложений. Управление объектом берёт на себя федеральный оператор с опытом более
-                20 лет, обеспечивая стабильную загрузку, высокий уровень сервиса и прогнозируемую
-                доходность.
-              </p>
+            <div className={styles.slide6Inner}>
+              <div className={styles.image}>
+                <MyImage src={Img3} sizes="(max-width: 768px) 50vh" alt="" />
+              </div>
+              <div className={clsx(styles.container, 'container')}>
+                <h3 className="h3">Место, где ваш капитал работает на вас</h3>
+                <p>
+                  Высокий турпоток, развитая инфраструктура и уникальное расположение Cosmos Smart
+                  Evpatoriya Hotel на первой линии делают этот проект одним из самых перспективных
+                  для вложений. Управление объектом берёт на себя федеральный оператор с опытом
+                  более 20 лет, обеспечивая стабильную загрузку, высокий уровень сервиса
+                  и прогнозируемую доходность.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -346,50 +349,52 @@ export function LocationSection() {
             className={clsx(styles.slide7, 'mobile-slide black-section m2-slide12')}
             ref={slide7}
           >
-            <div className={styles.image}>
-              <MyImage src={Img4} sizes="(max-width: 768px) 50vh" alt="" />
-            </div>
-            <div className={styles.conteinerWrapper}>
-              <div className={clsx(styles.container, 'container')}>
-                <h3 className="h3">Ваш доход — без забот</h3>
-                <p>
-                  Вы становитесь владельцем готового номера, а вся операционная деятельность —
-                  от маркетинга и бронирования до обслуживания и безопасности — находится в руках
-                  профессиональной команды Cosmos Hotel Group. Вы отдыхаете, мы — работаем на вашу
-                  доходность.
-                </p>
+            <div className={styles.slide7Inner}>
+              <div className={styles.image}>
+                <MyImage src={Img4} sizes="(max-width: 768px) 50vh" alt="" />
               </div>
-              <div className={clsx(styles.container2, 'container')}>
-                <ul role="list">
-                  <li>
-                    <ClassIcon className={styles.icon} />
-                    <span>Управление загрузкой отеля</span>
-                  </li>
-                  <li>
-                    <PeopleIcon className={styles.icon} />
-                    <span>Подбор и обучение персонала</span>
-                  </li>
-                  <li>
-                    <BedIcon className={styles.icon} />
-                    <span>Управление номерным фондом</span>
-                  </li>
-                  <li>
-                    <SafetyIcon className={styles.icon} />
-                    <span>Обеспечение безопасности</span>
-                  </li>
-                  <li>
-                    <ServiceIcon className={styles.icon} />
-                    <span>Контроль качества сервиса</span>
-                  </li>
-                  <li>
-                    <SpaIcon className={styles.icon} />
-                    <span>Содержание инфраструктуры: бассейн, SPA, пляж</span>
-                  </li>
-                  <li>
-                    <EatIcon className={styles.icon} />
-                    <span>Управление ресторанной службой</span>
-                  </li>
-                </ul>
+              <div className={styles.conteinerWrapper}>
+                <div className={clsx(styles.container, 'container')}>
+                  <h3 className="h3">Ваш доход — без забот</h3>
+                  <p>
+                    Вы становитесь владельцем готового номера, а вся операционная деятельность —
+                    от маркетинга и бронирования до обслуживания и безопасности — находится в руках
+                    профессиональной команды Cosmos Hotel Group. Вы отдыхаете, мы — работаем на вашу
+                    доходность.
+                  </p>
+                </div>
+                <div className={clsx(styles.container2, 'container')}>
+                  <ul role="list">
+                    <li>
+                      <ClassIcon className={styles.icon} />
+                      <span>Управление загрузкой отеля</span>
+                    </li>
+                    <li>
+                      <PeopleIcon className={styles.icon} />
+                      <span>Подбор и обучение персонала</span>
+                    </li>
+                    <li>
+                      <BedIcon className={styles.icon} />
+                      <span>Управление номерным фондом</span>
+                    </li>
+                    <li>
+                      <SafetyIcon className={styles.icon} />
+                      <span>Обеспечение безопасности</span>
+                    </li>
+                    <li>
+                      <ServiceIcon className={styles.icon} />
+                      <span>Контроль качества сервиса</span>
+                    </li>
+                    <li>
+                      <SpaIcon className={styles.icon} />
+                      <span>Содержание инфраструктуры: бассейн, SPA, пляж</span>
+                    </li>
+                    <li>
+                      <EatIcon className={styles.icon} />
+                      <span>Управление ресторанной службой</span>
+                    </li>
+                  </ul>
+                </div>
               </div>
             </div>
           </div>

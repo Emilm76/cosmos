@@ -16,8 +16,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: rem(768px);
-  height: rem(768px);
+  width: rem(1000px);
+  height: rem(1000px);
 
   @media (min-width: 768px) {
     width: rem(1024px);

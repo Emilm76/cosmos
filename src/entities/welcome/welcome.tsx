@@ -12,7 +12,7 @@ const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 5
+const animationHeightCount = 2
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function WelcomeSection() {

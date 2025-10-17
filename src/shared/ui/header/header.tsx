@@ -1,6 +1,6 @@
 'use client'
 import { useLenis } from 'lenis/react'
-import { useEffect, useState } from 'react'
+import { useCallback, useEffect, useState } from 'react'
 import styles from './header.module.scss'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -9,16 +9,26 @@ import { useHeader } from '@/context/header-context'
 import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
 import { useMediaQuery } from 'react-responsive'
 import { useModalStore } from '@/store'
+import Link from 'next/link'
+import { usePathname } from 'next/navigation'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
   const [isLoadImg, setIsLoadImg] = useState(false)
   const [isGalleryOpen, setIsGalleryOpen] = useState(false)
   const [isDocumentsOpen, setIsDocumentsOpen] = useState(false)
+  const [showLogo, setShowLogo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
-  const lenis = useLenis()
+  const pathname = usePathname()
   const openModal = useModalStore((s) => s.open)
   const { transparent } = useHeader()
+  const lenis = useLenis(
+    (lenis) => {
+      if (pathname !== '/') return
+      setShowLogo(lenis.animatedScroll > 750)
+    },
+    [pathname],
+  )
 
   useEffect(() => {
     if (!lenis) return
@@ -52,9 +62,20 @@ export function Header() {
   }
 
   function handleBackButtonClick() {
-    if (isGalleryOpen) setIsGalleryOpen(false)
-    if (isDocumentsOpen) setIsDocumentsOpen(false)
+    setIsGalleryOpen(false)
+    setIsDocumentsOpen(false)
   }
+  function handleLogoClick() {
+    setIsGalleryOpen(false)
+    setIsDocumentsOpen(false)
+    setIsBurgerOpen(false)
+    if (pathname === '/') {
+    }
+  }
+
+  useEffect(() => {
+    setShowLogo(pathname !== '/')
+  }, [pathname, setShowLogo])
 
   const isCurtainOpen = isGalleryOpen || isDocumentsOpen
 
@@ -103,7 +124,13 @@ export function Header() {
           </div>
         </div>
 
-        <LogoIcon className={clsx(styles.logo, isCurtainOpen && styles.show)} />
+        <Link
+          href="/"
+          className={clsx(styles.logo, (showLogo || isCurtainOpen) && styles.show)}
+          onClick={handleLogoClick}
+        >
+          <LogoIcon />
+        </Link>
       </header>
 
       <div className={clsx(styles.burger, isBurgerOpen && styles.open)}>

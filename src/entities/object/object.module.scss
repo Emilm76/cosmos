@@ -225,6 +225,10 @@
   width: 100%;
   background-color: var(--color-bg);
   // overflow: hidden;
+
+  @media (min-width: 1024px) {
+    width: 140vw;
+  }
 }
 
 .hr {

@@ -14,16 +14,12 @@ const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 3
+const animationHeightCount = 1.3
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
-  textStart: 0,
-  textEnd: 20,
-  slide2Start: 21,
-  slide2End: 60,
-  slide3Start: 61,
-  slide3End: 99,
+  slide2Start: 0,
+  slide2End: 99,
 }
 
 export function CitySection() {
@@ -59,13 +55,30 @@ export function CitySection() {
         },
       })
 
+      gsap.to(title.current, {
+        ease: 'sine.inOut',
+        duration: 2,
+        delay: 1.3,
+        keyframes: {
+          0: { y: '12rem', opacity: 0 },
+          100: { y: 0, opacity: 1 },
+        },
+      })
+      gsap.to(text.current, {
+        ease: 'sine.inOut',
+        duration: 2,
+        delay: 1.3,
+        keyframes: {
+          0: { y: '12rem', opacity: 0 },
+          100: { y: 0, opacity: 1 },
+        },
+      })
+
       tl.to(
         title.current,
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.textStart]: { y: '12rem', opacity: 0 },
-            [steps.textEnd]: { y: 0, opacity: 1 },
             [steps.slide2Start]: { y: 0, opacity: 1 },
             [steps.slide2End]: { y: 0, opacity: 0 },
           },
@@ -73,22 +86,10 @@ export function CitySection() {
         0,
       )
       tl.to(
-        text.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.textStart]: { y: '12rem', opacity: 0 },
-            [steps.textEnd]: { y: 0, opacity: 1 },
-          },
-        },
-        0,
-      )
-
-      tl.to(
         side.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-100%' } },
+          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide2End]: { x: '-100%' } },
         },
         0,
       )
@@ -96,7 +97,7 @@ export function CitySection() {
         subtitle.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.slide2Start]: { x: '-20rem' }, [steps.slide3End]: { x: 0 } },
+          keyframes: { [steps.slide2Start]: { x: '-20rem' }, [steps.slide2End]: { x: 0 } },
         },
         0,
       )
@@ -104,7 +105,7 @@ export function CitySection() {
         image.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide3End]: { x: '-50%' } },
+          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide2End]: { x: '-50%' } },
         },
         0,
       )

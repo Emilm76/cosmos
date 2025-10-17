@@ -23,9 +23,18 @@
   height: 100dvh;
   width: 100vw;
   @media (min-width: 1024px) {
-    display: flex;
-    flex-wrap: nowrap;
-    width: auto;
+    overflow: hidden;
+  }
+}
+
+.slide {
+  + .slide {
+    @media (min-width: 1024px) {
+      position: absolute;
+      top: 0;
+      left: 100%;
+      translate: none;
+    }
   }
 }
 

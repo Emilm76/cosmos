@@ -28,7 +28,7 @@ const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 16
+const animationHeightCount = 9
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const slides2 = [
@@ -47,23 +47,16 @@ const slides2 = [
 ]
 
 const steps = {
-  moreStart: 0,
-  moreEnd: 10,
-  slide2Start: 11,
-  slide2RoundStart: 16,
-  slide2End: 20,
-  slide3Start: 21,
-  slide3End: 30,
-  slide4Start: 31,
-  slide4End: 40,
-  slide4GalleryStart: 40, // = slide4End
-  slide4GalleryEnd: 50,
-  slide5Start: 51,
-  slide5End: 60,
-  slide6Start: 61,
-  slide6End: 70,
-  slide6ScrollStart: 71,
-  slide6ScrollEnd: 99,
+  start: 0,
+  slide2: 5,
+  slide2Round: 10, //
+  slide3: 18,
+  slide4: 33,
+  slide4Gallery: 47, //
+  slide5: 57,
+  slide6: 72,
+  slide6Scroll: 87,
+  end: 100,
 }
 
 export function RelaxSection() {
@@ -86,12 +79,13 @@ export function RelaxSection() {
   const slide4 = useRef<DivRef>(null)
   const slide5 = useRef<DivRef>(null)
   const slide5Inner = useRef<DivRef>(null)
+  const slide5Grid = useRef<DivRef>(null)
 
   useGSAP(() => {
     const animationHeight = () => window.innerHeight * animationHeightCount
-    const scrollHeight = () => ((title.current?.offsetWidth || 0) - window.innerWidth) * -1
+    const offsetTitle = () => ((title.current?.offsetWidth || 0) - window.innerWidth) * -1
     const slide5SrollHeight = () =>
-      ((slide5Inner.current?.scrollHeight || 0) - (slide5.current?.offsetHeight || 0)) * -1
+      ((slide5Grid.current?.offsetHeight || 0) - (slide5Inner.current?.offsetHeight || 0)) * -1
 
     // For pinning effect
     ScrollTrigger.create({
@@ -119,8 +113,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.moreStart]: { x: 0, y: 0 },
-            [steps.moreEnd]: { x: scrollHeight, y: () => window.innerHeight * -1 },
+            [steps.start]: { x: 0, y: 0 },
+            [steps.slide2]: { x: offsetTitle, y: () => window.innerHeight * -1 },
           },
         },
         0,
@@ -130,8 +124,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.moreStart]: { scale: 1 },
-            [steps.moreEnd]: { scale: 1.2 },
+            [steps.start]: { scale: 1 },
+            [steps.slide2]: { scale: 1.2 },
           },
         },
         0,
@@ -142,12 +136,11 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.moreStart]: { y: '100%' },
-            [steps.moreEnd]: { y: 0 },
-            [steps.slide3Start]: { x: 0 },
-            [steps.slide3End]: { x: '-130vw' },
-            [steps.slide4Start]: { x: '-130vw' },
-            [steps.slide4End]: { x: '-230vw' },
+            [steps.start]: { y: '100%' },
+            [steps.slide2]: { y: 0 },
+            [steps.slide3]: { x: 0 },
+            [steps.slide4]: { x: '-140vw' },
+            [steps.slide4Gallery]: { x: '-240vw' },
           },
         },
         0,
@@ -158,8 +151,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2RoundStart]: { scale: 0 },
-            [steps.slide2End]: { scale: 1 },
+            [steps.slide2Round]: { scale: 0 },
+            [steps.slide3]: { scale: 1 },
           },
         },
         0,
@@ -170,8 +163,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide4Start]: { width: '305px', height: '360px' },
-            [steps.slide4End]: { width: '100vw', height: '100vh' },
+            [steps.slide4]: { width: '305px', height: '360px' },
+            [steps.slide4Gallery]: { width: '100.2vw', height: '100vh' },
           },
         },
         0,
@@ -182,10 +175,10 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide4Start]: { x: '100%' },
-            [steps.slide4End]: { x: 0 },
-            [steps.slide5Start]: { x: 0 },
-            [steps.slide5End]: { x: '-100%' },
+            [steps.slide4]: { x: '100vw' },
+            [steps.slide4Gallery]: { x: '-0.2vw' },
+            [steps.slide5]: { x: '-0.2vw' },
+            [steps.slide6]: { x: '-120.2vw' },
           },
         },
         0,
@@ -195,8 +188,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide4GalleryStart]: { x: 0 },
-            [steps.slide4GalleryEnd]: { x: '-75vw' },
+            [steps.slide4Gallery]: { x: 0 },
+            [steps.slide5]: { x: '-75vw' },
           },
         },
         0,
@@ -207,10 +200,9 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide5Start]: { x: '100%' },
-            [steps.slide5End]: { x: 0 },
-            [steps.slide6Start]: { x: 0 },
-            [steps.slide6End]: { x: '-100%' },
+            [steps.slide5]: { x: '100vw' },
+            [steps.slide6]: { x: '-20vw' },
+            [steps.slide6Scroll]: { x: '-160vw' },
           },
         },
         0,
@@ -221,19 +213,19 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide6Start]: { x: '100%' },
-            [steps.slide6End]: { x: 0 },
+            [steps.slide6]: { x: '119.8vw' },
+            [steps.slide6Scroll]: { x: '-20.2vw' },
           },
         },
         0,
       )
       tl.to(
-        slide5Inner.current,
+        slide5Grid.current,
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide6ScrollStart]: { y: 0 },
-            [steps.slide6ScrollEnd]: { y: slide5SrollHeight },
+            [steps.slide6Scroll]: { y: 0 },
+            [steps.end]: { y: slide5SrollHeight },
           },
         },
         0,
@@ -246,8 +238,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { y: '-100%', height: 350, width: 215 },
-            [steps.slide2End]: { y: '-50%', height: 360, width: 260 },
+            [steps.slide2]: { y: '-100%', height: 350, width: 215 },
+            [steps.slide3]: { y: '-50%', height: 360, width: 260 },
           },
         },
         0,
@@ -257,8 +249,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { height: '100%', width: 430 },
-            [steps.slide2End]: { height: 360, width: 340 },
+            [steps.slide2]: { height: '100%', width: 430 },
+            [steps.slide3]: { height: 360, width: 340 },
           },
         },
         0,
@@ -268,8 +260,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { y: '100%', height: 350, width: 215 },
-            [steps.slide2End]: { y: '50%', height: 360, width: 260 },
+            [steps.slide2]: { y: '100%', height: 350, width: 215 },
+            [steps.slide3]: { y: '50%', height: 360, width: 260 },
           },
         },
         0,
@@ -281,8 +273,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { y: '-100%', height: 440, width: 320 },
-            [steps.slide2End]: { y: '-50%', height: 440, width: 320 },
+            [steps.slide2]: { y: '-100%', height: 440, width: 320 },
+            [steps.slide3]: { y: '-50%', height: 440, width: 320 },
           },
         },
         0,
@@ -292,8 +284,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { height: '100%', width: '36.5%' },
-            [steps.slide2End]: { height: 440, width: 460 },
+            [steps.slide2]: { height: '100%', width: '36.5%' },
+            [steps.slide3]: { height: 440, width: 460 },
           },
         },
         0,
@@ -303,8 +295,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { y: '100%', height: 440, width: 320 },
-            [steps.slide2End]: { y: '50%', height: 440, width: 320 },
+            [steps.slide2]: { y: '100%', height: 440, width: 320 },
+            [steps.slide3]: { y: '50%', height: 440, width: 320 },
           },
         },
         0,
@@ -354,15 +346,17 @@ export function RelaxSection() {
                 </div>
               </>
             )}
-            <div className={clsx(styles.text, 'container')}>
-              <h2 className="h2">
-                Природа <br />
-                и здоровье
-              </h2>
-              <p>
-                Природа Евпатории представлена степным ландшафтом, Чёрным морем и целебными
-                лиманами, такими как Мойнакское и Сасык-Сиваш, богатыми лечебной грязью и рапой.
-              </p>
+            <div className={styles.textWrapper}>
+              <div className={clsx(styles.text, 'container')}>
+                <h2 className="h2">
+                  Природа <br />
+                  и здоровье
+                </h2>
+                <p>
+                  Природа Евпатории представлена степным ландшафтом, Чёрным морем и целебными
+                  лиманами, такими как Мойнакское и Сасык-Сиваш, богатыми лечебной грязью и рапой.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -419,18 +413,20 @@ export function RelaxSection() {
             className={clsx(styles.slide4, 'black-section slide mobile-slide m3-slide4')}
             ref={slide4}
           >
-            <div className={styles.image}>
-              <MyImage src={MainImg} sizes="(max-width: 768px) 50vh" alt="" />
-            </div>
-            <div className={clsx(styles.container, 'container')}>
-              <h2 className="h3">
-                Культура <br />и архитектура
-              </h2>
-              <p>
-                Евпатория — город с историей более 2500 лет, сохранивший уникальные памятники,
-                старинные улочки и атмосферу разных эпох. С 1914 года символом города по праву
-                считается легендарный трамвай желаний.
-              </p>
+            <div className={styles.slide4Inner}>
+              <div className={styles.image}>
+                <MyImage src={MainImg} sizes="(max-width: 768px) 50vh" alt="" />
+              </div>
+              <div className={clsx(styles.container, 'container')}>
+                <h2 className="h3">
+                  Культура <br />и архитектура
+                </h2>
+                <p>
+                  Евпатория — город с историей более 2500 лет, сохранивший уникальные памятники,
+                  старинные улочки и атмосферу разных эпох. С 1914 года символом города по праву
+                  считается легендарный трамвай желаний.
+                </p>
+              </div>
             </div>
           </div>
 
@@ -442,54 +438,56 @@ export function RelaxSection() {
               className={clsx(styles.container, 'container m3-slide5-container')}
               ref={slide5Inner}
             >
-              <h2 className="h3">Активный отдых</h2>
-              <div className={styles.cardsGrid}>
-                <div className={styles.card}>
-                  <div className={styles.cardInner}>
-                    <div className={styles.image}>
-                      <MyImage src={Img1} alt="" />
+              <div className={styles.grid}>
+                <h2 className="h3">Активный отдых</h2>
+                <div className={styles.cardsGrid} ref={slide5Grid}>
+                  <div className={styles.card}>
+                    <div className={styles.cardInner}>
+                      <div className={styles.image}>
+                        <MyImage src={Img1} alt="" />
+                      </div>
+                      <h3 className="subtitle">Яхтинг</h3>
                     </div>
-                    <h3 className="subtitle">Яхтинг</h3>
                   </div>
-                </div>
-                <div className={styles.card}>
-                  <div className={styles.cardInner}>
-                    <div className={styles.image}>
-                      <MyImage src={Img2} alt="" />
+                  <div className={styles.card}>
+                    <div className={styles.cardInner}>
+                      <div className={styles.image}>
+                        <MyImage src={Img2} alt="" />
+                      </div>
+                      <h3 className="subtitle">Дайвинг</h3>
                     </div>
-                    <h3 className="subtitle">Дайвинг</h3>
                   </div>
-                </div>
-                <div className={styles.card}>
-                  <div className={styles.cardInner}>
-                    <div className={styles.image}>
-                      <MyImage src={Img3} alt="" />
+                  <div className={styles.card}>
+                    <div className={styles.cardInner}>
+                      <div className={styles.image}>
+                        <MyImage src={Img3} alt="" />
+                      </div>
+                      <h3 className="subtitle">Морская рыбалка</h3>
                     </div>
-                    <h3 className="subtitle">Морская рыбалка</h3>
                   </div>
-                </div>
-                <div className={styles.card}>
-                  <div className={styles.cardInner}>
-                    <div className={styles.image}>
-                      <MyImage src={Img4} alt="" />
+                  <div className={styles.card}>
+                    <div className={styles.cardInner}>
+                      <div className={styles.image}>
+                        <MyImage src={Img4} alt="" />
+                      </div>
+                      <h3 className="subtitle">Сапборды</h3>
                     </div>
-                    <h3 className="subtitle">Сапборды</h3>
                   </div>
-                </div>
-                <div className={styles.card}>
-                  <div className={styles.cardInner}>
-                    <div className={styles.image}>
-                      <MyImage src={Img5} alt="" />
+                  <div className={styles.card}>
+                    <div className={styles.cardInner}>
+                      <div className={styles.image}>
+                        <MyImage src={Img5} alt="" />
+                      </div>
+                      <h3 className="subtitle">Виндсёрфинг</h3>
                     </div>
-                    <h3 className="subtitle">Виндсёрфинг</h3>
                   </div>
-                </div>
-                <div className={styles.card}>
-                  <div className={styles.cardInner}>
-                    <div className={styles.image}>
-                      <MyImage src={Img6} alt="" />
+                  <div className={styles.card}>
+                    <div className={styles.cardInner}>
+                      <div className={styles.image}>
+                        <MyImage src={Img6} alt="" />
+                      </div>
+                      <h3 className="subtitle">Кайтинг</h3>
                     </div>
-                    <h3 className="subtitle">Кайтинг</h3>
                   </div>
                 </div>
               </div>

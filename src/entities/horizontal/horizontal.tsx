@@ -18,17 +18,22 @@ const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 12
+const animationHeightCount = 5
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function HorizontalSection() {
   const content = useRef<DivRef>(null)
   const wrapper = useRef<DivRef>(null)
+  const slide1 = useRef<DivRef>(null)
+  const slide2 = useRef<DivRef>(null)
+  const slide3 = useRef<DivRef>(null)
+  const slide4 = useRef<DivRef>(null)
+  const slide5 = useRef<DivRef>(null)
+  const slide6 = useRef<DivRef>(null)
 
   useGSAP(() => {
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
-      const animationWidth = () => ((wrapper.current?.offsetWidth || 0) - window.innerWidth) * -1
 
       // For pinning effect
       ScrollTrigger.create({
@@ -43,7 +48,7 @@ export function HorizontalSection() {
       // For animation
       const tl = gsap.timeline({
         scrollTrigger: {
-          trigger: wrapper.current,
+          trigger: content.current,
           scrub: 0.4,
           start: 'top top',
           end: () => 'top+=' + animationHeight(),
@@ -51,12 +56,71 @@ export function HorizontalSection() {
       })
 
       tl.to(
-        wrapper.current,
+        slide1.current,
         {
           ease: 'sine.inOut',
           keyframes: {
             0: { x: 0 },
-            99: { x: animationWidth },
+            20: { x: '-100%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            0: { x: 0 },
+            20: { x: '-100%' },
+            40: { x: '-200%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            20: { x: 0 },
+            40: { x: '-100%' },
+            60: { x: '-200%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide4.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            40: { x: 0 },
+            60: { x: '-100%' },
+            80: { x: '-200%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide5.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            60: { x: 0 },
+            80: { x: '-100%' },
+            100: { x: '-200%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide6.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            80: { x: 0 },
+            100: { x: '-100%' },
           },
         },
         0,
@@ -68,7 +132,7 @@ export function HorizontalSection() {
     <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper} ref={wrapper}>
-          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide6')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide6')} ref={slide1}>
             <div className={styles.image}>
               <MyImage src={Img1} alt="" />
             </div>
@@ -86,7 +150,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide7')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide7')} ref={slide2}>
             <div className={styles.image}>
               <MyImage src={Img2} alt="" />
             </div>
@@ -104,7 +168,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide8')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide8')} ref={slide3}>
             <div className={styles.image}>
               <MyImage src={Img3} alt="" />
             </div>
@@ -121,7 +185,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide9')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide9')} ref={slide4}>
             <div className={styles.image}>
               <MyImage src={Img4} alt="" />
             </div>
@@ -138,7 +202,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide10')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide10')} ref={slide5}>
             <div className={styles.image}>
               <MyImage src={Img5} alt="" />
             </div>
@@ -152,7 +216,7 @@ export function HorizontalSection() {
               </div>
             </div>
           </div>
-          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide11')}>
+          <div className={clsx(styles.slide, 'slide mobile-slide m3-slide11')} ref={slide6}>
             <div className={styles.image}>
               <MyImage src={Img6} alt="" />
             </div>

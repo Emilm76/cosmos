@@ -19,18 +19,18 @@ const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 6
+const animationHeightCount = 3
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
   sideBarsStart: 0,
   imgOpacityStart: 10,
-  imgOpacityEnd: 25,
-  sideBarsEnd: 30,
-  sideBarsBackStart: 31,
-  sideBarsBackEnd: 65,
-  slide2Start: 66,
-  subtitle2Start: 70,
+  imgOpacityEnd: 18,
+  sideBarsEnd: 20,
+  sideBarsBackStart: 21,
+  sideBarsBackEnd: 40,
+  slide2Start: 41,
+  subtitle2Start: 50,
   slide2End: 99,
 }
 
@@ -127,7 +127,7 @@ export function ObjectSection() {
           ease: 'sine.inOut',
           keyframes: {
             [steps.slide2Start]: { x: 0 },
-            [steps.slide2End]: { x: '-100%' },
+            [steps.slide2End]: { x: '-140vw' },
           },
         },
         0,
@@ -137,8 +137,8 @@ export function ObjectSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide2Start]: { x: '100%' },
-            [steps.slide2End]: { x: 0 },
+            [steps.slide2Start]: { x: '100vw' },
+            [steps.slide2End]: { x: '-40vw' },
           },
         },
         0,

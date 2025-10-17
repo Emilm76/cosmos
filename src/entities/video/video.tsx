@@ -19,7 +19,7 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 5
+const animationHeightCount = 2
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const slides = [
@@ -94,7 +94,7 @@ export function VideoSection() {
         ease: 'sine.inOut',
         keyframes: {
           0: { scale: 1 },
-          50: { scale: 3 },
+          50: { scale: 2.6 },
         },
       },
       0,
@@ -105,7 +105,7 @@ export function VideoSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          51: { x: 0 },
+          50: { x: 0 },
           99: { x: '-100%' },
         },
       },
@@ -116,7 +116,7 @@ export function VideoSection() {
       {
         ease: 'sine.inOut',
         keyframes: {
-          51: { x: '100%' },
+          50: { x: '100%' },
           99: { x: 0 },
         },
       },
