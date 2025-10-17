@@ -16,6 +16,9 @@ export {
   SectionPreloader,
 } from './ui/preloader/section-preloader'
 export { MyLink } from './ui/link/link'
+export { TelField } from './ui/input/tel-field'
+export { TextField } from './ui/input/text-field'
+export { Form } from './ui/form/form'
 
 export { useScrollbar } from './model/use-scrollbar'
 

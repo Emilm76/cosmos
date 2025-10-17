@@ -104,8 +104,34 @@ iframe {
   border: none;
 }
 
-input::-ms-clear {
-  display: none;
+input {
+  width: 100%;
+  float: left;
+  display: block;
+  margin: 0;
+  padding: 0;
+  border: none;
+
+  font-family: inherit;
+  font-size: inherit;
+  font-weight: inherit;
+  line-height: inherit;
+  text-transform: inherit;
+  &::placeholder {
+    color: inherit;
+  }
+  &:focus,
+  &._fill {
+    outline: none;
+  }
+  &::-webkit-inner-spin-button,
+  &::-webkit-outer-spin-button {
+    -webkit-appearance: none;
+    margin: 0;
+  }
+  &::-ms-clear {
+    display: none;
+  }
 }
 
 button {

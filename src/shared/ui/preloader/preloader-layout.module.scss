@@ -25,12 +25,18 @@
   }
 
   @media (min-width: 1024px) {
-    width: 100vw;
-    height: 100vw;
+    width: 90vw;
+    height: 90vw;
+  }
+  @media (min-width: 1850px) {
+    width: 1800px;
+    height: 1800px;
   }
 }
 
 .logo {
+  position: relative;
+  z-index: 5;
   width: rem(200px);
   opacity: 0;
 

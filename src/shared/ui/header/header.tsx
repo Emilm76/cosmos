@@ -70,11 +70,7 @@ export function Header() {
       >
         <div className={clsx(styles.container, 'container')}>
           <div className={styles.left}>
-            <button
-              className={styles.phoneBtn}
-              type="button"
-              //onClick={openModal}
-            >
+            <button className={styles.phoneBtn} type="button" onClick={openModal}>
               <PhoneIcon />
               <span className="bullet-link">Заказать звонок</span>
             </button>

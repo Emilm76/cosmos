@@ -5,6 +5,7 @@ import { useEffect, MouseEvent } from 'react'
 import styles from './modal-plan.module.scss'
 import { CubeIcon, DownloadIcon } from '@/shared'
 import Image from 'next/image'
+import { useModalStore } from '@/store'
 
 const defaultPlan = {
   name: '',
@@ -36,6 +37,7 @@ export function ModalPlan({
   closeCallback: () => void
 }) {
   const lenis = useLenis()
+  const openModal = useModalStore((s) => s.open)
 
   useEffect(() => {
     if (!lenis) return
@@ -109,7 +111,11 @@ export function ModalPlan({
               </div>
             </div>
             <div className={styles.bottom}>
-              <button type="button" className="bullet-link bullet-link--lg h4 green">
+              <button
+                type="button"
+                className="bullet-link bullet-link--lg h4 green"
+                onClick={openModal}
+              >
                 оставить заявку
               </button>
               <div className={styles.other}>
