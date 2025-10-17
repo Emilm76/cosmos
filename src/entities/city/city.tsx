@@ -75,17 +75,6 @@ export function CitySection() {
       })
 
       tl.to(
-        title.current,
-        {
-          ease: 'sine.inOut',
-          keyframes: {
-            [steps.slide2Start]: { y: 0, opacity: 1 },
-            [steps.slide2End]: { y: 0, opacity: 0 },
-          },
-        },
-        0,
-      )
-      tl.to(
         side.current,
         {
           ease: 'sine.inOut',
