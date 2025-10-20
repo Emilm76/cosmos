@@ -22,6 +22,7 @@ import Img3 from '@/images/fishing.jpg'
 import Img4 from '@/images/sapboard.jpg'
 import Img5 from '@/images/windserf.jpg'
 import Img6 from '@/images/kiting.jpg'
+import { useIsLoadingStore } from '@/store'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -80,7 +81,11 @@ export function RelaxSection() {
   const slide5Inner = useRef<DivRef>(null)
   const slide5Grid = useRef<DivRef>(null)
 
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+
   useGSAP(() => {
+    if (isLoading) return
+
     const mm = gsap.matchMedia()
 
     const animationHeight = () => window.innerHeight * animationHeightCount
@@ -303,7 +308,7 @@ export function RelaxSection() {
         0,
       )
     })
-  })
+  }, [isLoading])
 
   const slide = slides2[currentSlideIndex]
 

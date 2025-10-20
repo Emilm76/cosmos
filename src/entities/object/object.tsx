@@ -13,6 +13,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useMediaQuery } from 'react-responsive'
+import { useIsLoadingStore } from '@/store'
 
 gsap.registerPlugin(ScrollTrigger)
 const mm = gsap.matchMedia()
@@ -37,6 +38,7 @@ const steps = {
 export function ObjectSection() {
   const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
   const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
 
   const content = useRef<DivRef>(null)
   const slide2 = useRef<DivRef>(null)
@@ -48,6 +50,8 @@ export function ObjectSection() {
   const hr = useRef<DivRef>(null)
 
   useGSAP(() => {
+    if (isLoading) return
+
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
 
@@ -153,7 +157,7 @@ export function ObjectSection() {
         0,
       )
     })
-  })
+  }, [isLoading])
 
   return (
     <section

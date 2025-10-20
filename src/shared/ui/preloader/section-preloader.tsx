@@ -7,7 +7,7 @@ import styles from './section-preloader.module.scss'
 import clsx from 'clsx'
 import { useGSAP } from '@gsap/react'
 import { useLenis } from 'lenis/react'
-import { usePathname, useRouter } from 'next/navigation'
+import { useRouter } from 'next/navigation'
 import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -36,7 +36,7 @@ export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
           }
         })
       },
-      { threshold: 0.95 },
+      { threshold: 0.9 },
     )
 
     observer.observe(wrapperItem)
@@ -72,7 +72,7 @@ export function NextSectionLoaderDesktop({ nextUrl }: { nextUrl?: string }) {
           }
         })
       },
-      { threshold: 0.95 },
+      { threshold: 0.9 },
     )
 
     observer.observe(wrapperItem)
@@ -191,9 +191,8 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
     // TODO: check if preloader animation end && loading page end
 
     lenis.start()
-    lenis.scrollTo('main', { immediate: true, force: true, offset: 20 })
-    //ScrollTrigger.refresh()
-    //sectionLoadingEnd()
+    lenis.scrollTo('#root-main', { immediate: true, force: true })
+    lenis.stop()
 
     const keyframes = {
       0: { position: 'fixed', y: 0 },
@@ -203,10 +202,10 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
 
     gsap.to(preloader.current, {
       duration: 0.75,
-      delay: 0.8,
       keyframes: keyframes,
       onComplete: () => {
         stopLoading()
+        lenis.start()
       },
     })
   }, [isLoadingAnimation, lenis])

@@ -9,7 +9,6 @@ import { useHeader } from '@/context/header-context'
 import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
 import { useMediaQuery } from 'react-responsive'
 import { useModalStore } from '@/store'
-import Link from 'next/link'
 import { usePathname } from 'next/navigation'
 
 export function Header() {

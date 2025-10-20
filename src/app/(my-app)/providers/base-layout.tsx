@@ -149,7 +149,7 @@ export function BaseLayout({
             {isDesktop && <PrevSectionLoaderDesktop prevUrl={url?.prev} />}
             {isMobile && <SectionLoaderMobile />}
 
-            <main>{children}</main>
+            <main id="root-main">{children}</main>
 
             {isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
           </div>

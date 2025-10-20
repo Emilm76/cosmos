@@ -2,19 +2,19 @@
 
 import { TelField } from '@/shared'
 import clsx from 'clsx'
-import { FormEvent, useState } from 'react'
+import { FormEvent } from 'react'
 import styles from './form.module.scss'
 
-const status = {
+/*const status = {
   wait: 'Заявка отправляется...',
   susses: 'Заявка успешно отправлена. Ожидайте ответа',
   error: 'Произошла ошибка сети при отправке заявки. Попробуйте позже',
   notComplete: 'Пожалуйста, заполните все поля полностью',
-}
+}*/
 
 export function Form() {
-  const [isLoading, setIsLoading] = useState(false)
-  const [message, setMessage] = useState<string | null>(null)
+  //const [isLoading, setIsLoading] = useState(false)
+  //const [message, setMessage] = useState<string | null>(null)
 
   async function handleSubmit(e: FormEvent<HTMLFormElement>) {
     e.preventDefault()
@@ -82,12 +82,12 @@ export function Form() {
       <button
         className={clsx(styles.button, 'bullet-link bullet-link--lg h4')}
         type="submit"
-        disabled={isLoading}
+        //disabled={isLoading}
       >
         отправить
       </button>
 
-      {message && (
+      {/*{message && (
         <p
           className={clsx(
             styles.message,
@@ -99,7 +99,7 @@ export function Form() {
         >
           {message}
         </p>
-      )}
+      )}*/}
     </form>
   )
 }

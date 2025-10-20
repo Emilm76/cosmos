@@ -8,6 +8,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { ImagePriority, MyImage } from '@/shared'
 import DeminImg from '@/images/demin-plan-dark.jpg'
 import BeachImg from '@/images/beach.jpg'
+import { useIsLoadingStore } from '@/store'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -30,7 +31,11 @@ export function CitySection() {
   const side = useRef<DivRef>(null)
   const subtitle = useRef<DivRef>(null)
 
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+
   useGSAP(() => {
+    if (isLoading) return
+
     const mm = gsap.matchMedia()
 
     mm.add('(min-width: 1024px)', () => {
@@ -58,8 +63,7 @@ export function CitySection() {
 
       gsap.to(title.current, {
         ease: 'sine.inOut',
-        duration: 2,
-        delay: 1.3,
+        duration: 1,
         keyframes: {
           0: { y: '12rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
@@ -67,8 +71,7 @@ export function CitySection() {
       })
       gsap.to(text.current, {
         ease: 'sine.inOut',
-        duration: 2,
-        delay: 1.3,
+        duration: 1,
         keyframes: {
           0: { y: '12rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
@@ -100,7 +103,7 @@ export function CitySection() {
         0,
       )
     })
-  })
+  }, [isLoading])
 
   return (
     <section

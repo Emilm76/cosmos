@@ -12,6 +12,7 @@ import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
+import { useIsLoadingStore } from '@/store'
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -30,7 +31,11 @@ export function HorizontalSection() {
   const slide5 = useRef<DivRef>(null)
   const slide6 = useRef<DivRef>(null)
 
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+
   useGSAP(() => {
+    if (isLoading) return
+
     const mm = gsap.matchMedia()
 
     mm.add('(min-width: 1024px)', () => {
@@ -127,7 +132,7 @@ export function HorizontalSection() {
         0,
       )
     })
-  })
+  }, [isLoading])
 
   return (
     <section className={styles.section} style={{ marginBottom: animationHeightCSS }}>
