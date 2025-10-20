@@ -63,17 +63,17 @@ export function CitySection() {
 
       gsap.to(title.current, {
         ease: 'sine.inOut',
-        duration: 1,
+        duration: 0.8,
         keyframes: {
-          0: { y: '12rem', opacity: 0 },
+          0: { y: '10rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
         },
       })
       gsap.to(text.current, {
         ease: 'sine.inOut',
-        duration: 1,
+        duration: 0.8,
         keyframes: {
-          0: { y: '12rem', opacity: 0 },
+          0: { y: '10rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
         },
       })

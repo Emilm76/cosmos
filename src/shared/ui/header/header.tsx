@@ -68,8 +68,6 @@ export function Header() {
     setIsGalleryOpen(false)
     setIsDocumentsOpen(false)
     setIsBurgerOpen(false)
-    if (pathname === '/') {
-    }
   }
 
   useEffect(() => {
@@ -123,13 +121,14 @@ export function Header() {
           </div>
         </div>
 
-        <MyLink
-          href="/"
+        <div
           className={clsx(styles.logo, (showLogo || isCurtainOpen) && styles.show)}
           onClick={handleLogoClick}
         >
-          <LogoIcon />
-        </MyLink>
+          <MyLink href="/" isPreviousUrl={true}>
+            <LogoIcon />
+          </MyLink>
+        </div>
       </header>
 
       <div className={clsx(styles.burger, isBurgerOpen && styles.open)}>

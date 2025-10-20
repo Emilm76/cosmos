@@ -7,6 +7,7 @@ import { useRef, useState } from 'react'
 import { useHeader } from '@/context/header-context'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
+import { useIsLoadingStore } from '@/store'
 
 type DivRef = HTMLDivElement | null
 
@@ -55,6 +56,13 @@ export function PlansSection() {
   const [modalData, setModalData] = useState<Plan | null>(null)
   const { setTransparent } = useHeader()
 
+  const content = useRef<DivRef>(null)
+  const shadow = useRef<DivRef>(null)
+  const title = useRef<DivRef>(null)
+  const slider = useRef<DivRef>(null)
+
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+
   function handleSlideClick(planData: Plan) {
     setModalData(planData)
     setIsModalOpen(true)
@@ -66,20 +74,16 @@ export function PlansSection() {
     setTransparent(false)
   }
 
-  const content = useRef<DivRef>(null)
-  const shadow = useRef<DivRef>(null)
-  const title = useRef<DivRef>(null)
-  const slider = useRef<DivRef>(null)
-
   useGSAP(() => {
+    if (isLoading) return
+
     const tl = gsap.timeline()
 
     tl.to(
       shadow.current,
       {
         ease: 'sine.inOut',
-        duration: 1,
-        delay: 1.3,
+        duration: 0.8,
         keyframes: {
           0: { opacity: 0 },
           90: { opacity: 1 },
@@ -91,8 +95,7 @@ export function PlansSection() {
       title.current,
       {
         ease: 'sine.inOut',
-        duration: 1,
-        delay: 1.3,
+        duration: 0.8,
         keyframes: {
           0: { y: '10rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
@@ -104,8 +107,7 @@ export function PlansSection() {
       slider.current,
       {
         ease: 'sine.inOut',
-        duration: 1,
-        delay: 1.3,
+        duration: 0.8,
         keyframes: {
           0: { y: '20rem', opacity: 0 },
           100: { y: 0, opacity: 1 },
@@ -113,7 +115,7 @@ export function PlansSection() {
       },
       0,
     )
-  })
+  }, [isLoading])
 
   return (
     <>

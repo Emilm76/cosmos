@@ -134,6 +134,11 @@ export function PreloaderLayout() {
           ref={roundDotted2 as RefObject<SVGSVGElement>}
         />
 
+        <Round3
+          className={clsx(styles.round, styles.round3)}
+          ref={round3 as RefObject<SVGSVGElement>}
+        />
+
         <svg
           className={clsx(styles.round, styles.dots)}
           ref={dots as RefObject<SVGSVGElement>}
@@ -157,11 +162,6 @@ export function PreloaderLayout() {
             fill="#A2C73B"
           />
         </svg>
-
-        <Round3
-          className={clsx(styles.round, styles.round3)}
-          ref={round3 as RefObject<SVGSVGElement>}
-        />
 
         <LogoWithDescriptor2 className={styles.logo} ref={logo as RefObject<SVGSVGElement>} />
       </div>

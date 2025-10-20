@@ -22,7 +22,7 @@
 
 .preloader {
   position: fixed;
-  z-index: 300;
+  z-index: 90;
   left: 0;
   bottom: 0;
   &.prev {
@@ -32,7 +32,7 @@
 
 .mobileWrapper {
   position: fixed;
-  z-index: 300;
+  z-index: 90;
   left: 0;
   top: 0;
   translate: none;

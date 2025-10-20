@@ -126,7 +126,6 @@ export function SectionLoaderMobile() {
 
     gsap.to(wrapper.current, {
       duration: 0.75,
-      delay: 0.8,
       keyframes: keyframes,
       onComplete: () => {
         stopLoading()
@@ -153,6 +152,7 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
   const startLoading = useIsLoadingStore((s) => s.start)
   const stopLoading = useIsLoadingStore((s) => s.stop)
   const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
+  const isFromLink = useSectionLoaderStore((s) => s.isFromLink)
   const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
 
   const isPrevDirection = (url?.prev && !isSecondHalf) || !url?.next
@@ -173,16 +173,27 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
     if (!lenis || !loadingUrl || !preloader.current) return
 
     console.log('loadingUrl', loadingUrl)
-    startLoading()
 
+    startLoading()
     lenis.stop()
-    lenis.scrollTo(preloader.current, { duration: 0.6, lock: true, force: true })
+
+    if (isFromLink) {
+      gsap.to(preloader.current, {
+        duration: 0.75,
+        keyframes: {
+          0: { position: 'fixed', y: isLoadPreviousUrl ? '-100%' : '100%' },
+          100: { position: 'fixed', y: 0 },
+        },
+      })
+    } else {
+      lenis.scrollTo(preloader.current, { duration: 0.6, lock: true, force: true })
+    }
 
     setTimeout(() => {
       gsap.to(preloader.current, { position: 'fixed' })
       router.push(loadingUrl.toString())
-    }, 600)
-  }, [loadingUrl, startLoading, router, lenis])
+    }, 750)
+  }, [loadingUrl, isFromLink, startLoading, router, lenis])
 
   // Убираем preloader после загрузки страницы
   useGSAP(() => {
@@ -190,7 +201,7 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
     if (isLoadingAnimation) return
     // TODO: check if preloader animation end && loading page end
 
-    lenis.start()
+    lenis.start() // for fix bug, with ScrollTrigger when routing
     lenis.scrollTo('#root-main', { immediate: true, force: true })
     lenis.stop()
 
