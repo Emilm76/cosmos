@@ -53,6 +53,7 @@ export function BaseLayout({
   const indexRef = useRef(0)
 
   const isLoading = useIsLoadingStore((s) => s.isLoading)
+  const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
   const setLoadingUrl = useSectionLoaderStore((s) => s.set)
 
   const url = {
@@ -95,25 +96,23 @@ export function BaseLayout({
       })
 
       hammer.on('swipeup', () => {
-        if (isLoading) return
+        //if (isLoading) return
+        console.log('swipeup')
+
         const nextIndex = indexRef.current + 1
         if (nextIndex > statesCount) {
-          if (url?.next) {
-            setLoadingUrl(url.next, false)
-            setTimeout(() => setIndex(0), 800)
-          }
+          if (url?.next) setLoadingUrl(url.next, false)
           return
         }
         setIndex(nextIndex)
       })
       hammer.on('swipedown', () => {
-        if (isLoading) return
+        //if (isLoading) return
+        console.log('swipedown')
+
         const nextIndex = indexRef.current - 1
         if (nextIndex < 0) {
-          if (url?.prev) {
-            setLoadingUrl(url.prev, true)
-            setTimeout(() => setIndex(0), 800)
-          }
+          if (url?.prev) setLoadingUrl(url.prev, true)
           return
         }
         setIndex(nextIndex)
@@ -131,6 +130,11 @@ export function BaseLayout({
   useEffect(() => {
     indexRef.current = index
   }, [index])
+
+  useEffect(() => {
+    indexRef.current = 0
+    setTimeout(() => setIndex(0), 800)
+  }, [loadingUrl])
 
   return (
     <HeaderProvider>
