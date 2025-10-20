@@ -8,40 +8,30 @@ import clsx from 'clsx'
 import { useGSAP } from '@gsap/react'
 import { useLenis } from 'lenis/react'
 import { usePathname, useRouter } from 'next/navigation'
-import { useSectionLoaderStore } from '@/store'
+import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
 
 gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
 export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const lenis = useLenis()
-  const pathname = usePathname()
   const wrapper = useRef<DivRef>(null)
   const wrapperInner = useRef<DivRef>(null)
 
-  const sectionLoading = useSectionLoaderStore((s) => s.loadingPage)
-  const sectionLoadingStart = useSectionLoaderStore((s) => s.start)
-
-  // scroll to main
-  useEffect(() => {
-    const wrapperItem = wrapper.current
-    if (!wrapperItem || !lenis) return
-
-    lenis.scrollTo('main', { immediate: true, force: true, offset: 10 })
-  }, [pathname, lenis])
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+  const setLoadingUrl = useSectionLoaderStore((s) => s.set)
 
   // добавляем IntersectionObserver
   useEffect(() => {
     const wrapperItem = wrapper.current
-    if (!wrapperItem) return
+    if (!wrapperItem || isLoading || !prevUrl) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (prevUrl && sectionLoading === null) {
-            setIsVisible(entry.isIntersecting)
+          if (entry.isIntersecting) {
+            //startLoading()
+            setLoadingUrl(prevUrl, true)
             console.log('PREV IntersectionObserver', entry.isIntersecting)
           }
         })
@@ -51,20 +41,20 @@ export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
 
     observer.observe(wrapperItem)
     return () => observer?.disconnect()
-  }, [sectionLoading, prevUrl])
+  }, [isLoading, prevUrl, setLoadingUrl])
 
-  useEffect(() => {
-    if (!lenis || !wrapperInner.current || !isVisible || !prevUrl) return
+  /*useEffect(() => {
+    if (!lenis || !wrapperInner.current || !isLoading || !prevUrl) return
+
+    console.log('PREV setLoadingUrl')
 
     lenis.stop()
     lenis.scrollTo(wrapperInner.current, { duration: 0.6, lock: true, force: true })
 
     setTimeout(() => {
-      sectionLoadingStart(prevUrl, true)
-
-      setIsVisible(false)
+      setLoadingUrl(prevUrl, true)
     }, 600)
-  }, [isVisible, lenis, prevUrl, sectionLoadingStart])
+  }, [isLoading, lenis, prevUrl, setLoadingUrl])*/
 
   return (
     <div className={clsx(styles.wrapper, !prevUrl && styles.hide)} ref={wrapper}>
@@ -74,33 +64,23 @@ export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
 }
 
 export function NextSectionLoaderDesktop({ nextUrl }: { nextUrl?: string }) {
-  const [isVisible, setIsVisible] = useState(false)
-  const lenis = useLenis()
   const wrapper = useRef<DivRef>(null)
   const wrapperInner = useRef<DivRef>(null)
-  const pathname = usePathname()
 
-  const sectionLoading = useSectionLoaderStore((s) => s.loadingPage)
-  const sectionLoadingStart = useSectionLoaderStore((s) => s.start)
-
-  // scroll to main
-  useEffect(() => {
-    const wrapperItem = wrapper.current
-    if (!wrapperItem || !lenis) return
-
-    lenis.scrollTo('main', { immediate: true, force: true, offset: 10 })
-  }, [pathname, lenis])
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+  const setLoadingUrl = useSectionLoaderStore((s) => s.set)
 
   // добавляем IntersectionObserver
   useEffect(() => {
     const wrapperItem = wrapper.current
-    if (!wrapperItem) return
+    if (!wrapperItem || isLoading || !nextUrl) return
 
     const observer = new IntersectionObserver(
       (entries) => {
         entries.forEach((entry) => {
-          if (nextUrl && sectionLoading === null) {
-            setIsVisible(entry.isIntersecting)
+          if (entry.isIntersecting) {
+            //startLoading()
+            setLoadingUrl(nextUrl, false)
             console.log('NEXT IntersectionObserver', entry.isIntersecting)
           }
         })
@@ -110,20 +90,20 @@ export function NextSectionLoaderDesktop({ nextUrl }: { nextUrl?: string }) {
 
     observer.observe(wrapperItem)
     return () => observer?.disconnect()
-  }, [sectionLoading, nextUrl])
+  }, [isLoading, nextUrl, setLoadingUrl])
 
-  useEffect(() => {
-    if (!lenis || !wrapper.current || !isVisible || !nextUrl) return
+  /*useEffect(() => {
+    if (!lenis || !wrapper.current || !isLoading || !nextUrl) return
+
+    console.log('NEXT setLoadingUrl', isLoading, nextUrl)
 
     lenis.stop()
     lenis.scrollTo(wrapper.current, { duration: 0.6, lock: true, force: true })
 
     setTimeout(() => {
-      sectionLoadingStart(nextUrl, false)
-
-      setIsVisible(false)
+      setLoadingUrl(nextUrl, false)
     }, 600)
-  }, [isVisible, lenis, nextUrl, sectionLoadingStart])
+  }, [isLoading, lenis, nextUrl, setLoadingUrl])*/
 
   return (
     <div className={clsx(styles.wrapper, !nextUrl && styles.hide)} ref={wrapper}>
@@ -138,32 +118,31 @@ export function SectionLoaderMobile() {
   const wrapper = useRef<DivRef>(null)
   const isInitial = useRef(true)
 
-  const sectionLoadingUrl = useSectionLoaderStore((s) => s.loadingPage)
-  const isLoadingPrev = useSectionLoaderStore((s) => s.isLoadingPrev)
-  const sectionLoadingEnd = useSectionLoaderStore((s) => s.end)
+  const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
+  const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
 
   // Показываем прелоадер, переходим на другой url
   useEffect(() => {
-    if (!sectionLoadingUrl || sectionLoadingUrl === pathname) return
+    if (!loadingUrl || loadingUrl === pathname) return
 
     gsap.to(wrapper.current, {
       duration: 0.75,
       keyframes: {
-        0: { y: isLoadingPrev ? '-100%' : '100%' },
+        0: { y: isLoadPreviousUrl ? '-100%' : '100%' },
         100: { y: 0 },
       },
     })
 
     setTimeout(() => {
-      router.push(sectionLoadingUrl.toString())
+      router.push(loadingUrl.toString())
     }, 800)
-  }, [sectionLoadingUrl, pathname, router, isLoadingPrev])
+  }, [loadingUrl, pathname, router, isLoadPreviousUrl])
 
   // Убираем preloader после загрузки страницы
   useGSAP(() => {
     const keyframes = {
       0: { y: 0 },
-      100: { y: isLoadingPrev ? '100%' : '-100%' },
+      100: { y: isLoadPreviousUrl ? '100%' : '-100%' },
     }
 
     console.log(isInitial.current)
@@ -178,9 +157,6 @@ export function SectionLoaderMobile() {
         duration: 0.75,
         delay: 0.8,
         keyframes: keyframes,
-        onEnd: () => {
-          sectionLoadingEnd()
-        },
       })
     }
   }, [pathname])
@@ -198,13 +174,15 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
   const [isSecondHalf, setIsSecondHalf] = useState(false)
   const lenis = useLenis(handleScroll)
   const router = useRouter()
-  const pathname = usePathname()
   const preloader = useRef<DivRef>(null)
-  const isInitial = useRef(true)
 
-  const sectionLoadingUrl = useSectionLoaderStore((s) => s.loadingPage)
-  const isLoadingPrev = useSectionLoaderStore((s) => s.isLoadingPrev)
-  const sectionLoadingEnd = useSectionLoaderStore((s) => s.end)
+  const isLoadingAnimation = useIsLoadingStore((s) => s.isLoadingAnimation)
+  const startLoading = useIsLoadingStore((s) => s.start)
+  const stopLoading = useIsLoadingStore((s) => s.stop)
+  const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
+  const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
+
+  const isPrevDirection = (url?.prev && !isSecondHalf) || !url?.next
 
   // Определяем позицию при скролле
   function handleScroll() {
@@ -219,49 +197,46 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
 
   // Переходим на другой url
   useEffect(() => {
-    if (!sectionLoadingUrl || sectionLoadingUrl === pathname) return
+    if (!lenis || !loadingUrl || !preloader.current) return
 
-    gsap.to(preloader.current, { position: 'fixed' })
-    router.push(sectionLoadingUrl.toString())
-  }, [sectionLoadingUrl, pathname, router])
+    console.log('loadingUrl', loadingUrl)
+    startLoading()
+
+    lenis.stop()
+    lenis.scrollTo(preloader.current, { duration: 0.6, lock: true, force: true })
+
+    setTimeout(() => {
+      gsap.to(preloader.current, { position: 'fixed' })
+      router.push(loadingUrl.toString())
+    }, 600)
+  }, [loadingUrl, startLoading, router, lenis])
 
   // Убираем preloader после загрузки страницы
   useGSAP(() => {
     if (!lenis) return
+    if (isLoadingAnimation) return
+    // TODO: check if preloader animation end && loading page end
 
+    lenis.start()
     lenis.scrollTo('main', { immediate: true, force: true, offset: 20 })
+    //ScrollTrigger.refresh()
+    //sectionLoadingEnd()
 
     const keyframes = {
       0: { position: 'fixed', y: 0 },
-      99: { position: 'fixed', y: isLoadingPrev ? '100%' : '-100%' },
+      99: { position: 'fixed', y: isLoadPreviousUrl ? '100%' : '-100%' },
       100: { position: 'absolute', y: 0 },
     }
 
-    if (isInitial.current) {
-      setTimeout(animation, 3500)
-      isInitial.current = false
-    } else animation()
-
-    function animation() {
-      gsap.to(preloader.current, {
-        duration: 0.75,
-        delay: 0.8,
-        keyframes: keyframes,
-        onEnd: () => {
-          //ScrollTrigger.refresh()
-        },
-      })
-    }
-
-    setTimeout(() => {
-      lenis.start()
-      lenis.scrollTo('main', { immediate: true, force: true, offset: 20 })
-      //ScrollTrigger.refresh()
-      sectionLoadingEnd()
-    }, 1600)
-  }, [pathname, lenis])
-
-  const isPrevDirection = (url?.prev && !isSecondHalf) || !url?.next
+    gsap.to(preloader.current, {
+      duration: 0.75,
+      delay: 0.8,
+      keyframes: keyframes,
+      onComplete: () => {
+        stopLoading()
+      },
+    })
+  }, [isLoadingAnimation, lenis])
 
   return (
     <div className={clsx(styles.preloader, isPrevDirection && styles.prev)} ref={preloader}>

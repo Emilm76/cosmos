@@ -51,7 +51,7 @@ export function BaseLayout({
   const pathname = usePathname()
   const [index, setIndex] = useState(0)
   const indexRef = useRef(0)
-  const sectionLoadingStart = useSectionLoaderStore((s) => s.start)
+  const setLoadingUrl = useSectionLoaderStore((s) => s.set)
 
   const url = {
     '/': { prev: undefined, next: '/location' },
@@ -70,7 +70,7 @@ export function BaseLayout({
 
   // swipes on mobile with hammer.js
   useEffect(() => {
-    if (!wrapperRef.current || isDesktop) return
+    if (isDesktop || !wrapperRef.current) return
 
     let isCancelled = false
     let hammer: HammerManager | null = null
@@ -96,7 +96,7 @@ export function BaseLayout({
         const nextIndex = indexRef.current + 1
         if (nextIndex > statesCount) {
           if (url?.next) {
-            sectionLoadingStart(url.next, false)
+            setLoadingUrl(url.next, false)
             setTimeout(() => setIndex(0), 800)
           }
           return
@@ -107,7 +107,7 @@ export function BaseLayout({
         const nextIndex = indexRef.current - 1
         if (nextIndex < 0) {
           if (url?.prev) {
-            sectionLoadingStart(url.prev, true)
+            setLoadingUrl(url.prev, true)
             setTimeout(() => setIndex(0), 800)
           }
           return
@@ -122,7 +122,7 @@ export function BaseLayout({
       isCancelled = true
       if (hammer) hammer.destroy()
     }
-  }, [isDesktop, statesCount, url, sectionLoadingStart])
+  }, [isDesktop, statesCount, url, setLoadingUrl])
 
   useEffect(() => {
     indexRef.current = index
@@ -132,7 +132,6 @@ export function BaseLayout({
     <HeaderProvider>
       <FontSizeProvider>
         <LenisScrollProvider>
-          {/* <Preloader isShow={loading} /> */}
           <Header />
 
           <div
@@ -142,13 +141,13 @@ export function BaseLayout({
             )}
             ref={wrapperRef}
           >
+            {isDesktop && <SectionPreloader url={url} />}
             {isDesktop && <PrevSectionLoaderDesktop prevUrl={url?.prev} />}
             {isMobile && <SectionLoaderMobile />}
 
             <main>{children}</main>
 
             {isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
-            {isDesktop && <SectionPreloader url={url} />}
           </div>
 
           <Modal />

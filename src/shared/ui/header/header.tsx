@@ -1,6 +1,6 @@
 'use client'
 import { useLenis } from 'lenis/react'
-import { useCallback, useEffect, useState } from 'react'
+import { useEffect, useState } from 'react'
 import styles from './header.module.scss'
 import clsx from 'clsx'
 import Image from 'next/image'
@@ -124,13 +124,13 @@ export function Header() {
           </div>
         </div>
 
-        <Link
+        <MyLink
           href="/"
           className={clsx(styles.logo, (showLogo || isCurtainOpen) && styles.show)}
           onClick={handleLogoClick}
         >
           <LogoIcon />
-        </Link>
+        </MyLink>
       </header>
 
       <div className={clsx(styles.burger, isBurgerOpen && styles.open)}>

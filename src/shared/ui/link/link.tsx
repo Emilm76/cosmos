@@ -4,12 +4,12 @@ import { ComponentProps, MouseEvent } from 'react'
 import { useSectionLoaderStore } from '@/store'
 
 export function MyLink({ href, children, ...props }: ComponentProps<typeof Link>) {
-  const sectionLoadingStart = useSectionLoaderStore((s) => s.start)
+  const setLoadingUrl = useSectionLoaderStore((s) => s.set)
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
 
-    sectionLoadingStart(href, false)
+    setLoadingUrl(href, false)
   }
 
   return (

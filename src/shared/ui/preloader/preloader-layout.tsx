@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { Ref, RefObject, useRef } from 'react'
+import { useIsLoadingStore } from '@/store'
 
 type SVGRef = SVGElement | null
 
@@ -18,8 +19,21 @@ export function PreloaderLayout() {
   const dot2 = useRef<SVGPathElement>(null)
   const logo = useRef<SVGRef>(null)
 
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
+  const stopAnimation = useIsLoadingStore((s) => s.stopAnimation)
+
   useGSAP(() => {
-    const tl = gsap.timeline({ defaults: { duration: 5 } })
+    if (!isLoading) return
+
+    const tl = gsap.timeline({
+      defaults: { duration: 3 },
+      onComplete: function () {
+        stopAnimation()
+        setTimeout(() => {
+          tl.time(0).kill()
+        }, 1500)
+      },
+    })
 
     tl.to(
       roundDotted1.current,
@@ -98,7 +112,7 @@ export function PreloaderLayout() {
       },
       0,
     )
-  }, [])
+  }, [isLoading])
 
   return (
     <div className={styles.wrapper}>
