@@ -14,7 +14,6 @@ import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 
 gsap.registerPlugin(ScrollTrigger)
-const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -32,6 +31,8 @@ export function HorizontalSection() {
   const slide6 = useRef<DivRef>(null)
 
   useGSAP(() => {
+    const mm = gsap.matchMedia()
+
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
 

@@ -15,7 +15,7 @@ import {
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
 import clsx from 'clsx'
-import { useSectionLoaderStore } from '@/store'
+import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
 
 type SwipeOptions = {
   direction: number
@@ -51,6 +51,8 @@ export function BaseLayout({
   const pathname = usePathname()
   const [index, setIndex] = useState(0)
   const indexRef = useRef(0)
+
+  const isLoading = useIsLoadingStore((s) => s.isLoading)
   const setLoadingUrl = useSectionLoaderStore((s) => s.set)
 
   const url = {
@@ -93,6 +95,7 @@ export function BaseLayout({
       })
 
       hammer.on('swipeup', () => {
+        if (isLoading) return
         const nextIndex = indexRef.current + 1
         if (nextIndex > statesCount) {
           if (url?.next) {
@@ -104,6 +107,7 @@ export function BaseLayout({
         setIndex(nextIndex)
       })
       hammer.on('swipedown', () => {
+        if (isLoading) return
         const nextIndex = indexRef.current - 1
         if (nextIndex < 0) {
           if (url?.prev) {
@@ -122,7 +126,7 @@ export function BaseLayout({
       isCancelled = true
       if (hammer) hammer.destroy()
     }
-  }, [isDesktop, statesCount, url, setLoadingUrl])
+  }, [isDesktop, statesCount, url, setLoadingUrl, isLoading])
 
   useEffect(() => {
     indexRef.current = index

@@ -24,7 +24,6 @@ import Img5 from '@/images/windserf.jpg'
 import Img6 from '@/images/kiting.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
-const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -82,6 +81,8 @@ export function RelaxSection() {
   const slide5Grid = useRef<DivRef>(null)
 
   useGSAP(() => {
+    const mm = gsap.matchMedia()
+
     const animationHeight = () => window.innerHeight * animationHeightCount
     const offsetTitle = () => ((title.current?.offsetWidth || 0) - window.innerWidth) * -1
     const slide5SrollHeight = () =>

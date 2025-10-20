@@ -8,7 +8,6 @@ import clsx from 'clsx'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 
 gsap.registerPlugin(ScrollTrigger)
-const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -27,6 +26,8 @@ export function WelcomeSection() {
   const side = useRef<DivRef>(null)
 
   useGSAP(() => {
+    const mm = gsap.matchMedia()
+
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
 

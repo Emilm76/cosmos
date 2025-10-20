@@ -10,7 +10,6 @@ import DeminImg from '@/images/demin-plan-dark.jpg'
 import BeachImg from '@/images/beach.jpg'
 
 gsap.registerPlugin(ScrollTrigger)
-const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -32,6 +31,8 @@ export function CitySection() {
   const subtitle = useRef<DivRef>(null)
 
   useGSAP(() => {
+    const mm = gsap.matchMedia()
+
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
 

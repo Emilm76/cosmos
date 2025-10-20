@@ -16,8 +16,8 @@
   display: flex;
   justify-content: center;
   align-items: center;
-  width: rem(1000px);
-  height: rem(1000px);
+  width: rem(768px);
+  height: rem(768px);
 
   @media (min-width: 768px) {
     width: rem(1024px);
@@ -37,15 +37,9 @@
 .logo {
   position: relative;
   z-index: 5;
-  width: rem(200px);
-  opacity: 0;
 
-  @media (min-width: 1024px) {
-    width: rem(500px);
-  }
-  @media (min-width: 1600px) {
-    width: 38.8%;
-  }
+  width: 38.8%;
+  opacity: 0;
 }
 
 .round {

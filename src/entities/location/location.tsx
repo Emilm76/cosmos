@@ -26,7 +26,6 @@ import {
 } from '@/shared'
 
 gsap.registerPlugin(ScrollTrigger)
-const mm = gsap.matchMedia()
 
 type DivRef = HTMLDivElement | null
 
@@ -60,6 +59,8 @@ export function LocationSection() {
   const listInner = useRef<HTMLUListElement | null>(null)
 
   useGSAP(() => {
+    const mm = gsap.matchMedia()
+
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
       const scrollHeight = () =>

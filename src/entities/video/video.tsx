@@ -66,62 +66,66 @@ export function VideoSection() {
   const slide2 = useRef<DivRef>(null)
 
   useGSAP(() => {
-    const animationHeight = () => window.innerHeight * animationHeightCount
+    const mm = gsap.matchMedia()
 
-    // For pinning effect
-    ScrollTrigger.create({
-      trigger: content.current,
-      start: 'top top',
-      end: 'max',
-      scrub: true,
-      pin: true,
-      pinSpacing: false,
-    })
+    mm.add('(min-width: 1024px)', () => {
+      const animationHeight = () => window.innerHeight * animationHeightCount
 
-    // For animation
-    const tl = gsap.timeline({
-      scrollTrigger: {
+      // For pinning effect
+      ScrollTrigger.create({
         trigger: content.current,
-        scrub: 0.4,
         start: 'top top',
-        end: () => 'top+=' + animationHeight(),
-      },
+        end: 'max',
+        scrub: true,
+        pin: true,
+        pinSpacing: false,
+      })
+
+      // For animation
+      const tl = gsap.timeline({
+        scrollTrigger: {
+          trigger: content.current,
+          scrub: 0.4,
+          start: 'top top',
+          end: () => 'top+=' + animationHeight(),
+        },
+      })
+
+      tl.to(
+        galleryGrid.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            0: { scale: 1 },
+            50: { scale: 2.6 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        slide1.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            50: { x: 0 },
+            99: { x: '-100%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        slide2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            50: { x: '100%' },
+            99: { x: 0 },
+          },
+        },
+        0,
+      )
     })
-
-    tl.to(
-      galleryGrid.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          0: { scale: 1 },
-          50: { scale: 2.6 },
-        },
-      },
-      0,
-    )
-
-    tl.to(
-      slide1.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          50: { x: 0 },
-          99: { x: '-100%' },
-        },
-      },
-      0,
-    )
-    tl.to(
-      slide2.current,
-      {
-        ease: 'sine.inOut',
-        keyframes: {
-          50: { x: '100%' },
-          99: { x: 0 },
-        },
-      },
-      0,
-    )
   })
 
   const slide = slides[currentSlideIndex]

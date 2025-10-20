@@ -43,19 +43,6 @@ export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
     return () => observer?.disconnect()
   }, [isLoading, prevUrl, setLoadingUrl])
 
-  /*useEffect(() => {
-    if (!lenis || !wrapperInner.current || !isLoading || !prevUrl) return
-
-    console.log('PREV setLoadingUrl')
-
-    lenis.stop()
-    lenis.scrollTo(wrapperInner.current, { duration: 0.6, lock: true, force: true })
-
-    setTimeout(() => {
-      setLoadingUrl(prevUrl, true)
-    }, 600)
-  }, [isLoading, lenis, prevUrl, setLoadingUrl])*/
-
   return (
     <div className={clsx(styles.wrapper, !prevUrl && styles.hide)} ref={wrapper}>
       <div className={styles.wrapperInner} ref={wrapperInner}></div>
@@ -92,19 +79,6 @@ export function NextSectionLoaderDesktop({ nextUrl }: { nextUrl?: string }) {
     return () => observer?.disconnect()
   }, [isLoading, nextUrl, setLoadingUrl])
 
-  /*useEffect(() => {
-    if (!lenis || !wrapper.current || !isLoading || !nextUrl) return
-
-    console.log('NEXT setLoadingUrl', isLoading, nextUrl)
-
-    lenis.stop()
-    lenis.scrollTo(wrapper.current, { duration: 0.6, lock: true, force: true })
-
-    setTimeout(() => {
-      setLoadingUrl(nextUrl, false)
-    }, 600)
-  }, [isLoading, lenis, nextUrl, setLoadingUrl])*/
-
   return (
     <div className={clsx(styles.wrapper, !nextUrl && styles.hide)} ref={wrapper}>
       <div className={styles.wrapperInner} ref={wrapperInner}></div>
@@ -114,16 +88,19 @@ export function NextSectionLoaderDesktop({ nextUrl }: { nextUrl?: string }) {
 
 export function SectionLoaderMobile() {
   const router = useRouter()
-  const pathname = usePathname()
   const wrapper = useRef<DivRef>(null)
-  const isInitial = useRef(true)
 
+  const isLoadingAnimation = useIsLoadingStore((s) => s.isLoadingAnimation)
+  const startLoading = useIsLoadingStore((s) => s.start)
+  const stopLoading = useIsLoadingStore((s) => s.stop)
   const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
   const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
 
   // Показываем прелоадер, переходим на другой url
   useEffect(() => {
-    if (!loadingUrl || loadingUrl === pathname) return
+    if (!loadingUrl) return
+
+    startLoading()
 
     gsap.to(wrapper.current, {
       duration: 0.75,
@@ -136,30 +113,26 @@ export function SectionLoaderMobile() {
     setTimeout(() => {
       router.push(loadingUrl.toString())
     }, 800)
-  }, [loadingUrl, pathname, router, isLoadPreviousUrl])
+  }, [loadingUrl, startLoading, router, isLoadPreviousUrl])
 
   // Убираем preloader после загрузки страницы
   useGSAP(() => {
+    if (isLoadingAnimation) return
+
     const keyframes = {
       0: { y: 0 },
       100: { y: isLoadPreviousUrl ? '100%' : '-100%' },
     }
 
-    console.log(isInitial.current)
-
-    if (isInitial.current) {
-      setTimeout(animation, 3500)
-      isInitial.current = false
-    } else animation()
-
-    function animation() {
-      gsap.to(wrapper.current, {
-        duration: 0.75,
-        delay: 0.8,
-        keyframes: keyframes,
-      })
-    }
-  }, [pathname])
+    gsap.to(wrapper.current, {
+      duration: 0.75,
+      delay: 0.8,
+      keyframes: keyframes,
+      onComplete: () => {
+        stopLoading()
+      },
+    })
+  }, [isLoadingAnimation])
 
   return (
     <div className={clsx(styles.mobileWrapper)} ref={wrapper}>
