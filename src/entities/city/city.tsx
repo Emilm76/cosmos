@@ -19,7 +19,7 @@ const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
   slide2Start: 0,
-  slide2End: 99,
+  slide2End: 100,
 }
 
 export function CitySection() {

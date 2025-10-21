@@ -66,7 +66,7 @@ export function BaseLayout({
   const statesCount =
     {
       '/': 2,
-      '/location': 15,
+      '/location': 16,
       '/comfort': 15,
       '/apartments': 0,
     }[pathname] ?? 0
@@ -96,9 +96,7 @@ export function BaseLayout({
       })
 
       hammer.on('swipeup', () => {
-        //if (isLoading) return
-        console.log('swipeup')
-
+        if (isLoading) return
         const nextIndex = indexRef.current + 1
         if (nextIndex > statesCount) {
           if (url?.next) setLoadingUrl(url.next, false)
@@ -107,9 +105,7 @@ export function BaseLayout({
         setIndex(nextIndex)
       })
       hammer.on('swipedown', () => {
-        //if (isLoading) return
-        console.log('swipedown')
-
+        if (isLoading) return
         const nextIndex = indexRef.current - 1
         if (nextIndex < 0) {
           if (url?.prev) setLoadingUrl(url.prev, true)

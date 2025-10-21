@@ -123,7 +123,10 @@
   height: 100%;
   width: 100%;
 
-  translate: 0 rem(140px);
+  translate: 0 rem(80px);
+  @media (min-height: 800px) {
+    translate: 0 rem(140px);
+  }
   @media (min-width: 768px) {
     translate: none;
   }

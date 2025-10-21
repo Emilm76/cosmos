@@ -222,11 +222,12 @@ export function LocationSection() {
                   <div className={clsx(styles.image, 'm2-slide7-img')}>
                     <MyImage src={RestikImg} width={300} height={440} alt="" />
                   </div>
-                  <div
-                    className={clsx(styles.container, 'container m2-slide7-container')}
-                    ref={list}
-                  >
-                    <ul className={styles.list} role="list" ref={listInner}>
+                  <div className={clsx(styles.container, 'container')} ref={list}>
+                    <ul
+                      className={clsx(styles.list, 'm2-slide7-container')}
+                      role="list"
+                      ref={listInner}
+                    >
                       <li>
                         <div className="green">1 минута</div>
                         <h3 className="h4">собственный пляж, набережная и центр города</h3>

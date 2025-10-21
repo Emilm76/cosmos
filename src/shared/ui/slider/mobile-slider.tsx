@@ -5,6 +5,7 @@ import clsx from 'clsx'
 import { DotButton, useDotButton } from './dot-button'
 import { ReactNode, useCallback, useEffect } from 'react'
 import { EmblaCarouselType } from 'embla-carousel'
+import Fade from 'embla-carousel-fade'
 
 export function MobileSlider({
   slides,
@@ -18,7 +19,7 @@ export function MobileSlider({
   className?: string
   onSlideChange?: (number: number) => void
 }) {
-  const [emblaRef, emblaApi] = useEmblaCarousel()
+  const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 30 }, [Fade()])
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
 

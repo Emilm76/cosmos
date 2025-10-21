@@ -14,6 +14,7 @@ function setFontSizeByHeight(bpHeight: number) {
 
 function setFontSizeByWidth(bpWidth: number) {
   const newSize = Math.min(24, Math.round(window.innerWidth / (bpWidth / defaultFontSize)))
+  console.log(newSize, currentFontSize)
   if (newSize !== currentFontSize) {
     document.documentElement.style.fontSize = `${newSize}px`
     currentFontSize = newSize
@@ -28,6 +29,11 @@ function setDefaultFontSize() {
 export function FontSizeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const updateFontSize = () => {
+      console.log(window.innerWidth)
+
+      if (window.innerWidth < 414) {
+        setFontSizeByWidth(414)
+      }
       if (window.innerWidth < 1300) return
 
       if (window.innerWidth < 1600) {

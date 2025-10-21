@@ -132,12 +132,26 @@
     }
   }
   .container {
-    margin-top: rem(40px);
+    padding-top: rem(40px);
     height: 50%;
     //overflow: hidden;
     background-color: var(--color-dark);
+    @media (max-width: 1023px) {
+      position: relative;
+      &::after {
+        content: '';
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+        width: 100%;
+        height: rem(222px);
+        pointer-events: none;
+        background: linear-gradient(180deg, rgba(29, 29, 27, 0) 0%, #1d1d1b 100%);
+      }
+    }
     @media (min-width: 1024px) {
-      margin-top: 0;
+      padding-top: 0;
       height: auto;
       overflow: visible;
     }
