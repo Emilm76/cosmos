@@ -2,6 +2,7 @@
 import Link from 'next/link'
 import { ComponentProps, MouseEvent } from 'react'
 import { useSectionLoaderStore } from '@/store'
+import { usePathname } from 'next/navigation'
 
 export function MyLink({
   href,
@@ -10,11 +11,14 @@ export function MyLink({
   ...props
 }: { isPreviousUrl?: boolean } & ComponentProps<typeof Link>) {
   const setLoadingUrl = useSectionLoaderStore((s) => s.set)
+  const pathname = usePathname()
 
   const handleClick = (e: MouseEvent<HTMLAnchorElement>) => {
     e.preventDefault()
 
-    setLoadingUrl(href, isPreviousUrl, true)
+    if (href !== pathname) {
+      setLoadingUrl(href, isPreviousUrl, true)
+    }
   }
 
   return (

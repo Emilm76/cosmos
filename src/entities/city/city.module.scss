@@ -26,21 +26,9 @@
 }
 
 .image {
-  position: relative;
   display: block;
   height: 100vh;
   height: 100dvh;
-
-  // darken image
-  @media (min-width: 1024px) {
-    &::after {
-      content: '';
-      display: block;
-      position: absolute;
-      inset: 0;
-      background-color: rgba(0, 0, 2, 0.2);
-    }
-  }
 }
 
 .imageOverlay {
@@ -52,8 +40,7 @@
   background: rgba(0, 0, 2, 0.6);
 
   @media (min-width: 1024px) {
-    // background: linear-gradient(0deg, rgba(1, 4, 43, 0.1) 45%, rgba(1, 4, 43, 0.5) 100%);
-    background: none;
+    background-color: rgba(0, 0, 2, 0.4);
   }
 }
 

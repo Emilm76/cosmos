@@ -1,7 +1,4 @@
 .section {
-  //position: relative;
-  //position: absolute;
-  //top: 0;
   width: 100vw;
   height: 100vh;
   height: 100dvh;
@@ -21,6 +18,7 @@
   z-index: 2;
   top: 0;
   translate: none;
+  pointer-events: none;
 }
 
 .curtainInner {
@@ -227,6 +225,12 @@
     }
     @media (min-width: 1600px) {
       max-width: rem(370px);
+    }
+  }
+  a {
+    font-weight: 600;
+    &:hover {
+      text-decoration: underline;
     }
   }
 }
