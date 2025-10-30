@@ -1,5 +1,5 @@
-import { PlansSection } from '@/entities'
+import { PlansSectionServer } from '@/backend/plans'
 
 export default function Page() {
-  return <PlansSection />
+  return <PlansSectionServer />
 }

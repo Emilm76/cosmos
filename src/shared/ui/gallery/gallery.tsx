@@ -6,22 +6,13 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaCarouselType } from 'embla-carousel'
 import Image from 'next/image'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/shared'
+import { GalleryImage } from '@/backend/gallery'
+import { useCurtainStore } from '@/store'
 
-const slides = [
-  '/img/test-gallery-2.jpg',
-  '/img/test-gallery-3.jpg',
-  '/img/test-gallery-4.jpg',
-  '/img/test-gallery-5.jpg',
-  '/img/test-gallery-6.jpg',
-  '/img/test-gallery-7.jpg',
-  '/img/test-gallery-8.jpg',
-  '/img/test-gallery-1.jpg',
-  '/img/test-gallery-9.jpg',
-]
-
-export function Gallery({ isOpen }: { isOpen: boolean }) {
+export function Gallery({ images }: { images: GalleryImage[] }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ align: 'start' })
   const [slidesInView, setSlidesInView] = useState<number[]>([])
+  const isOpen = useCurtainStore((s) => s.isGalleryOpen)
 
   const { prevBtnDisabled, nextBtnDisabled, onPrevButtonClick, onNextButtonClick } =
     usePrevNextButtons(emblaApi)
@@ -46,14 +37,17 @@ export function Gallery({ isOpen }: { isOpen: boolean }) {
 
   const { selectedSnap, snapCount } = useSelectedSnapDisplay(emblaApi)
 
+  const list = images ?? []
+
   return (
     <div className={clsx(styles.modal, isOpen && styles.open)}>
       <div className="embla">
         <div className="embla__viewport" ref={emblaRef}>
           <div className="embla__container">
-            {slides.map((slide, index) => (
+            {list.map((slide, index) => (
               <LazyLoadImage
-                imgSrc={slide}
+                imgSrc={slide.url}
+                alt=""
                 index={index}
                 inView={slidesInView.indexOf(index) > -1}
                 key={index}
@@ -71,7 +65,16 @@ export function Gallery({ isOpen }: { isOpen: boolean }) {
   )
 }
 
-function LazyLoadImage({ imgSrc, inView }: { imgSrc: string; inView: boolean; index: number }) {
+function LazyLoadImage({
+  imgSrc,
+  alt,
+  inView,
+}: {
+  imgSrc: string
+  alt?: string | null
+  index: number
+  inView: boolean
+}) {
   const [hasLoaded, setHasLoaded] = useState(false)
 
   const setLoaded = useCallback(() => {
@@ -88,7 +91,7 @@ function LazyLoadImage({ imgSrc, inView }: { imgSrc: string; inView: boolean; in
           height={1080}
           src={imgSrc}
           onLoad={setLoaded}
-          alt=""
+          alt={alt ?? ''}
         />
       )}
     </div>

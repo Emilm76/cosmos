@@ -8,50 +8,11 @@ import { useHeader } from '@/context/header-context'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useIsLoadingStore } from '@/store'
+import { Plan } from '@/backend/plans'
 
 type DivRef = HTMLDivElement | null
 
-const plans: Plan[] = [
-  {
-    name: 'Тип 1',
-    imagePath: '/img/test-plan-1.png',
-    rooms: 1,
-    square: 33,
-    floor: 4,
-    roomHeight: 3.2,
-    view: 'на море',
-  },
-  {
-    name: 'Тип 2',
-    imagePath: '/img/test-plan-2.png',
-    rooms: 2,
-    square: 74.1,
-    floor: 4,
-    roomHeight: 3.2,
-    view: 'на море',
-  },
-  {
-    name: 'Тип 3',
-    imagePath: '/img/test-plan-3.png',
-    rooms: 2,
-    square: 114.9,
-    floor: 4,
-    roomHeight: 3.2,
-    view: 'на море',
-  },
-]
-
-type Plan = {
-  name: string
-  imagePath: string
-  rooms: number
-  square: number
-  floor: number
-  roomHeight: number
-  view: string
-}
-
-export function PlansSection() {
+export function PlansSection({ plans }: { plans: Plan[] }) {
   const [isModalOpen, setIsModalOpen] = useState(false)
   const [modalData, setModalData] = useState<Plan | null>(null)
   const { setTransparent } = useHeader()
@@ -148,7 +109,9 @@ export function PlansSection() {
         </div>
       </section>
 
-      <ModalPlan data={modalData} isOpen={isModalOpen} closeCallback={handleCloseModal} />
+      {modalData && (
+        <ModalPlan data={modalData} isOpen={isModalOpen} closeCallback={handleCloseModal} />
+      )}
     </>
   )
 }
@@ -158,7 +121,7 @@ function Slide({ plan }: { plan: Plan }) {
     <>
       <h3 className="h4">{plan.name}</h3>
       <div className={styles.planImg}>
-        <MyImage src={plan.imagePath} width={410} height={314} alt="" />
+        <MyImage src={plan.posterUrl} width={410} height={314} alt="" />
       </div>
       <span className="bullet-link bullet-link--lg h4">подробнее</span>
     </>

@@ -3,29 +3,10 @@ import clsx from 'clsx'
 import { useLenis } from 'lenis/react'
 import { useEffect, MouseEvent } from 'react'
 import styles from './modal-plan.module.scss'
-import { CubeIcon, DownloadIcon } from '@/shared'
+//import { CubeIcon, DownloadIcon } from '@/shared'
 import Image from 'next/image'
 import { useModalStore } from '@/store'
-
-const defaultPlan = {
-  name: '',
-  imagePath: '',
-  rooms: 0,
-  square: 0,
-  floor: 0,
-  roomHeight: 0,
-  view: '',
-}
-
-type Plan = {
-  name: string
-  imagePath: string
-  rooms: number
-  square: number
-  floor: number
-  roomHeight: number
-  view: string
-}
+import { Plan } from '@/backend/plans'
 
 export function ModalPlan({
   isOpen,
@@ -33,7 +14,7 @@ export function ModalPlan({
   closeCallback,
 }: {
   isOpen: boolean
-  data: Plan | null
+  data: Plan
   closeCallback: () => void
 }) {
   const lenis = useLenis()
@@ -59,10 +40,6 @@ export function ModalPlan({
     }
   }
 
-  if (data === null) {
-    data = defaultPlan
-  }
-
   return (
     <div className={clsx(styles.modal, isOpen && styles.open)} onClick={handleModalClick}>
       <div className={styles.wrapper}>
@@ -74,10 +51,10 @@ export function ModalPlan({
             <h2 className="h2">{data.name}</h2>
             <div className={styles.grid}>
               <div>
-                {data.imagePath && (
+                {data.posterUrl && (
                   <Image
                     className={styles.planImg}
-                    src={data.imagePath}
+                    src={data.posterUrl}
                     width={740}
                     height={450}
                     alt=""
@@ -119,14 +96,14 @@ export function ModalPlan({
                 оставить заявку
               </button>
               <div className={styles.other}>
-                <button type="button" className={styles.otherItem}>
+                {/*<button type="button" className={styles.otherItem}>
                   <CubeIcon />
                   <span>3d тур</span>
                 </button>
                 <button type="button" className={styles.otherItem}>
                   <DownloadIcon />
                   <span>скачать буклет</span>
-                </button>
+                </button>*/}
               </div>
             </div>
           </div>

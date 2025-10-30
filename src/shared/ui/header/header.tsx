@@ -6,16 +6,20 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Img from '@/images/burger.jpg'
 import { useHeader } from '@/context/header-context'
-import { Gallery, Documents, ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
+import { Documents, ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
 import { useMediaQuery } from 'react-responsive'
-import { useModalStore } from '@/store'
+import { useModalStore, useCurtainStore } from '@/store'
 import { usePathname } from 'next/navigation'
+import { GalleryServer } from '@/backend/gallery'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
   const [isLoadImg, setIsLoadImg] = useState(false)
-  const [isGalleryOpen, setIsGalleryOpen] = useState(false)
-  const [isDocumentsOpen, setIsDocumentsOpen] = useState(false)
+  const isGalleryOpen = useCurtainStore((s) => s.isGalleryOpen)
+  const isDocumentsOpen = useCurtainStore((s) => s.isDocumentsOpen)
+  const openGallery = useCurtainStore((s) => s.openGallery)
+  const openDocuments = useCurtainStore((s) => s.openDocuments)
+  const closeAllCurtains = useCurtainStore((s) => s.closeAll)
   const [showLogo, setShowLogo] = useState(false)
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const pathname = usePathname()
@@ -53,20 +57,18 @@ export function Header() {
   }
   function handleShowGalleryClick() {
     setIsBurgerOpen(false)
-    setIsGalleryOpen(true)
+    openGallery()
   }
   function handleShowDocumentsClick() {
     setIsBurgerOpen(false)
-    setIsDocumentsOpen(true)
+    openDocuments()
   }
 
   function handleBackButtonClick() {
-    setIsGalleryOpen(false)
-    setIsDocumentsOpen(false)
+    closeAllCurtains()
   }
   function handleLogoClick() {
-    setIsGalleryOpen(false)
-    setIsDocumentsOpen(false)
+    closeAllCurtains()
     setIsBurgerOpen(false)
   }
 
@@ -184,9 +186,6 @@ export function Header() {
           </div>
         </div>
       </div>
-
-      <Gallery isOpen={isGalleryOpen} />
-      <Documents isOpen={isDocumentsOpen} />
     </>
   )
 }

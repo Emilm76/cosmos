@@ -29,8 +29,6 @@ function setDefaultFontSize() {
 export function FontSizeProvider({ children }: { children: ReactNode }) {
   useEffect(() => {
     const updateFontSize = () => {
-      console.log(window.innerWidth)
-
       if (window.innerWidth < 414) {
         setFontSizeByWidth(414)
       }

@@ -11,11 +11,13 @@ import {
   PrevSectionLoaderDesktop,
   SectionPreloader,
   Modal,
+  Documents,
 } from '@/shared'
 import { usePathname } from 'next/navigation'
 import { useMediaQuery } from 'react-responsive'
 import clsx from 'clsx'
-import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
+import { useIsLoadingStore, useSectionLoaderStore, useCurtainStore } from '@/store'
+import { GalleryServer } from '@/backend/gallery'
 
 type SwipeOptions = {
   direction: number
@@ -133,32 +135,28 @@ export function BaseLayout({
   }, [loadingUrl])
 
   return (
-    <HeaderProvider>
-      <FontSizeProvider>
-        <LenisScrollProvider>
-          <Header />
+    <FontSizeProvider>
+      <LenisScrollProvider>
+        <div
+          className={clsx(
+            'slides-wrapper',
+            Array.from({ length: index + 1 }, (_, i) => `state-${i}`),
+          )}
+          ref={wrapperRef}
+        >
+          {isDesktop && <SectionPreloader url={url} />}
+          {isDesktop && <PrevSectionLoaderDesktop prevUrl={url?.prev} />}
+          {isMobile && <SectionLoaderMobile />}
 
-          <div
-            className={clsx(
-              'slides-wrapper',
-              Array.from({ length: index + 1 }, (_, i) => `state-${i}`),
-            )}
-            ref={wrapperRef}
-          >
-            {isDesktop && <SectionPreloader url={url} />}
-            {isDesktop && <PrevSectionLoaderDesktop prevUrl={url?.prev} />}
-            {isMobile && <SectionLoaderMobile />}
+          <main id="root-main">{children}</main>
 
-            <main id="root-main">{children}</main>
+          {isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
+        </div>
 
-            {isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
-          </div>
+        <Modal />
 
-          <Modal />
-
-          <InterstroyLogo />
-        </LenisScrollProvider>
-      </FontSizeProvider>
-    </HeaderProvider>
+        <InterstroyLogo />
+      </LenisScrollProvider>
+    </FontSizeProvider>
   )
 }

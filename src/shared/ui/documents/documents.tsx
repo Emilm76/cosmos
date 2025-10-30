@@ -2,24 +2,12 @@
 import clsx from 'clsx'
 import { useState } from 'react'
 import styles from './documents.module.scss'
+import { useCurtainStore } from '@/store'
+import { Document } from '@/backend/documents'
 
-type Document = {
-  name: string
-  date: string
-  type: 1 | 2
-}
-
-const docs: Document[] = [
-  { name: 'Проектная декларация от 09.12.2024', date: '09.12.2024', type: 1 },
-  { name: 'Проектная декларация от 09.12.2024', date: '09.12.2024', type: 1 },
-  { name: 'Проектная декларация от 09.12.2024', date: '09.12.2024', type: 1 },
-  { name: 'Проектная декларация от 09.12.2024', date: '09.12.2024', type: 1 },
-  { name: 'Проектная декларация от 09.12.2024', date: '09.12.2024', type: 1 },
-  { name: 'Разрешительная документация от 09.12.2025', date: '09.12.2025', type: 2 },
-]
-
-export function Documents({ isOpen }: { isOpen: boolean }) {
+export function Documents({ documents }: { documents: Document[] }) {
   const [activeTab, setActiveTab] = useState<1 | 2>(1)
+  const isOpen = useCurtainStore((s) => s.isDocumentsOpen)
 
   return (
     <div className={clsx(styles.modal, 'lenis-prevent', isOpen && styles.open)}>
@@ -43,7 +31,7 @@ export function Documents({ isOpen }: { isOpen: boolean }) {
         </div>
 
         <div className={styles.docsList}>
-          {docs
+          {documents
             .filter((doc) => doc.type === activeTab)
             .map((doc, index) => (
               <DocumentItem doc={doc} key={index} />
@@ -55,10 +43,19 @@ export function Documents({ isOpen }: { isOpen: boolean }) {
 }
 
 function DocumentItem({ doc }: { doc: Document }) {
+  const formattedDate = (() => {
+    const parsed = new Date(doc.date as unknown as string)
+    if (Number.isNaN(parsed.getTime())) return String(doc.date)
+    return parsed.toLocaleDateString('ru-RU', {
+      day: '2-digit',
+      month: '2-digit',
+      year: 'numeric',
+    })
+  })()
   return (
-    <a href="" target="_blank" className={styles.docItem}>
+    <a href={doc.url} target="_blank" className={styles.docItem}>
       <h3 className="h4">{doc.name}</h3>
-      <span>{doc.date}</span>
+      <span>{formattedDate}</span>
     </a>
   )
 }
