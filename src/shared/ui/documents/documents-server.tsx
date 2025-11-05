@@ -1,4 +1,4 @@
-import { Documents } from '@/shared'
+import { Documents } from './documents'
 import { getDocumentList } from './document'
 
 export async function DocumentsServer() {

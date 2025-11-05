@@ -4,5 +4,5 @@ import { PlansSection } from './plans'
 export async function PlansSectionServer() {
   const plansList = await getPlansList()
 
-  return <PlansSection plans={plansList} />
+  return <PlansSection plans={plansList || []} />
 }

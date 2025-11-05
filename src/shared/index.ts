@@ -7,8 +7,8 @@ export { Slider } from './ui/slider/slider'
 export { CustomScrollbar } from './ui/scrollbar/custom-scrollbar'
 export { Modal } from './ui/modal/modal'
 export { ModalPlan } from './ui/modal/modal-plan'
-export { Gallery } from './ui/gallery/gallery'
-export { Documents } from './ui/documents/documents'
+export { GalleryServer } from './ui/gallery/gallery-server'
+export { DocumentsServer } from './ui/documents/documents-server'
 export {
   NextSectionLoaderDesktop,
   PrevSectionLoaderDesktop,

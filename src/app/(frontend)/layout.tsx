@@ -3,10 +3,8 @@ import { ReactNode } from 'react'
 import './globals.scss'
 import localFont from 'next/font/local'
 import { BaseLayout } from './providers/base-layout'
-import { Header } from '@/shared'
+import { DocumentsServer, GalleryServer, Header } from '@/shared'
 import { HeaderProvider } from '@/context/header-context'
-//import { GalleryServer } from '@/backend/gallery'
-//import { DocumentsServer } from '@/backend/documents'
 
 export const metadata: Metadata = {
   title: 'COSMOS',
@@ -30,8 +28,8 @@ export default function RootLayout({
       <body>
         <HeaderProvider>
           <Header />
-          {/* <GalleryServer /> */}
-          {/* <DocumentsServer /> */}
+          <GalleryServer />
+          <DocumentsServer />
 
           <BaseLayout>{children}</BaseLayout>
         </HeaderProvider>
