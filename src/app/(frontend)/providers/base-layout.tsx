@@ -11,7 +11,6 @@ import {
   Modal,
 } from '@/shared'
 import { usePathname } from 'next/navigation'
-import { useMediaQuery } from 'react-responsive'
 import clsx from 'clsx'
 import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
 
@@ -42,8 +41,10 @@ export function BaseLayout({
 }: Readonly<{
   children: ReactNode
 }>) {
-  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
-  const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
+  // Hydration-safe media query evaluation
+  const [mounted, setMounted] = useState(false)
+  const [isDesktop, setIsDesktop] = useState(false)
+  const [isMobile, setIsMobile] = useState(false)
 
   const wrapperRef = useRef<HTMLDivElement>(null)
   const pathname = usePathname()
@@ -69,9 +70,22 @@ export function BaseLayout({
       '/apartments': 0,
     }[pathname] ?? 0
 
+  // Ensure server and first client render match; compute media after mount
+  useEffect(() => {
+    setMounted(true)
+    const updateMediaFlags = () => {
+      const desktop = window.matchMedia('(min-width: 1024px)').matches
+      setIsDesktop(desktop)
+      setIsMobile(!desktop)
+    }
+    updateMediaFlags()
+    window.addEventListener('resize', updateMediaFlags)
+    return () => window.removeEventListener('resize', updateMediaFlags)
+  }, [])
+
   // swipes on mobile with hammer.js
   useEffect(() => {
-    if (isDesktop || !wrapperRef.current) return
+    if (!mounted || isDesktop || !wrapperRef.current) return
 
     let isCancelled = false
     let hammer: HammerManager | null = null
@@ -119,7 +133,7 @@ export function BaseLayout({
       isCancelled = true
       if (hammer) hammer.destroy()
     }
-  }, [isDesktop, statesCount, url, setLoadingUrl, isLoading])
+  }, [mounted, isDesktop, statesCount, url, setLoadingUrl, isLoading])
 
   useEffect(() => {
     indexRef.current = index
@@ -140,13 +154,13 @@ export function BaseLayout({
           )}
           ref={wrapperRef}
         >
-          {isDesktop && <SectionPreloader url={url} />}
-          {isDesktop && <PrevSectionLoaderDesktop prevUrl={url?.prev} />}
-          {isMobile && <SectionLoaderMobile />}
+          {mounted && isDesktop && <SectionPreloader url={url} />}
+          {mounted && isDesktop && <PrevSectionLoaderDesktop prevUrl={url?.prev} />}
+          {mounted && isMobile && <SectionLoaderMobile />}
 
           <main id="root-main">{children}</main>
 
-          {isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
+          {mounted && isDesktop && <NextSectionLoaderDesktop nextUrl={url?.next} />}
         </div>
 
         <Modal />
