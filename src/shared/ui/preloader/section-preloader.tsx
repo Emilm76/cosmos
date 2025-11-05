@@ -193,7 +193,7 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
       gsap.to(preloader.current, { position: 'fixed' })
       router.push(loadingUrl.toString())
     }, 750)
-  }, [loadingUrl, isFromLink, startLoading, router, lenis])
+  }, [loadingUrl, isFromLink, startLoading, isLoadPreviousUrl, router, lenis])
 
   // Убираем preloader после загрузки страницы
   useGSAP(() => {

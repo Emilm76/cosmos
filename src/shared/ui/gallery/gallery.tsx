@@ -6,7 +6,7 @@ import useEmblaCarousel from 'embla-carousel-react'
 import { EmblaCarouselType } from 'embla-carousel'
 import Image from 'next/image'
 import { ArrowLeftIcon, ArrowRightIcon } from '@/shared'
-import { GalleryImage } from '@/backend/gallery'
+import { GalleryImage } from './gallery-image'
 import { useCurtainStore } from '@/store'
 
 export function Gallery({ images }: { images: GalleryImage[] }) {

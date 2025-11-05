@@ -180,7 +180,7 @@ function Video() {
   const isDev = process.env.NODE_ENV === 'development'
 
   if (isDev) {
-    return <img src="/img/video-preview.jpg" alt="" />
+    return <img src="/video-preview.jpg" alt="" />
   }
 
   return (

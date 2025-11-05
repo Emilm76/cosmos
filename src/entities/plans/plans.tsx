@@ -8,7 +8,7 @@ import { useHeader } from '@/context/header-context'
 import gsap from 'gsap'
 import { useGSAP } from '@gsap/react'
 import { useIsLoadingStore } from '@/store'
-import { Plan } from '@/backend/plans'
+import { Plan } from './plan'
 
 type DivRef = HTMLDivElement | null
 

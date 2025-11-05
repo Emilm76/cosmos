@@ -3,7 +3,7 @@ import clsx from 'clsx'
 import { useState } from 'react'
 import styles from './documents.module.scss'
 import { useCurtainStore } from '@/store'
-import { Document } from '@/backend/documents'
+import { Document } from './document'
 
 export function Documents({ documents }: { documents: Document[] }) {
   const [activeTab, setActiveTab] = useState<1 | 2>(1)

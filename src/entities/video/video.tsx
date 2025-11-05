@@ -241,7 +241,7 @@ function Video() {
 
   if (isDev) {
     // if dev
-    return <img src="img/video-preview.jpg" alt="" />
+    return <img src="/video-preview.jpg" alt="" />
   }
 
   // if prod

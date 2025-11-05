@@ -6,7 +6,7 @@ import styles from './modal-plan.module.scss'
 //import { CubeIcon, DownloadIcon } from '@/shared'
 import Image from 'next/image'
 import { useModalStore } from '@/store'
-import { Plan } from '@/backend/plans'
+import { Plan } from '@/entities/plans/plan'
 
 export function ModalPlan({
   isOpen,
