@@ -5,10 +5,10 @@ import { useRef } from 'react'
 import gsap from 'gsap'
 import clsx from 'clsx'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
-import { ImagePriority, MyImage } from '@/shared'
 import DeminImg from '@/images/demin-plan-dark.jpg'
 import BeachImg from '@/images/beach.jpg'
 import { useIsLoadingStore } from '@/store'
+import { ImagePriority, MyImage } from '@/shared/ui/image/image'
 
 gsap.registerPlugin(ScrollTrigger)
 

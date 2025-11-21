@@ -1,0 +1,27 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background-color: var(--color-bg);
+  transition: translate 0.8s var(--easeInOutQuart);
+  translate: 0 100%;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  text-align: center;
+  padding-top: var(--header-height);
+  padding-bottom: rem(40px);
+  overflow-y: auto;
+
+  @media (min-width: 768px) {
+    padding-bottom: rem(80px);
+  }
+  @media (min-width: 1600px) {
+    padding-bottom: rem(110px);
+  }
+
+  &.open {
+    transition-delay: 1s;
+    translate: none;
+  }
+}

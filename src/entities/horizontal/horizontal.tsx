@@ -1,5 +1,4 @@
 'use client'
-import { MyImage } from '@/shared'
 import styles from './horizontal.module.scss'
 import Img1 from '@/images/service.jpg'
 import Img2 from '@/images/family.jpg'
@@ -13,6 +12,7 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 import { useIsLoadingStore } from '@/store'
+import { MyImage } from '@/shared/ui/image/image'
 
 gsap.registerPlugin(ScrollTrigger)
 

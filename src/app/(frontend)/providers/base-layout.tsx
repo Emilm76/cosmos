@@ -2,17 +2,17 @@
 import { ReactNode, useEffect, useRef, useState } from 'react'
 import { LenisScrollProvider } from './lenis-provider'
 import { FontSizeProvider } from './font-size-provider'
-import {
-  InterstroyLogo,
-  NextSectionLoaderDesktop,
-  SectionLoaderMobile,
-  PrevSectionLoaderDesktop,
-  SectionPreloader,
-  Modal,
-} from '@/shared'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
+import { InterstroyLogo } from '@/shared/ui/logo/logo'
+import { Modal } from '@/shared/ui/modal/modal'
+import {
+  NextSectionLoaderDesktop,
+  PrevSectionLoaderDesktop,
+  SectionLoaderMobile,
+  SectionPreloader,
+} from '@/shared/ui/preloader/section-preloader'
 
 type SwipeOptions = {
   direction: number

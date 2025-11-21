@@ -1,5 +1,4 @@
 'use client'
-import { ImagePriority, MobileSlider, MyImage } from '@/shared'
 import styles from './relax.module.scss'
 import clsx from 'clsx'
 import SeaImg from '@/images/sea-2.jpg'
@@ -23,6 +22,8 @@ import Img4 from '@/images/sapboard.jpg'
 import Img5 from '@/images/windserf.jpg'
 import Img6 from '@/images/kiting.jpg'
 import { useIsLoadingStore } from '@/store'
+import { ImagePriority, MyImage } from '@/shared/ui/image/image'
+import { MobileSlider } from '@/shared/ui/slider/mobile-slider'
 
 gsap.registerPlugin(ScrollTrigger)
 

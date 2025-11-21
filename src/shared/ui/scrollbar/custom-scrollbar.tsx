@@ -2,7 +2,7 @@
 import { ReactNode } from 'react'
 import clsx from 'clsx'
 import styles from './scrollbar.module.scss'
-import { useScrollbar } from '@/shared'
+import { useScrollbar } from '@/shared/model/use-scrollbar'
 
 export function CustomScrollbar({
   children,

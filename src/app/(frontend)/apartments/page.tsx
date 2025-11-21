@@ -1,5 +1,5 @@
-import { PlansSectionServer } from '@/entities'
+import { PlansSection } from '@/Plans/Component'
 
 export default function Page() {
-  return <PlansSectionServer />
+  return <PlansSection />
 }

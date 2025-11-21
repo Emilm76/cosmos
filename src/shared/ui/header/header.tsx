@@ -6,10 +6,13 @@ import clsx from 'clsx'
 import Image from 'next/image'
 import Img from '@/images/burger.jpg'
 import { useHeader } from '@/context/header-context'
-import { ArrowLeftIcon, LogoIcon, PhoneIcon, MyLink } from '@/shared'
 import { useMediaQuery } from 'react-responsive'
-import { useModalStore, useCurtainStore } from '@/store'
 import { usePathname } from 'next/navigation'
+import { useCurtainStore, useModalStore } from '@/store'
+import { PhoneIcon } from '../icons/phone'
+import { ArrowLeftIcon } from '../icons/arrow-left'
+import { MyLink } from '../link/link'
+import { LogoIcon } from '../icons/logo'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)

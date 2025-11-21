@@ -1,5 +1,4 @@
 'use client'
-import { MobileSlider, MyImage } from '@/shared'
 import styles from './video.module.scss'
 import Img1 from '@/images/hall.jpg'
 import Img2 from '@/images/sauna.jpg'
@@ -14,6 +13,8 @@ import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useRef, useState } from 'react'
 import BgImg from '@/images/bedroom.jpg'
+import { MyImage } from '@/shared/ui/image/image'
+import { MobileSlider } from '@/shared/ui/slider/mobile-slider'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -1,0 +1,16 @@
+.modal {
+  position: fixed;
+  inset: 0;
+  z-index: 90;
+  background-color: var(--color-bg);
+  transition: translate 0.8s var(--easeInOutQuart);
+  translate: 0 100%;
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+
+  &.open {
+    transition-delay: 1s;
+    translate: none;
+  }
+}

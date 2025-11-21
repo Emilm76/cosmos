@@ -1,11 +1,11 @@
 'use client'
-import { LogoWithDescriptor2 } from '@/shared'
 import styles from './preloader-layout.module.scss'
 import clsx from 'clsx'
 import { useGSAP } from '@gsap/react'
 import gsap from 'gsap'
 import { Ref, RefObject, useRef } from 'react'
 import { useIsLoadingStore } from '@/store'
+import { LogoWithDescriptor2 } from '../icons/logo-with-descriptor-2'
 
 type SVGRef = SVGElement | null
 

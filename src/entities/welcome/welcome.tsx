@@ -1,11 +1,11 @@
 'use client'
-import { LogoWithDescriptor } from '@/shared'
 import styles from './welcome.module.scss'
 import { useGSAP } from '@gsap/react'
 import { useRef } from 'react'
 import gsap from 'gsap'
 import clsx from 'clsx'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
+import { LogoWithDescriptor } from '@/shared/ui/icons/logo-with-descriptor'
 
 gsap.registerPlugin(ScrollTrigger)
 

@@ -67,7 +67,7 @@ export interface Config {
   };
   blocks: {};
   collections: {
-    plans: Plan;
+    floors: Floor;
     media: Media;
     files: File;
     users: User;
@@ -77,7 +77,7 @@ export interface Config {
   };
   collectionsJoins: {};
   collectionsSelect: {
-    plans: PlansSelect<false> | PlansSelect<true>;
+    floors: FloorsSelect<false> | FloorsSelect<true>;
     media: MediaSelect<false> | MediaSelect<true>;
     files: FilesSelect<false> | FilesSelect<true>;
     users: UsersSelect<false> | UsersSelect<true>;
@@ -89,11 +89,13 @@ export interface Config {
     defaultIDType: number;
   };
   globals: {
-    images: Image;
+    plans: Plan;
+    gallery: Gallery;
     documents: Document;
   };
   globalsSelect: {
-    images: ImagesSelect<false> | ImagesSelect<true>;
+    plans: PlansSelect<false> | PlansSelect<true>;
+    gallery: GallerySelect<false> | GallerySelect<true>;
     documents: DocumentsSelect<false> | DocumentsSelect<true>;
   };
   locale: null;
@@ -125,9 +127,9 @@ export interface UserAuthOperations {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plans".
+ * via the `definition` "floors".
  */
-export interface Plan {
+export interface Floor {
   id: number;
   name: string;
   rooms: number;
@@ -146,7 +148,7 @@ export interface Plan {
  */
 export interface Media {
   id: number;
-  alt: string;
+  alt?: string | null;
   updatedAt: string;
   createdAt: string;
   url?: string | null;
@@ -209,8 +211,8 @@ export interface PayloadLockedDocument {
   id: number;
   document?:
     | ({
-        relationTo: 'plans';
-        value: number | Plan;
+        relationTo: 'floors';
+        value: number | Floor;
       } | null)
     | ({
         relationTo: 'media';
@@ -268,9 +270,9 @@ export interface PayloadMigration {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "plans_select".
+ * via the `definition` "floors_select".
  */
-export interface PlansSelect<T extends boolean = true> {
+export interface FloorsSelect<T extends boolean = true> {
   name?: T;
   rooms?: T;
   square?: T;
@@ -373,11 +375,26 @@ export interface PayloadMigrationsSelect<T extends boolean = true> {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "images".
+ * via the `definition` "plans".
  */
-export interface Image {
+export interface Plan {
   id: number;
-  images?:
+  plansSlider?:
+    | {
+        plan: number | Floor;
+        id?: string | null;
+      }[]
+    | null;
+  updatedAt?: string | null;
+  createdAt?: string | null;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery".
+ */
+export interface Gallery {
+  id: number;
+  gallerySlider?:
     | {
         image: number | Media;
         id?: string | null;
@@ -392,7 +409,7 @@ export interface Image {
  */
 export interface Document {
   id: number;
-  documents?:
+  files?:
     | {
         name: string;
         date: string;
@@ -406,10 +423,25 @@ export interface Document {
 }
 /**
  * This interface was referenced by `Config`'s JSON-Schema
- * via the `definition` "images_select".
+ * via the `definition` "plans_select".
  */
-export interface ImagesSelect<T extends boolean = true> {
-  images?:
+export interface PlansSelect<T extends boolean = true> {
+  plansSlider?:
+    | T
+    | {
+        plan?: T;
+        id?: T;
+      };
+  updatedAt?: T;
+  createdAt?: T;
+  globalType?: T;
+}
+/**
+ * This interface was referenced by `Config`'s JSON-Schema
+ * via the `definition` "gallery_select".
+ */
+export interface GallerySelect<T extends boolean = true> {
+  gallerySlider?:
     | T
     | {
         image?: T;
@@ -424,7 +456,7 @@ export interface ImagesSelect<T extends boolean = true> {
  * via the `definition` "documents_select".
  */
 export interface DocumentsSelect<T extends boolean = true> {
-  documents?:
+  files?:
     | T
     | {
         name?: T;

@@ -4,7 +4,7 @@ import { useLenis } from 'lenis/react'
 import { useEffect, MouseEvent } from 'react'
 import styles from './modal.module.scss'
 import { useModalStore } from '@/store'
-import { Form } from '@/shared'
+import { Form } from '../form/form'
 
 export function Modal() {
   const isOpen = useModalStore((s) => s.isOpen)

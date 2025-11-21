@@ -12,7 +12,7 @@ export const FilesCollection: CollectionConfig = {
   },
   fields: [],
   upload: {
-    staticDir: path.resolve(dirname, '../../../../public/files'),
+    staticDir: path.resolve(dirname, '../../../public/files'),
     mimeTypes: ['application/pdf'],
     pasteURL: false,
   },

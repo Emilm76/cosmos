@@ -3,10 +3,10 @@ import clsx from 'clsx'
 import { useLenis } from 'lenis/react'
 import { useEffect, MouseEvent } from 'react'
 import styles from './modal-plan.module.scss'
-//import { CubeIcon, DownloadIcon } from '@/shared'
 import Image from 'next/image'
 import { useModalStore } from '@/store'
-import { Plan } from '@/entities/plans/plan'
+import { Floor } from '@/admin/payload-types'
+import { getMediaUrl } from '@/utilities/getMediaUrl'
 
 export function ModalPlan({
   isOpen,
@@ -14,7 +14,7 @@ export function ModalPlan({
   closeCallback,
 }: {
   isOpen: boolean
-  data: Plan
+  data: Floor
   closeCallback: () => void
 }) {
   const lenis = useLenis()
@@ -40,6 +40,8 @@ export function ModalPlan({
     }
   }
 
+  const image = typeof data.poster === 'number' ? '' : data.poster.url
+
   return (
     <div className={clsx(styles.modal, isOpen && styles.open)} onClick={handleModalClick}>
       <div className={styles.wrapper}>
@@ -51,15 +53,13 @@ export function ModalPlan({
             <h2 className="h2">{data.name}</h2>
             <div className={styles.grid}>
               <div>
-                {data.posterUrl && (
-                  <Image
-                    className={styles.planImg}
-                    src={data.posterUrl}
-                    width={740}
-                    height={450}
-                    alt=""
-                  />
-                )}
+                <Image
+                  className={styles.planImg}
+                  src={getMediaUrl(image)}
+                  width={740}
+                  height={450}
+                  alt=""
+                />
               </div>
 
               <div className={styles.table}>
@@ -78,13 +78,16 @@ export function ModalPlan({
                     <span>{data.view}</span>
                   </div>
                 </div>
-                <div className={clsx(styles.tablePayInfo, styles.tableRow)}>
-                  <div className="subtitle">Доступные способы оплаты:</div>
-                  <ul role="list">
-                    <li>— ипотека 7% </li>
-                    <li>— рассрочка 0%</li>
-                  </ul>
-                </div>
+                {!!data.pay?.length && (
+                  <div className={clsx(styles.tablePayInfo, styles.tableRow)}>
+                    <div className="subtitle">Доступные способы оплаты:</div>
+                    <ul role="list">
+                      {data.pay.map((pay, index) => (
+                        <li key={index}>— {pay}</li>
+                      ))}
+                    </ul>
+                  </div>
+                )}
               </div>
             </div>
             <div className={styles.bottom}>

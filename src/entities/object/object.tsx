@@ -2,18 +2,18 @@
 import styles from './object.module.scss'
 import { useRef } from 'react'
 import clsx from 'clsx'
-import { MyImage } from '@/shared'
 import SeaImg from '@/images/sea.jpg'
 import BeachImg from '@/images/beach-2.jpg'
 import Beach2Img from '@/images/beach-3.jpg'
 import RichManImg from '@/images/rich-man.jpg'
 import FriendsImg from '@/images/friends.jpg'
-import { MobileSlider } from '@/shared'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
 import { useMediaQuery } from 'react-responsive'
 import { useIsLoadingStore } from '@/store'
+import { MobileSlider } from '@/shared/ui/slider/mobile-slider'
+import { MyImage } from '@/shared/ui/image/image'
 
 gsap.registerPlugin(ScrollTrigger)
 const mm = gsap.matchMedia()

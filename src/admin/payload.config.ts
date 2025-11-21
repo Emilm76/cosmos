@@ -12,9 +12,10 @@ import sharp from 'sharp'
 import { UsersCollection } from './collections/Users'
 import { MediaCollection } from './collections/Media'
 import { FilesCollection } from './collections/Files'
-import { PlansCollection } from './collections/Plans'
-import { ImagesGlobal } from './globals/Images'
-import { DocumentsGlobal } from './globals/Documents'
+import { GalleryGlobal } from '@/admin/globals/Gallery'
+import { DocumentsGlobal } from '@/admin/globals/Documents'
+import { PlansGlobal } from './globals/Plans'
+import { FloorsCollection } from './collections/Floors'
 
 const filename = fileURLToPath(import.meta.url)
 const dirname = path.dirname(filename)
@@ -26,8 +27,8 @@ export default buildConfig({
     dateFormat: 'dd.MM.yyyy',
   },
 
-  collections: [PlansCollection, MediaCollection, FilesCollection, UsersCollection],
-  globals: [ImagesGlobal, DocumentsGlobal],
+  collections: [FloorsCollection, MediaCollection, FilesCollection, UsersCollection],
+  globals: [PlansGlobal, GalleryGlobal, DocumentsGlobal],
 
   editor: lexicalEditor(),
   secret: process.env.PAYLOAD_SECRET || '',

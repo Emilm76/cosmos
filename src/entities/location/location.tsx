@@ -5,7 +5,6 @@ import BasikImg from '@/images/basik.jpg'
 import RestikImg from '@/images/restik.jpg'
 import MapImg from '@/images/map.jpg'
 import { useRef, useState } from 'react'
-import { CustomScrollbar } from '@/shared'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -13,17 +12,16 @@ import Img1 from '@/images/sea-view.jpg'
 import Img2 from '@/images/boat.jpg'
 import Img3 from '@/images/fasad.jpg'
 import Img4 from '@/images/mebel.jpg'
-import {
-  BedIcon,
-  ChartIcon,
-  ClassIcon,
-  EatIcon,
-  MyImage,
-  PeopleIcon,
-  SafetyIcon,
-  ServiceIcon,
-  SpaIcon,
-} from '@/shared'
+import { MyImage } from '@/shared/ui/image/image'
+import { CustomScrollbar } from '@/shared/ui/scrollbar/custom-scrollbar'
+import { ChartIcon } from '@/shared/ui/icons/chart'
+import { ClassIcon } from '@/shared/ui/icons/class'
+import { PeopleIcon } from '@/shared/ui/icons/people'
+import { BedIcon } from '@/shared/ui/icons/bed'
+import { SafetyIcon } from '@/shared/ui/icons/safety'
+import { ServiceIcon } from '@/shared/ui/icons/service'
+import { SpaIcon } from '@/shared/ui/icons/spa'
+import { EatIcon } from '@/shared/ui/icons/eat'
 
 gsap.registerPlugin(ScrollTrigger)
 

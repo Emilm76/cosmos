@@ -1,9 +1,8 @@
 'use client'
-
-import { TelField } from '@/shared'
 import clsx from 'clsx'
 import { FormEvent } from 'react'
 import styles from './form.module.scss'
+import { TelField } from '../input/tel-field'
 
 /*const status = {
   wait: 'Заявка отправляется...',
