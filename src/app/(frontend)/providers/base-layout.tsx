@@ -65,7 +65,7 @@ export function BaseLayout({
   const statesCount =
     {
       '/': 2,
-      '/location': 16,
+      '/location': 18,
       '/comfort': 15,
       '/apartments': 0,
     }[pathname] ?? 0

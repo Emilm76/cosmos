@@ -6,7 +6,8 @@ import gsap from 'gsap'
 import clsx from 'clsx'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import DeminImg from '@/images/demin-plan-dark.jpg'
-import BeachImg from '@/images/beach.jpg'
+import BeachImg from '@/images/woman-with-beach.jpg'
+import ManImg from '@/images/man-with-tie.jpg'
 import { useIsLoadingStore } from '@/store'
 import { ImagePriority, MyImage } from '@/shared/ui/image/image'
 
@@ -14,12 +15,15 @@ gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 1.3
+const animationHeightCount = 3.5
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
-  slide2Start: 0,
-  slide2End: 100,
+  start: 0,
+  slide2Start: 42,
+  roundStart: window.innerWidth >= 1600 ? 67.6 : window.innerWidth >= 1300 ? 68 : 68,
+  roundEnd: window.innerWidth >= 1600 ? 73 : window.innerWidth >= 1300 ? 75.7 : 74.5,
+  end: 100,
 }
 
 export function CitySection() {
@@ -27,9 +31,17 @@ export function CitySection() {
   const content = useRef<DivRef>(null)
   const title = useRef<DivRef>(null)
   const text = useRef<DivRef>(null)
-  const image = useRef<DivRef>(null)
+  const imageBg = useRef<DivRef>(null)
   const side = useRef<DivRef>(null)
   const subtitle = useRef<DivRef>(null)
+  const text2 = useRef<DivRef>(null)
+  const rep2Wrapper = useRef<DivRef>(null)
+  const round = useRef<DivRef>(null)
+  const round2 = useRef<DivRef>(null)
+  const image1 = useRef<DivRef>(null)
+  const image2 = useRef<DivRef>(null)
+  const img1 = useRef<DivRef>(null)
+  const img2 = useRef<DivRef>(null)
 
   const isLoading = useIsLoadingStore((s) => s.isLoading)
 
@@ -82,7 +94,7 @@ export function CitySection() {
         side.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide2End]: { x: '-100%' } },
+          keyframes: { [steps.start]: { x: 0 }, [steps.slide2Start]: { x: '-100%' } },
         },
         0,
       )
@@ -90,15 +102,65 @@ export function CitySection() {
         subtitle.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.slide2Start]: { x: '-20rem' }, [steps.slide2End]: { x: 0 } },
+          keyframes: {
+            [steps.start]: { x: window.innerWidth >= 1300 ? '-10rem' : 0 },
+            [steps.slide2Start]: { x: 0 },
+          },
         },
         0,
       )
       tl.to(
-        image.current,
+        image1.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.slide2Start]: { x: 0 }, [steps.slide2End]: { x: '-50%' } },
+          keyframes: { [steps.start]: { x: '56rem' }, [steps.slide2Start]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        text2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.start]: { x: '97rem' }, [steps.slide2Start]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        imageBg.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.start]: { x: 0 }, [steps.slide2Start]: { x: '-50%' } },
+        },
+        0,
+      )
+
+      tl.to(
+        rep2Wrapper.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide2Start]: { width: 0 }, [steps.end]: { width: '100vw' } },
+        },
+        0,
+      )
+
+      const roundX = window.innerWidth >= 1300 ? '16rem' : '10rem'
+
+      gsap.set(round.current, { x: roundX })
+      tl.to(
+        round.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.roundStart]: { x: roundX }, [steps.roundEnd]: { x: 0 } },
+        },
+        0,
+      )
+
+      gsap.set(round2.current, { x: roundX })
+      tl.to(
+        round2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.roundStart]: { x: roundX }, [steps.roundEnd]: { x: 0 } },
         },
         0,
       )
@@ -114,7 +176,7 @@ export function CitySection() {
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
           <div className={styles.imageWrapper}>
-            <div className={styles.image} ref={image}>
+            <div className={styles.image} ref={imageBg}>
               <ImagePriority src={DeminImg} alt="" />
             </div>
             <div className={styles.imageOverlay}>
@@ -139,12 +201,17 @@ export function CitySection() {
         <div className={clsx(styles.rep, 'mobile-slide m2-slide2')} ref={side}>
           <div className={clsx(styles.repContainer, 'container')}>
             <h2 className="h2" ref={subtitle}>
-              Начало новой истории
+              Начало <br />
+              новой <br />
+              истории
             </h2>
-            <div className={clsx(styles.beachImage, 'm2-slide2-img')}>
-              <MyImage src={BeachImg} alt="" />
+            <div className={clsx(styles.beachImage, 'm2-slide2-img')} ref={image1}>
+              <div className={styles.img} ref={img1}>
+                <MyImage src={BeachImg} alt="" />
+              </div>
+              <div className={styles.round} ref={round}></div>
             </div>
-            <div className={clsx(styles.beachText, 'm2-slide2-text')}>
+            <div className={clsx(styles.beachText, 'm2-slide2-text')} ref={text2}>
               <h3 className="subtitle">Cosmos Smart Evpatoriya Hotel</h3>
               <p>
                 новый символ курортной Евпатории. Мы создали пространство, в котором каждый гость
@@ -152,6 +219,36 @@ export function CitySection() {
                 европейский сервис — всё для того, чтобы время, проведённое здесь, стало вашей
                 лучшей историей.
               </p>
+            </div>
+          </div>
+        </div>
+
+        <div className={styles.rep2Wrapper} ref={rep2Wrapper}>
+          <div className={clsx(styles.rep2, 'mobile-slide m2-slide22')}>
+            <div className={clsx(styles.repContainer, 'container')}>
+              <h2 className="h2">
+                ИСТОРИИ <br />
+                ВАШЕГО <br />
+                КАПИТАЛА
+              </h2>
+              <div className={clsx(styles.beachImage, 'm2-slide22-img')} ref={image2}>
+                <div className={styles.img} ref={img2}>
+                  <MyImage src={ManImg} alt="" />
+                </div>
+                <div className={styles.round} ref={round2}></div>
+              </div>
+              <div className={clsx(styles.beachText, 'm2-slide22-text')}>
+                <h3 className="subtitle">Cosmos Smart Evpatoriya Hotel</h3>
+                <p>
+                  Это не просто место у моря. Это актив, который растёт в цене и приносит доход.
+                  <br />
+                  <br />
+                  Управление Cosmos, высокий спрос,
+                  <br />
+                  <br />
+                  престижная локация — всё работает на вашу выгоду.
+                </p>
+              </div>
             </div>
           </div>
         </div>
