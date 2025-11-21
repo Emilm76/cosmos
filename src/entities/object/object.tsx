@@ -10,7 +10,6 @@ import FriendsImg from '@/images/friends.jpg'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
-import { useMediaQuery } from 'react-responsive'
 import { useIsLoadingStore } from '@/store'
 import { MobileSlider } from '@/shared/ui/slider/mobile-slider'
 import { MyImage } from '@/shared/ui/image/image'
@@ -36,8 +35,6 @@ const steps = {
 }
 
 export function ObjectSection() {
-  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
-  const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
   const isLoading = useIsLoadingStore((s) => s.isLoading)
 
   const content = useRef<DivRef>(null)
@@ -184,32 +181,30 @@ export function ObjectSection() {
           </div>
 
           <div className={clsx(styles.slide2, 'slide mobile-slide m2-slide4')} ref={slide2}>
-            {isMobile && (
-              <MobileSlider
-                className={clsx(styles.slider, 'm2-slide4-slider')}
-                slides={[
-                  { content: <MyImage src={BeachImg} alt="" />, className: styles.sliderSlide },
-                  { content: <MyImage src={RichManImg} alt="" />, className: styles.sliderSlide },
-                  { content: <MyImage src={FriendsImg} alt="" />, className: styles.sliderSlide },
-                ]}
-              />
-            )}
+            {/* isMobile */}
+            <MobileSlider
+              className={clsx(styles.slider, 'm2-slide4-slider max-1024')}
+              slides={[
+                { content: <MyImage src={BeachImg} alt="" />, className: styles.sliderSlide },
+                { content: <MyImage src={RichManImg} alt="" />, className: styles.sliderSlide },
+                { content: <MyImage src={FriendsImg} alt="" />, className: styles.sliderSlide },
+              ]}
+            />
 
-            {isDesktop && (
-              <>
-                <div className={styles.imgBg} ref={bg}>
-                  <MyImage src={BeachImg} alt="" />
+            {/* isDesktop */}
+            <div className="min-1024">
+              <div className={styles.imgBg} ref={bg}>
+                <MyImage src={BeachImg} alt="" />
+              </div>
+              <div className={styles.leftBlock} ref={leftSide}>
+                <div className={styles.img1}>
+                  <MyImage src={RichManImg} alt="" />
                 </div>
-                <div className={styles.leftBlock} ref={leftSide}>
-                  <div className={styles.img1}>
-                    <MyImage src={RichManImg} alt="" />
-                  </div>
-                  <div className={styles.img2}>
-                    <MyImage src={FriendsImg} alt="" />
-                  </div>
+                <div className={styles.img2}>
+                  <MyImage src={FriendsImg} alt="" />
                 </div>
-              </>
-            )}
+              </div>
+            </div>
 
             <div className={clsx(styles.container2, 'container m2-slide4-text')} ref={rightSide}>
               <h3 className="h3">Быть может, вам ближе джаз, а может — классика</h3>

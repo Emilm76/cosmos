@@ -160,6 +160,18 @@ ul[role='list'] {
   padding: 0;
 }
 
+// breakpoints
+.max-1024 {
+  @media (min-width: 1024px) {
+    display: none;
+  }
+}
+.min-1024 {
+  @media (max-width: 1024px) {
+    display: none;
+  }
+}
+
 body {
   position: relative;
   font-size: rem(14px);
