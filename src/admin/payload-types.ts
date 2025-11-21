@@ -138,6 +138,7 @@ export interface Floor {
   roomHeight: number;
   view: string;
   pay?: string[] | null;
+  tourUrl?: string | null;
   poster: number | Media;
   updatedAt: string;
   createdAt: string;
@@ -280,6 +281,7 @@ export interface FloorsSelect<T extends boolean = true> {
   roomHeight?: T;
   view?: T;
   pay?: T;
+  tourUrl?: T;
   poster?: T;
   updatedAt?: T;
   createdAt?: T;

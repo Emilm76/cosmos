@@ -69,6 +69,13 @@ export const FloorsCollection: CollectionConfig = {
     },
 
     {
+      name: 'tourUrl',
+      type: 'text',
+      admin: { placeholder: 'https://file.360px.org/...' },
+      label: 'Ссылка на 3D тур',
+    },
+
+    {
       name: 'poster',
       type: 'upload',
       relationTo: 'media',

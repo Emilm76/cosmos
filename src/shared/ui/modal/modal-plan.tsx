@@ -7,6 +7,7 @@ import Image from 'next/image'
 import { useModalStore } from '@/store'
 import { Floor } from '@/admin/payload-types'
 import { getMediaUrl } from '@/utilities/getMediaUrl'
+import { CubeIcon } from '../icons/cube'
 
 export function ModalPlan({
   isOpen,
@@ -99,14 +100,21 @@ export function ModalPlan({
                 оставить заявку
               </button>
               <div className={styles.other}>
-                {/*<button type="button" className={styles.otherItem}>
-                  <CubeIcon />
-                  <span>3d тур</span>
-                </button>
-                <button type="button" className={styles.otherItem}>
+                {data.tourUrl && (
+                  <a
+                    href={data.tourUrl}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className={styles.otherItem}
+                  >
+                    <CubeIcon />
+                    <span>3d тур</span>
+                  </a>
+                )}
+                {/* <button type="button" className={styles.otherItem}>
                   <DownloadIcon />
                   <span>скачать буклет</span>
-                </button>*/}
+                </button> */}
               </div>
             </div>
           </div>
