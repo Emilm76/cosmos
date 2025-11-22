@@ -17,13 +17,12 @@ import { MyImage } from '@/shared/ui/image/image'
 gsap.registerPlugin(ScrollTrigger)
 const mm = gsap.matchMedia()
 
-type DivRef = HTMLDivElement | null
-
 const animationHeightCount = 3
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
   sideBarsStart: 0,
+  subtitleStart: 5,
   imgOpacityStart: 10,
   imgOpacityEnd: 18,
   sideBarsEnd: 20,
@@ -37,14 +36,20 @@ const steps = {
 export function ObjectSection() {
   const isLoading = useIsLoadingStore((s) => s.isLoading)
 
-  const content = useRef<DivRef>(null)
-  const slide2 = useRef<DivRef>(null)
-  const slide3 = useRef<DivRef>(null)
-  const leftSide = useRef<DivRef>(null)
-  const rightSide = useRef<DivRef>(null)
-  const bg = useRef<DivRef>(null)
-  const subtitle = useRef<DivRef>(null)
-  const hr = useRef<DivRef>(null)
+  const content = useRef<HTMLDivElement>(null)
+  const slide2 = useRef<HTMLDivElement>(null)
+  const slide3 = useRef<HTMLDivElement>(null)
+  const leftSide = useRef<HTMLDivElement>(null)
+  const rightSide = useRef<HTMLDivElement>(null)
+  const bg = useRef<HTMLDivElement>(null)
+  const subtitle = useRef<HTMLDivElement>(null)
+  const hr = useRef<HTMLDivElement>(null)
+  const t1 = useRef<HTMLSpanElement>(null)
+  const t2 = useRef<HTMLSpanElement>(null)
+  const t3 = useRef<HTMLSpanElement>(null)
+  const t4 = useRef<HTMLSpanElement>(null)
+  const t5 = useRef<HTMLSpanElement>(null)
+  const t6 = useRef<HTMLSpanElement>(null)
 
   useGSAP(() => {
     if (isLoading) return
@@ -98,6 +103,23 @@ export function ObjectSection() {
         },
         0,
       )
+
+      Array.from([t1, t2, t3, t4, t5, t6]).forEach((t, index: number) => {
+        const start = Math.floor(((steps.sideBarsBackEnd - steps.subtitleStart) / 6) * index)
+        const end = Math.floor(((steps.sideBarsBackEnd - steps.subtitleStart) / 6) * (index + 1))
+        tl.to(
+          t.current,
+          {
+            ease: 'sine.inOut',
+            keyframes: {
+              [steps.subtitleStart + start]: { '--fill-percent': '100%' },
+              [steps.subtitleStart + end]: { '--fill-percent': '0%' },
+            },
+          },
+          0,
+        )
+      })
+
       tl.to(
         hr.current,
         {
@@ -207,7 +229,27 @@ export function ObjectSection() {
             </div>
 
             <div className={clsx(styles.container2, 'container m2-slide4-text')} ref={rightSide}>
-              <h3 className="h3">Быть может, вам ближе джаз, а может — классика</h3>
+              <h3 className="h3 max-1024">Быть может, вам ближе джаз, а может — классика</h3>
+              <h3 className={clsx('h3 min-1024', styles.subtitle)} ref={subtitle}>
+                <span ref={t1} data-text="Быть">
+                  Быть
+                </span>
+                <span ref={t2} data-text="может,">
+                  может,
+                </span>
+                <span ref={t3} data-text="вам ближе">
+                  вам ближе
+                </span>
+                <span ref={t4} data-text="джаз,">
+                  джаз,
+                </span>
+                <span ref={t5} data-text="а может —">
+                  а может —
+                </span>
+                <span ref={t6} data-text="классика">
+                  классика
+                </span>
+              </h3>
               <p>
                 Может быть, вы цените изысканную кухню, и ваш любимый предмет интерьера — канделябр.
                 Или, напротив, вы любитель нарочито простых и понятных вкусов.

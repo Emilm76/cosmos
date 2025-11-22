@@ -214,6 +214,28 @@
   }
 }
 
+.subtitle {
+  color: var(--color-grey);
+  span {
+    --fill-percent: 100%;
+    position: relative;
+    display: block;
+    width: max-content;
+    &::before {
+      content: attr(data-text);
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: -moz-max-content;
+      width: max-content;
+      height: 1.2em;
+      color: var(--color-dark);
+      -webkit-clip-path: inset(0 var(--fill-percent) 0 0);
+      clip-path: inset(0 var(--fill-percent) 0 0);
+    }
+  }
+}
+
 .slide3 {
   position: absolute;
   top: 0;

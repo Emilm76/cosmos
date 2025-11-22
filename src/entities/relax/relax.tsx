@@ -90,8 +90,7 @@ export function RelaxSection() {
     const mm = gsap.matchMedia()
 
     const animationHeight = () => window.innerHeight * animationHeightCount
-    const offsetTitle = () => ((title.current?.offsetWidth || 0) - window.innerWidth) * -1
-    const slide5SrollHeight = () =>
+    const slide5ScrollHeight = () =>
       ((slide5Grid.current?.offsetHeight || 0) - (slide5Inner.current?.offsetHeight || 0)) * -1
 
     // For pinning effect
@@ -121,7 +120,7 @@ export function RelaxSection() {
           ease: 'sine.inOut',
           keyframes: {
             [steps.start]: { x: 0, y: 0 },
-            [steps.slide2]: { x: offsetTitle, y: () => window.innerHeight * -1 },
+            [steps.slide2]: { x: -400, y: () => window.innerHeight * -1 },
           },
         },
         0,
@@ -131,8 +130,8 @@ export function RelaxSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.start]: { scale: 1 },
-            [steps.slide2]: { scale: 1.2 },
+            [steps.start]: { scale: 1, y: 0 },
+            [steps.slide2]: { scale: 1.2, y: '-50%' },
           },
         },
         0,
@@ -232,7 +231,7 @@ export function RelaxSection() {
           ease: 'sine.inOut',
           keyframes: {
             [steps.slide6Scroll]: { y: 0 },
-            [steps.end]: { y: slide5SrollHeight },
+            [steps.end]: { y: slide5ScrollHeight },
           },
         },
         0,
