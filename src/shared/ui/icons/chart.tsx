@@ -11,7 +11,6 @@ export function ChartIcon({ className }: { className?: string }) {
       (entries) => {
         entries.forEach((entry) => {
           setVisible(entry.isIntersecting)
-          console.log(entry.isIntersecting)
         })
       },
       { rootMargin: '0px 0px 0px 0px' },
