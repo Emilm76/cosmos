@@ -1,37 +1,51 @@
 'use client'
-import { useEffect, useRef } from 'react'
+import clsx from 'clsx'
+import { useEffect, useRef, useState } from 'react'
 
-export function ChartIcon({
-  className,
-  startAnimation,
-}: {
-  className?: string
-  startAnimation?: boolean
-}) {
+export function ChartIcon({ className }: { className?: string }) {
   const svgRef = useRef<SVGSVGElement>(null)
+  const [isVisible, setVisible] = useState(false)
 
   useEffect(() => {
-    const path = svgRef.current?.querySelector('.star') as SVGPathElement | null
-    if (!path) return
-
-    const length = path.getTotalLength()
-    // console.log(length);
-
-    path.style.strokeDasharray = length + ' ' + length
-    path.style.strokeDashoffset = length + ''
+    const observer = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          setVisible(entry.isIntersecting)
+          console.log(entry.isIntersecting)
+        })
+      },
+      { rootMargin: '0px 0px 0px 0px' },
+    )
+    if (svgRef.current) observer.observe(svgRef.current)
+    return () => observer.disconnect()
   }, [])
 
   useEffect(() => {
-    const path = svgRef.current?.querySelector('.star') as SVGPathElement | null
+    const path1 = svgRef.current?.querySelector('.line1') as SVGPathElement | null
+    const path2 = svgRef.current?.querySelector('.line2') as SVGPathElement | null
+
+    if (!path1) return
+    const length = path1.getTotalLength()
+    path1.style.strokeDasharray = length + ' ' + length
+    path1.style.strokeDashoffset = length + ''
+
+    /*if (!path2) return
+    const length2 = path2.getTotalLength()
+    path2.style.strokeDasharray = '5.65 5.65'
+    path2.style.strokeDashoffset = length2 + ''*/
+  }, [])
+
+  useEffect(() => {
+    const path = svgRef.current
     if (!path) return
-    if (startAnimation) path.style.animationTimingFunction = 'none'
-    else path.style.animationTimingFunction = 'move'
-  }, [startAnimation])
+    if (isVisible) path.classList.add('startAnimation')
+    else path.classList.remove('startAnimation')
+  }, [isVisible])
 
   return (
     <svg
       ref={svgRef}
-      className={className}
+      className={clsx(className, 'chart')}
       viewBox="0 0 955 362"
       fill="none"
       xmlns="http://www.w3.org/2000/svg"
@@ -206,12 +220,13 @@ export function ChartIcon({
         fill="#A2C73B"
       />
       <path
-        className="star"
+        className="line1"
         d="M52.8782 114.445L215.827 217.174L379.365 281.105L541.634 242.554L704.873 165.022"
         stroke="#A2C73B"
         strokeWidth="0.942189"
       />
       <path
+        className="line2"
         d="M705.344 165.022L868.343 62.0977"
         stroke="#A2C73B"
         strokeWidth="0.942189"

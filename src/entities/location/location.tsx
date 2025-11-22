@@ -40,7 +40,6 @@ const steps = {
 
 export function LocationSection() {
   const [isMapLoad, setIsMapLoad] = useState(false)
-  const [startChartAnimation, setStartChartAnimation] = useState(true)
 
   const content = useRef(null)
   const slide2 = useRef<HTMLDivElement>(null)
@@ -365,7 +364,7 @@ export function LocationSection() {
                 scrollbarClassName={styles.scrollbar2}
                 isReady={true}
               >
-                <ChartIcon className={styles.chart} startAnimation={startChartAnimation} />
+                <ChartIcon className={styles.chart} />
               </CustomScrollbar>
             </div>
           </div>

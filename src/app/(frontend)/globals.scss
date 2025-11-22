@@ -943,16 +943,39 @@ main {
   }
 }
 
-.star {
-  //fill: none;
-  //stroke: #7d2d68;
-  //stroke-width: 17px;
-  animation: move 3s linear;
-  animation-timing-function: move;
-  animation-fill-mode: forwards;
+.chart {
+  .line1 {
+    fill: none;
+    stroke: #a2c73b;
+    stroke-width: 0.942189;
+    animation: none 1.5s linear;
+    animation-fill-mode: forwards;
+  }
+  .line2 {
+    fill: none;
+    stroke: #a2c73b;
+    stroke-width: 0.942189;
+    animation: none 0.4s linear;
+    animation-fill-mode: forwards;
+    animation-delay: 1.5s;
+    opacity: 0;
+  }
+  &.startAnimation {
+    .line1 {
+      animation-name: move;
+    }
+    .line2 {
+      animation-name: opacity;
+    }
+  }
 }
 @keyframes move {
   100% {
     stroke-dashoffset: 0;
+  }
+}
+@keyframes opacity {
+  100% {
+    opacity: 1;
   }
 }
