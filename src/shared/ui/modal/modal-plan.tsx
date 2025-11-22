@@ -1,7 +1,7 @@
 'use client'
 import clsx from 'clsx'
 import { useLenis } from 'lenis/react'
-import { useEffect, MouseEvent } from 'react'
+import { useEffect, MouseEvent, useRef, useState } from 'react'
 import styles from './modal-plan.module.scss'
 import Image from 'next/image'
 import { useModalStore } from '@/store'
@@ -20,6 +20,8 @@ export function ModalPlan({
 }) {
   const lenis = useLenis()
   const openModal = useModalStore((s) => s.open)
+  const imageRef = useRef<HTMLDivElement>(null)
+  const [isFullscreen, setIsFullscreen] = useState(false)
 
   useEffect(() => {
     if (!lenis) return
@@ -41,6 +43,38 @@ export function ModalPlan({
     }
   }
 
+  function handleImageClick() {
+    if (!imageRef.current) return
+
+    const imgElement = imageRef.current
+    if (!imgElement) return
+
+    if (isFullscreen) {
+      setIsFullscreen(false)
+      document.exitFullscreen()
+    } else {
+      setIsFullscreen(true)
+
+      // Type guard for fullscreen API with vendor prefixes
+      type FullscreenElement = HTMLElement & {
+        webkitRequestFullscreen?: () => Promise<void>
+        msRequestFullscreen?: () => Promise<void>
+      }
+
+      const element = imgElement as FullscreenElement
+
+      if (element.requestFullscreen) {
+        element.requestFullscreen()
+      } else if (element.webkitRequestFullscreen) {
+        // Safari
+        element.webkitRequestFullscreen()
+      } else if (element.msRequestFullscreen) {
+        // IE/Edge
+        element.msRequestFullscreen()
+      }
+    }
+  }
+
   const image = typeof data.poster === 'number' ? '' : data.poster.url
 
   return (
@@ -53,7 +87,11 @@ export function ModalPlan({
           <div className={styles.content}>
             <h2 className="h2">{data.name}</h2>
             <div className={styles.grid}>
-              <div>
+              <div
+                className={clsx(styles.planImgWrapper, isFullscreen && styles.open)}
+                onClick={handleImageClick}
+                ref={imageRef}
+              >
                 <Image
                   className={styles.planImg}
                   src={getMediaUrl(image)}
