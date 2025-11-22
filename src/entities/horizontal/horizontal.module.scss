@@ -23,18 +23,22 @@
   height: 100dvh;
   width: 100vw;
   @media (min-width: 1024px) {
-    overflow: hidden;
+    //overflow: hidden;
+    background-color: var(--color-bg);
+    display: flex;
+    flex-wrap: nowrap;
+    width: max-content;
   }
 }
 
 .slide {
   + .slide {
-    @media (min-width: 1024px) {
+    /*@media (min-width: 1024px) {
       position: absolute;
       top: 0;
       left: 100%;
       translate: none;
-    }
+    }*/
   }
 }
 
@@ -46,6 +50,8 @@
   @media (min-width: 1024px) {
     position: relative;
     flex-direction: row;
+    align-items: center;
+    justify-content: space-between;
     width: 100vw;
     flex: 0 0 100vw;
   }
@@ -60,6 +66,7 @@
       height: 100%;
       width: 41%;
       flex-grow: 0;
+      margin: 0 auto;
     }
     @media (min-width: 1300px) {
       width: 40%;
@@ -77,7 +84,7 @@
       flex: 0 0 59%;
     }
     @media (min-width: 1300px) {
-      flex: 0 0 60%;
+      flex: 0 0 55%;
     }
     @media (min-width: 1600px) {
       flex: 0 0 54.7%;
@@ -105,4 +112,9 @@
       }
     }
   }
+}
+
+.imageInner {
+  width: 100%;
+  height: 100%;
 }

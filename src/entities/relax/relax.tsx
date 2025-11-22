@@ -8,7 +8,7 @@ import Slide3Img from '@/images/sunset-and-mountains.jpg'
 import Slide4Img from '@/images/grapes.jpg'
 import Slide5Img from '@/images/white-vine.jpg'
 import Slide6Img from '@/images/red-vine.jpg'
-import Sea2Img from '@/images/sea-3.jpg'
+import Sea2Img from '@/images/large-bg.jpg'
 import { useMediaQuery } from 'react-responsive'
 import { useRef, useState } from 'react'
 import gsap from 'gsap'
@@ -24,12 +24,13 @@ import Img6 from '@/images/kiting.jpg'
 import { useIsLoadingStore } from '@/store'
 import { ImagePriority, MyImage } from '@/shared/ui/image/image'
 import { MobileSlider } from '@/shared/ui/slider/mobile-slider'
+import Image from 'next/image'
 
 gsap.registerPlugin(ScrollTrigger)
 
 type DivRef = HTMLDivElement | null
 
-const animationHeightCount = 9
+const animationHeightCount = 10
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const slides2 = [
@@ -54,9 +55,9 @@ const steps = {
   slide3: 18,
   slide4: 33,
   slide4Gallery: 47, //
-  slide5: 57,
-  slide6: 72,
-  slide6Scroll: 87,
+  slide5: 60,
+  slide6: 75,
+  slide6Scroll: 90,
   end: 100,
 }
 
@@ -81,6 +82,10 @@ export function RelaxSection() {
   const slide5 = useRef<DivRef>(null)
   const slide5Inner = useRef<DivRef>(null)
   const slide5Grid = useRef<DivRef>(null)
+  const slide3BgImg = useRef<DivRef>(null)
+  const li1 = useRef<DivRef>(null)
+  const li2 = useRef<DivRef>(null)
+  const li3 = useRef<DivRef>(null)
 
   const isLoading = useIsLoadingStore((s) => s.isLoading)
 
@@ -120,7 +125,7 @@ export function RelaxSection() {
           ease: 'sine.inOut',
           keyframes: {
             [steps.start]: { x: 0, y: 0 },
-            [steps.slide2]: { x: -400, y: () => window.innerHeight * -1 },
+            [steps.slide2]: { x: '-25rem', y: () => window.innerHeight * -1 },
           },
         },
         0,
@@ -189,6 +194,7 @@ export function RelaxSection() {
         },
         0,
       )
+
       tl.to(
         slide3Inner.current,
         {
@@ -197,6 +203,43 @@ export function RelaxSection() {
             [steps.slide4Gallery]: { x: 0 },
             [steps.slide5]: { x: '-75vw' },
           },
+        },
+        0,
+      )
+      tl.to(
+        slide3BgImg.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide4Gallery]: { y: 0 },
+            [steps.slide5]: {
+              y: (slide3BgImg.current?.offsetHeight || 0 - window.innerHeight) * -1,
+            },
+          },
+        },
+        0,
+      )
+      tl.to(
+        li1.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide4Gallery]: { x: '5rem' }, [steps.slide5]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        li2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide4Gallery]: { x: '35rem' }, [steps.slide5]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        li3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.slide4Gallery]: { x: '65rem' }, [steps.slide5]: { x: 0 } },
         },
         0,
       )
@@ -371,7 +414,9 @@ export function RelaxSection() {
             ref={slide3}
           >
             <div className={styles.bg} ref={slide3Bg}>
-              <MyImage src={Sea2Img} alt="" />
+              <div ref={slide3BgImg}>
+                <Image src={Sea2Img} alt="" />
+              </div>
               <div className={styles.shadow}></div>
             </div>
             <div className={styles.slideInner} ref={slide3Inner}>
@@ -391,27 +436,27 @@ export function RelaxSection() {
                   </div>
                 </>
               )}
-              {isDesktop && (
-                <>
-                  <div className={styles.gastroGrid}>
-                    <div className={styles.li}>
-                      <div className={styles.img}>{slides2[0].img}</div>
-                      <p>{slides2[0].text}</p>
-                    </div>
-                    <div className={styles.li}>
-                      <div className={styles.img}>{slides2[1].img}</div>
-                      <p>{slides2[1].text}</p>
-                    </div>
-                    <div className={styles.li}>
-                      <div className={styles.img}>{slides2[2].img}</div>
-                      <p>{slides2[2].text}</p>
-                    </div>
+
+              {/* isDesktop */}
+              <div className={clsx(styles.gastro, 'min-1024')}>
+                <div className={styles.gastroGrid}>
+                  <div className={styles.li} ref={li1}>
+                    <div className={styles.img}>{slides2[0].img}</div>
+                    <p>{slides2[0].text}</p>
                   </div>
-                  <div className={clsx(styles.text, 'container')}>
-                    <h2 className="h2">Гастрономия</h2>
+                  <div className={styles.li} ref={li2}>
+                    <div className={styles.img}>{slides2[1].img}</div>
+                    <p>{slides2[1].text}</p>
                   </div>
-                </>
-              )}
+                  <div className={styles.li} ref={li3}>
+                    <div className={styles.img}>{slides2[2].img}</div>
+                    <p>{slides2[2].text}</p>
+                  </div>
+                </div>
+                <div className={clsx(styles.text, 'container')}>
+                  <h2 className="h2">Гастрономия</h2>
+                </div>
+              </div>
             </div>
           </div>
 

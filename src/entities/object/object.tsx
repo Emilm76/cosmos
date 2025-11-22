@@ -36,20 +36,22 @@ const steps = {
 export function ObjectSection() {
   const isLoading = useIsLoadingStore((s) => s.isLoading)
 
-  const content = useRef<HTMLDivElement>(null)
-  const slide2 = useRef<HTMLDivElement>(null)
-  const slide3 = useRef<HTMLDivElement>(null)
-  const leftSide = useRef<HTMLDivElement>(null)
-  const rightSide = useRef<HTMLDivElement>(null)
-  const bg = useRef<HTMLDivElement>(null)
-  const subtitle = useRef<HTMLDivElement>(null)
-  const hr = useRef<HTMLDivElement>(null)
-  const t1 = useRef<HTMLSpanElement>(null)
-  const t2 = useRef<HTMLSpanElement>(null)
-  const t3 = useRef<HTMLSpanElement>(null)
-  const t4 = useRef<HTMLSpanElement>(null)
-  const t5 = useRef<HTMLSpanElement>(null)
-  const t6 = useRef<HTMLSpanElement>(null)
+  const content = useRef(null)
+  const slide2 = useRef(null)
+  const slide3 = useRef(null)
+  const leftSide = useRef(null)
+  const rightSide = useRef(null)
+  const bg = useRef(null)
+  const subtitle = useRef(null)
+  const img = useRef(null)
+  const text = useRef(null)
+  const hr = useRef(null)
+  const t1 = useRef(null)
+  const t2 = useRef(null)
+  const t3 = useRef(null)
+  const t4 = useRef(null)
+  const t5 = useRef(null)
+  const t6 = useRef(null)
 
   useGSAP(() => {
     if (isLoading) return
@@ -171,7 +173,23 @@ export function ObjectSection() {
         subtitle.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.subtitle2Start]: { x: '-10rem' }, [steps.slide2End]: { x: 0 } },
+          keyframes: { [steps.subtitle2Start]: { x: '-12rem' }, [steps.slide2End]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        img.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.subtitle2Start]: { x: '5rem' }, [steps.slide2End]: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        text.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { [steps.subtitle2Start]: { x: '25rem' }, [steps.slide2End]: { x: 0 } },
         },
         0,
       )
@@ -270,10 +288,10 @@ export function ObjectSection() {
               <h2 className="h2" ref={subtitle}>
                 Сердце курортной Евпатории
               </h2>
-              <div className={clsx(styles.beachImage, 'm2-slide5-img')}>
+              <div className={clsx(styles.beachImage, 'm2-slide5-img')} ref={img}>
                 <MyImage src={Beach2Img} alt="" />
               </div>
-              <div className={styles.beachText}>
+              <div className={styles.beachText} ref={text}>
                 <p>
                   Здесь начинаются маршруты к самым красивым местам Крыма — от золотых пляжей
                   до диких скал и заповедных бухт.

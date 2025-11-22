@@ -16,20 +16,29 @@ import { MyImage } from '@/shared/ui/image/image'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type DivRef = HTMLDivElement | null
-
-const animationHeightCount = 5
+const animationHeightCount = 6
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function HorizontalSection() {
-  const content = useRef<DivRef>(null)
-  const wrapper = useRef<DivRef>(null)
-  const slide1 = useRef<DivRef>(null)
-  const slide2 = useRef<DivRef>(null)
-  const slide3 = useRef<DivRef>(null)
-  const slide4 = useRef<DivRef>(null)
-  const slide5 = useRef<DivRef>(null)
-  const slide6 = useRef<DivRef>(null)
+  const content = useRef(null)
+  const wrapper = useRef<HTMLDivElement>(null)
+  const slide1 = useRef(null)
+  const slide2 = useRef(null)
+  const slide3 = useRef(null)
+  const slide4 = useRef(null)
+  const slide5 = useRef(null)
+  const slide6 = useRef(null)
+  const img1 = useRef(null)
+  const img2 = useRef(null)
+  const img3 = useRef(null)
+  const img4 = useRef(null)
+  const img5 = useRef(null)
+  const img6 = useRef(null)
+  const img2Wrap = useRef(null)
+  const img3Wrap = useRef(null)
+  const img4Wrap = useRef(null)
+  const img5Wrap = useRef(null)
+  const img6Wrap = useRef(null)
 
   const isLoading = useIsLoadingStore((s) => s.isLoading)
 
@@ -61,72 +70,133 @@ export function HorizontalSection() {
         },
       })
 
+      const xOffset = () => ((wrapper.current?.offsetWidth || 0) - window.innerWidth) * -1
+
       tl.to(
-        slide1.current,
+        wrapper.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
             0: { x: 0 },
-            20: { x: '-100%' },
+            20: { x: xOffset() * 0.2 },
+            40: { x: xOffset() * 0.4 },
+            60: { x: xOffset() * 0.6 },
+            80: { x: xOffset() * 0.8 },
+            100: { x: xOffset },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img2Wrap.current,
+        {
+          ease: 'none',
+          keyframes: {
+            0: { height: '27.5rem', width: '22%' },
+            20: { height: '100vh', width: '45%' },
           },
         },
         0,
       )
       tl.to(
-        slide2.current,
+        img2.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
-            0: { x: 0 },
-            20: { x: '-100%' },
-            40: { x: '-200%' },
+            0: { scale: 1.2 },
+            20: { scale: 1 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img3Wrap.current,
+        {
+          ease: 'none',
+          keyframes: {
+            20: { height: '27.5rem', width: '22%' },
+            40: { height: '100vh', width: '45%' },
           },
         },
         0,
       )
       tl.to(
-        slide3.current,
+        img3.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
-            20: { x: 0 },
-            40: { x: '-100%' },
-            60: { x: '-200%' },
+            20: { scale: 1.2 },
+            40: { scale: 1 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img4Wrap.current,
+        {
+          ease: 'none',
+          keyframes: {
+            40: { height: '27.5rem', width: '22%' },
+            60: { height: '100vh', width: '45%' },
           },
         },
         0,
       )
       tl.to(
-        slide4.current,
+        img4.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
-            40: { x: 0 },
-            60: { x: '-100%' },
-            80: { x: '-200%' },
+            40: { scale: 1.2 },
+            60: { scale: 1 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img5Wrap.current,
+        {
+          ease: 'none',
+          keyframes: {
+            60: { height: '27.5rem', width: '22%' },
+            80: { height: '100vh', width: '45%' },
           },
         },
         0,
       )
       tl.to(
-        slide5.current,
+        img5.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
-            60: { x: 0 },
-            80: { x: '-100%' },
-            100: { x: '-200%' },
+            60: { scale: 1.2 },
+            80: { scale: 1 },
           },
         },
         0,
       )
       tl.to(
-        slide6.current,
+        img6Wrap.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
-            80: { x: 0 },
-            100: { x: '-100%' },
+            80: { height: '27.5rem', width: '22%' },
+            100: { height: '100vh', width: '45%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img6.current,
+        {
+          ease: 'none',
+          keyframes: {
+            80: { scale: 1.2 },
+            100: { scale: 1 },
           },
         },
         0,
@@ -139,7 +209,7 @@ export function HorizontalSection() {
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper} ref={wrapper}>
           <div className={clsx(styles.slide, 'slide mobile-slide m3-slide6')} ref={slide1}>
-            <div className={styles.image}>
+            <div className={styles.image} ref={img1}>
               <MyImage src={Img1} alt="" />
             </div>
             <div className={styles.textCard}>
@@ -157,8 +227,10 @@ export function HorizontalSection() {
             </div>
           </div>
           <div className={clsx(styles.slide, 'slide mobile-slide m3-slide7')} ref={slide2}>
-            <div className={styles.image}>
-              <MyImage src={Img2} alt="" />
+            <div className={styles.image} ref={img2Wrap}>
+              <div className={styles.imageInner} ref={img2}>
+                <MyImage src={Img2} alt="" />
+              </div>
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
@@ -175,8 +247,10 @@ export function HorizontalSection() {
             </div>
           </div>
           <div className={clsx(styles.slide, 'slide mobile-slide m3-slide8')} ref={slide3}>
-            <div className={styles.image}>
-              <MyImage src={Img3} alt="" />
+            <div className={styles.image} ref={img3Wrap}>
+              <div className={styles.imageInner} ref={img3}>
+                <MyImage src={Img3} alt="" />
+              </div>
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
@@ -192,8 +266,10 @@ export function HorizontalSection() {
             </div>
           </div>
           <div className={clsx(styles.slide, 'slide mobile-slide m3-slide9')} ref={slide4}>
-            <div className={styles.image}>
-              <MyImage src={Img4} alt="" />
+            <div className={styles.image} ref={img4Wrap}>
+              <div className={styles.imageInner} ref={img4}>
+                <MyImage src={Img4} alt="" />
+              </div>
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
@@ -209,8 +285,10 @@ export function HorizontalSection() {
             </div>
           </div>
           <div className={clsx(styles.slide, 'slide mobile-slide m3-slide10')} ref={slide5}>
-            <div className={styles.image}>
-              <MyImage src={Img5} alt="" />
+            <div className={styles.image} ref={img5Wrap}>
+              <div className={styles.imageInner} ref={img5}>
+                <MyImage src={Img5} alt="" />
+              </div>
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
@@ -223,8 +301,10 @@ export function HorizontalSection() {
             </div>
           </div>
           <div className={clsx(styles.slide, 'slide mobile-slide m3-slide11')} ref={slide6}>
-            <div className={styles.image}>
-              <MyImage src={Img6} alt="" />
+            <div className={styles.image} ref={img6Wrap}>
+              <div className={styles.imageInner} ref={img2}>
+                <MyImage src={Img6} alt="" />
+              </div>
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
