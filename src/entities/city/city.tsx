@@ -18,14 +18,6 @@ type DivRef = HTMLDivElement | null
 const animationHeightCount = 3.5
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
-const steps = {
-  start: 0,
-  slide2Start: 42,
-  roundStart: window.innerWidth >= 1600 ? 67.6 : window.innerWidth >= 1300 ? 68 : 68,
-  roundEnd: window.innerWidth >= 1600 ? 73 : window.innerWidth >= 1300 ? 75.7 : 74.5,
-  end: 100,
-}
-
 export function CitySection() {
   const wrapper = useRef<DivRef>(null)
   const content = useRef<DivRef>(null)
@@ -52,6 +44,14 @@ export function CitySection() {
 
     mm.add('(min-width: 1024px)', () => {
       const animationHeight = () => window.innerHeight * animationHeightCount
+
+      const steps = {
+        start: 0,
+        slide2Start: 42,
+        roundStart: window.innerWidth >= 1600 ? 67.6 : window.innerWidth >= 1300 ? 68 : 68,
+        roundEnd: window.innerWidth >= 1600 ? 73 : window.innerWidth >= 1300 ? 75.7 : 74.5,
+        end: 100,
+      }
 
       // For pinning effect
       ScrollTrigger.create({
