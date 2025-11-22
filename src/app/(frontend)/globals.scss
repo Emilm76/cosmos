@@ -942,3 +942,17 @@ main {
     }
   }
 }
+
+.star {
+  //fill: none;
+  //stroke: #7d2d68;
+  //stroke-width: 17px;
+  animation: move 3s linear;
+  animation-timing-function: move;
+  animation-fill-mode: forwards;
+}
+@keyframes move {
+  100% {
+    stroke-dashoffset: 0;
+  }
+}

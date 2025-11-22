@@ -25,8 +25,6 @@ import { EatIcon } from '@/shared/ui/icons/eat'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type DivRef = HTMLDivElement | null
-
 const animationHeightCount = 9
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
@@ -42,19 +40,25 @@ const steps = {
 
 export function LocationSection() {
   const [isMapLoad, setIsMapLoad] = useState(false)
+  const [startChartAnimation, setStartChartAnimation] = useState(true)
 
-  const content = useRef<DivRef>(null)
-  const slide2 = useRef<DivRef>(null)
-  const scrollContent = useRef<DivRef>(null)
-  const slide3 = useRef<DivRef>(null)
-  const slide4 = useRef<DivRef>(null)
-  const img1 = useRef<DivRef>(null)
-  const img2 = useRef<DivRef>(null)
-  const slide5 = useRef<DivRef>(null)
-  const slide6 = useRef<DivRef>(null)
-  const slide7 = useRef<DivRef>(null)
-  const list = useRef<DivRef>(null)
-  const listInner = useRef<HTMLUListElement | null>(null)
+  const content = useRef(null)
+  const slide2 = useRef<HTMLDivElement>(null)
+  const scrollContent = useRef(null)
+  const slide3 = useRef(null)
+  const slide4 = useRef(null)
+  const img1 = useRef(null)
+  const img2 = useRef(null)
+  const img1Wrap = useRef(null)
+  const img2Wrap = useRef(null)
+  const slide5 = useRef(null)
+  const slide6 = useRef(null)
+  const slide7 = useRef(null)
+  const list = useRef(null)
+  const listInner = useRef(null)
+  const imgWrap = useRef(null)
+  const img = useRef(null)
+  const title = useRef(null)
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -134,13 +138,51 @@ export function LocationSection() {
         0,
       )
 
+      const width1 = window.innerWidth >= 1600 ? '57.5rem' : '32.5rem'
+      const height1 = window.innerWidth >= 1600 ? '55rem' : '45rem'
+      const width = window.innerWidth >= 1600 ? '28.75rem' : '16.25rem'
+      const height = window.innerWidth >= 1600 ? '27.5rem' : '22.5rem'
       tl.to(
-        img1.current,
+        img1Wrap.current,
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.slide3]: { x: '-7rem' },
+            [steps.slide3]: { width: width1, height: height1, x: '-7rem' },
+            [steps.slide4]: { width: width, height: height, x: 0 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        img2Wrap.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3]: { width: width1, height: height1, x: '-5rem' },
+            [steps.slide4]: { width: width, height: height, x: 0 },
+          },
+        },
+        0,
+      )
+      tl.to(
+        title.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.slide3]: { x: '45rem' },
             [steps.slide4]: { x: 0 },
+          },
+        },
+        0,
+      )
+
+      tl.to(
+        img1.current,
+        {
+          ease: 'none',
+          keyframes: {
+            [steps.slide3]: { scale: 1.2 },
+            [steps.slide4]: { scale: 1 },
           },
         },
         0,
@@ -148,10 +190,10 @@ export function LocationSection() {
       tl.to(
         img2.current,
         {
-          ease: 'sine.inOut',
+          ease: 'none',
           keyframes: {
-            [steps.slide3]: { x: '-5rem' },
-            [steps.slide4]: { x: 0 },
+            [steps.slide3]: { scale: 1.2 },
+            [steps.slide4]: { scale: 1 },
           },
         },
         0,
@@ -286,13 +328,17 @@ export function LocationSection() {
           </div>
 
           <div className={clsx(styles.slide4, 'white-section mobile-slide m2-slide9')} ref={slide4}>
-            <div className={styles.image1} ref={img1}>
-              <MyImage src={Img1} alt="" />
+            <div className={styles.image1} ref={img1Wrap}>
+              <div className={styles.imageInner} ref={img2}>
+                <MyImage src={Img1} alt="" />
+              </div>
             </div>
-            <div className={styles.image2} ref={img2}>
-              <MyImage src={Img2} alt="" />
+            <div className={styles.image2} ref={img2Wrap}>
+              <div className={styles.imageInner} ref={img2}>
+                <MyImage src={Img2} alt="" />
+              </div>
             </div>
-            <h2 className="h2">
+            <h2 className="h2" ref={title}>
               Инвестиции <br />
               и доход
             </h2>
@@ -319,7 +365,7 @@ export function LocationSection() {
                 scrollbarClassName={styles.scrollbar2}
                 isReady={true}
               >
-                <ChartIcon className={styles.chart} />
+                <ChartIcon className={styles.chart} startAnimation={startChartAnimation} />
               </CustomScrollbar>
             </div>
           </div>
@@ -329,8 +375,10 @@ export function LocationSection() {
             ref={slide6}
           >
             <div className={styles.slide6Inner}>
-              <div className={styles.image}>
-                <MyImage src={Img3} sizes="(max-width: 768px) 50vh" alt="" />
+              <div className={styles.image} ref={imgWrap}>
+                <div className={styles.imageInner} ref={img}>
+                  <MyImage src={Img3} sizes="(max-width: 768px) 50vh" alt="" />
+                </div>
               </div>
               <div className={clsx(styles.container, 'container')}>
                 <h3 className="h3">Место, где ваш капитал работает на вас</h3>

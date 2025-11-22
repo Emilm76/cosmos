@@ -1,6 +1,41 @@
-export function ChartIcon({ className }: { className?: string }) {
+'use client'
+import { useEffect, useRef } from 'react'
+
+export function ChartIcon({
+  className,
+  startAnimation,
+}: {
+  className?: string
+  startAnimation?: boolean
+}) {
+  const svgRef = useRef<SVGSVGElement>(null)
+
+  useEffect(() => {
+    const path = svgRef.current?.querySelector('.star') as SVGPathElement | null
+    if (!path) return
+
+    const length = path.getTotalLength()
+    // console.log(length);
+
+    path.style.strokeDasharray = length + ' ' + length
+    path.style.strokeDashoffset = length + ''
+  }, [])
+
+  useEffect(() => {
+    const path = svgRef.current?.querySelector('.star') as SVGPathElement | null
+    if (!path) return
+    if (startAnimation) path.style.animationTimingFunction = 'none'
+    else path.style.animationTimingFunction = 'move'
+  }, [startAnimation])
+
   return (
-    <svg className={className} viewBox="0 0 955 362" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg
+      ref={svgRef}
+      className={className}
+      viewBox="0 0 955 362"
+      fill="none"
+      xmlns="http://www.w3.org/2000/svg"
+    >
       <line
         x1="52.727"
         y1="114.576"
@@ -171,6 +206,7 @@ export function ChartIcon({ className }: { className?: string }) {
         fill="#A2C73B"
       />
       <path
+        className="star"
         d="M52.8782 114.445L215.827 217.174L379.365 281.105L541.634 242.554L704.873 165.022"
         stroke="#A2C73B"
         strokeWidth="0.942189"

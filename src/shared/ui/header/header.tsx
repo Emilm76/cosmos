@@ -173,7 +173,7 @@ export function Header() {
               >
                 Галерея
               </button>
-              <button
+              {/*<button
                 className={clsx(
                   'subtitle bullet-link bullet-link--md',
                   isDocumentsOpen && 'active',
@@ -182,7 +182,14 @@ export function Header() {
                 type="button"
               >
                 Документы
-              </button>
+              </button>*/}
+              <a
+                href="https://дом.рф/"
+                target="_blank"
+                className="subtitle bullet-link bullet-link--md"
+              >
+                Документы
+              </a>
             </div>
             {isLoadImg && <Image className={styles.burgerImg} src={Img} loading="eager" alt="" />}
           </div>
