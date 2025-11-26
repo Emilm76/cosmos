@@ -209,8 +209,8 @@ export function VideoSection() {
                     slides={slides.map((slide) => ({ className: styles.img, content: slide.img }))}
                   />
                   <div className={clsx(styles.text, 'container')}>
-                    <h3 className="subtitle">{slide.title}</h3>
-                    <p>{slide.text}</p>
+                    <h3 className="subtitle m1-videTitle2">{slide.title}</h3>
+                    <p className="m1-videSubtitle2">{slide.text}</p>
                   </div>
                 </div>
               )}

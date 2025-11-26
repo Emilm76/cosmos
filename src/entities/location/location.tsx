@@ -246,7 +246,7 @@ export function LocationSection() {
             <div className={styles.wrapperInner1} ref={scrollContent}>
               <div className={clsx(styles.slide1, 'mobile-slide m2-slide6')}>
                 <div className={clsx(styles.container, 'container')}>
-                  <h2 className="h2">
+                  <h2 className="h2 m1-videTitle2">
                     Сердце <br />
                     курортной <br />
                     Евпатории
@@ -337,7 +337,7 @@ export function LocationSection() {
                 <MyImage src={Img2} alt="" />
               </div>
             </div>
-            <h2 className="h2" ref={title}>
+            <h2 className="h2 m1-videTitle2" ref={title}>
               Инвестиции <br />
               и доход
             </h2>
@@ -350,8 +350,8 @@ export function LocationSection() {
             <div className={styles.slide5Inner}>
               <div className={clsx(styles.container, 'container')}>
                 <div className={styles.text}>
-                  <h3 className="h3">Крым сегодня</h3>
-                  <p className="subtitle">
+                  <h3 className="h3 m1-videTitle2">Крым сегодня</h3>
+                  <p className="subtitle m1-videSubtitle2">
                     один из лидеров России по темпам инвестиционной активности. Более 2 трлн ₽
                     инвестиций с 2014 года, половина из которых — частные вложения. Рост турпотока
                     до 10 млн человек в год к 2030 году формирует устойчивый спрос на качественные
@@ -380,8 +380,8 @@ export function LocationSection() {
                 </div>
               </div>
               <div className={clsx(styles.container, 'container')}>
-                <h3 className="h3">Место, где ваш капитал работает на вас</h3>
-                <p>
+                <h3 className="h3 m1-videTitle2">Место, где ваш капитал работает на вас</h3>
+                <p className="m1-videSubtitle2">
                   Высокий турпоток, развитая инфраструктура и уникальное расположение Cosmos Smart
                   Evpatoriya Hotel на первой линии делают этот проект одним из самых перспективных
                   для вложений. Управление объектом берёт на себя федеральный оператор с опытом

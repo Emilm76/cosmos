@@ -214,12 +214,12 @@ export function HorizontalSection() {
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h2">
+                <h2 className="h2 m1-videTitle2">
                   Сервис <br />
                   мирового <br />
                   уровня
                 </h2>
-                <p>
+                <p className="m1-videSubtitle2">
                   Круглосуточный консьерж, рум-сервис и услуги химчистки — всё, чтобы вы отдыхали
                   без забот.
                 </p>
@@ -234,12 +234,12 @@ export function HorizontalSection() {
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h2">
+                <h2 className="h2 m1-videTitle2">
                   Атмосфера, <br />
                   созданная природой <br />
                   и дизайном
                 </h2>
-                <p>
+                <p className="m1-videSubtitle2">
                   Авторское ландшафтное озеленение и охраняемая территория 24/7 создают гармонию
                   и чувство уединения.
                 </p>
@@ -254,11 +254,11 @@ export function HorizontalSection() {
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h2">
+                <h2 className="h2 m1-videTitle2">
                   Вкус <br />
                   и стиль
                 </h2>
-                <p>
+                <p className="m1-videSubtitle2">
                   Современный лобби-бар и ресторан а-ля карт со шведской линией и авторскими блюдами
                   от шеф-повара.
                 </p>
@@ -273,11 +273,11 @@ export function HorizontalSection() {
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h2">
+                <h2 className="h2 m1-videTitle2">
                   Территория <br />
                   SPA-релакса
                 </h2>
-                <p>
+                <p className="m1-videSubtitle2">
                   Бани, расслабляющие процедуры, массажные и косметологические кабинеты —
                   для красоты, здоровья и отдыха.
                 </p>
@@ -292,8 +292,8 @@ export function HorizontalSection() {
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h2">Для активных</h2>
-                <p>
+                <h2 className="h2 m1-videTitle2">Для активных</h2>
+                <p className="m1-videSubtitle2">
                   Современный тренажёрный зал, массажные комнаты для восстановления, солярий
                   для безупречного загара.
                 </p>
@@ -308,11 +308,13 @@ export function HorizontalSection() {
             </div>
             <div className={styles.textCard}>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h2">
+                <h2 className="h2 m1-videTitle2">
                   Территория <br />
                   у моря
                 </h2>
-                <p>Собственный пляж и круглогодичный бассейн с детской зоной и стильным баром.</p>
+                <p className="m1-videSubtitle2">
+                  Собственный пляж и круглогодичный бассейн с детской зоной и стильным баром.
+                </p>
               </div>
             </div>
           </div>

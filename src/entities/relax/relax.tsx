@@ -397,11 +397,11 @@ export function RelaxSection() {
             )}
             <div className={styles.textWrapper}>
               <div className={clsx(styles.text, 'container')}>
-                <h2 className="h2">
+                <h2 className="h2 m1-videTitle2">
                   Природа <br />
                   и здоровье
                 </h2>
-                <p>
+                <p className="m1-videSubtitle2">
                   Природа Евпатории представлена степным ландшафтом, Чёрным морем и целебными
                   лиманами, такими как Мойнакское и Сасык-Сиваш, богатыми лечебной грязью и рапой.
                 </p>
@@ -431,8 +431,8 @@ export function RelaxSection() {
                     ]}
                   />
                   <div className={clsx(styles.text, 'container')}>
-                    <h2 className="h2">Гастрономия</h2>
-                    <p>{slide.text}</p>
+                    <h2 className="h2 m1-videTitle2">Гастрономия</h2>
+                    <p className="m1-videSubtitle2">{slide.text}</p>
                   </div>
                 </>
               )}
@@ -469,10 +469,10 @@ export function RelaxSection() {
                 <MyImage src={MainImg} sizes="(max-width: 768px) 50vh" alt="" />
               </div>
               <div className={clsx(styles.container, 'container')}>
-                <h2 className="h3">
+                <h2 className="h3 m1-videTitle2">
                   Культура <br />и архитектура
                 </h2>
-                <p>
+                <p className="m1-videSubtitle2">
                   Евпатория — город с историей более 2500 лет, сохранивший уникальные памятники,
                   старинные улочки и атмосферу разных эпох. С 1914 года символом города по праву
                   считается легендарный трамвай желаний.
@@ -490,7 +490,7 @@ export function RelaxSection() {
               ref={slide5Inner}
             >
               <div className={styles.grid}>
-                <h2 className="h3">Активный отдых</h2>
+                <h2 className="h3 m1-videTitle2">Активный отдых</h2>
                 <div className={styles.cardsGrid} ref={slide5Grid}>
                   <div className={styles.card}>
                     <div className={styles.cardInner}>

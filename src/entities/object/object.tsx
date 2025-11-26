@@ -247,7 +247,9 @@ export function ObjectSection() {
             </div>
 
             <div className={clsx(styles.container2, 'container m2-slide4-text')} ref={rightSide}>
-              <h3 className="h3 max-1024">Быть может, вам ближе джаз, а может — классика</h3>
+              <h3 className="h3 max-1024 m1-videTitle2">
+                Быть может, вам ближе джаз, а может — классика
+              </h3>
               <h3 className={clsx('h3 min-1024', styles.subtitle)} ref={subtitle}>
                 <span ref={t1} data-text="Быть">
                   Быть
@@ -285,7 +287,7 @@ export function ObjectSection() {
           <div className={clsx(styles.slide3, 'slide mobile-slide m2-slide5')} ref={slide3}>
             <div className={styles.hr} ref={hr}></div>
             <div className={clsx(styles.container3, 'container m2-slide5-container')}>
-              <h2 className="h2" ref={subtitle}>
+              <h2 className="h2 m1-videTitle2" ref={subtitle}>
                 Сердце курортной Евпатории
               </h2>
               <div className={clsx(styles.beachImage, 'm2-slide5-img')} ref={img}>
