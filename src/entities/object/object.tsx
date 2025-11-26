@@ -4,9 +4,15 @@ import { useRef } from 'react'
 import clsx from 'clsx'
 import SeaImg from '@/images/sea.jpg'
 import BeachImg from '@/images/beach-2.jpg'
+import Swim1Img from '@/images/swim-1.jpg'
+import Swim2Img from '@/images/swim-2.jpg'
 import Beach2Img from '@/images/beach-3.jpg'
 import RichManImg from '@/images/rich-man.jpg'
 import FriendsImg from '@/images/friends.jpg'
+import ListImg1 from '@/images/list-1.jpg'
+import ListImg2 from '@/images/list-2.jpg'
+import FeetImg from '@/images/feet.jpg'
+import CoffeeImg from '@/images/coffee-table.jpg'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -17,21 +23,42 @@ import { MyImage } from '@/shared/ui/image/image'
 gsap.registerPlugin(ScrollTrigger)
 const mm = gsap.matchMedia()
 
-const animationHeightCount = 3
+const animationHeightCount = 4
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
-  sideBarsStart: 0,
-  subtitleStart: 5,
-  imgOpacityStart: 10,
-  imgOpacityEnd: 18,
-  sideBarsEnd: 20,
-  sideBarsBackStart: 21,
-  sideBarsBackEnd: 40,
-  slide2Start: 41,
-  subtitle2Start: 50,
-  slide2End: 99,
+  aside: 0,
+  asideEnd: 10,
+  subtitle: 11,
+  bg1: 11,
+  bg1End: 28.5,
+  bg2: 29,
+  bg2End: 46,
+  bg3: 47,
+  bg3End: 64,
+  asideBackEnd: 64,
+  slide2Start: 65,
+  subtitle2: 70,
+  slide2End: 100,
 }
+
+const title = [
+  'Быть',
+  'может,',
+  'вам ближе',
+  'джаз,',
+  'а может —',
+  'классика',
+  'Это выбор,',
+  'полный',
+  'надёжности',
+  'и лёгкой',
+  'интриги,',
+  'которую',
+  'хочется',
+  'открыть',
+  'первым.',
+]
 
 export function ObjectSection() {
   const isLoading = useIsLoadingStore((s) => s.isLoading)
@@ -41,17 +68,17 @@ export function ObjectSection() {
   const slide3 = useRef(null)
   const leftSide = useRef(null)
   const rightSide = useRef(null)
-  const bg = useRef(null)
   const subtitle = useRef(null)
   const img = useRef(null)
   const text = useRef(null)
   const hr = useRef(null)
-  const t1 = useRef(null)
-  const t2 = useRef(null)
-  const t3 = useRef(null)
-  const t4 = useRef(null)
-  const t5 = useRef(null)
-  const t6 = useRef(null)
+  const bg1 = useRef(null)
+  const bg1Img = useRef(null)
+  const bg2 = useRef(null)
+  const bg2Img = useRef(null)
+  const bg3 = useRef(null)
+  const bg3Img = useRef(null)
+  const listImg = useRef(null)
 
   useGSAP(() => {
     if (isLoading) return
@@ -84,10 +111,10 @@ export function ObjectSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.sideBarsStart]: { x: '-100%' },
-            [steps.sideBarsEnd]: { x: 0 },
-            [steps.sideBarsBackStart]: { y: 0 },
-            [steps.sideBarsBackEnd]: { y: '-20vh' },
+            [steps.aside]: { x: '-100%' },
+            [steps.asideEnd]: { x: 0 },
+            [steps.subtitle]: { y: 0 },
+            [steps.asideBackEnd]: { y: -900 },
           },
         },
         0,
@@ -97,25 +124,27 @@ export function ObjectSection() {
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.sideBarsStart]: { x: '100%' },
-            [steps.sideBarsEnd]: { x: 0 },
-            [steps.sideBarsBackStart]: { y: 0 },
-            [steps.sideBarsBackEnd]: { y: '-20vh' },
+            [steps.aside]: { x: '100%' },
+            [steps.asideEnd]: { x: 0 },
+            [steps.subtitle]: { y: 0 },
+            [steps.asideBackEnd]: { y: window.innerWidth >= 1600 ? -1400 : -900 },
           },
         },
         0,
       )
 
-      Array.from([t1, t2, t3, t4, t5, t6]).forEach((t, index: number) => {
-        const start = Math.floor(((steps.sideBarsBackEnd - steps.subtitleStart) / 6) * index)
-        const end = Math.floor(((steps.sideBarsBackEnd - steps.subtitleStart) / 6) * (index + 1))
+      const blocks: HTMLElement[] = gsap.utils.toArray('.t-item')
+      blocks.forEach((t, index, array) => {
+        const length = array.length + 1
+        const start = Math.floor(((steps.asideBackEnd - steps.subtitle) / length) * index)
+        const end = Math.floor(((steps.asideBackEnd - steps.subtitle) / length) * (index + 1))
         tl.to(
-          t.current,
+          t,
           {
             ease: 'sine.inOut',
             keyframes: {
-              [steps.subtitleStart + start]: { '--fill-percent': '100%' },
-              [steps.subtitleStart + end]: { '--fill-percent': '0%' },
+              [steps.subtitle + start]: { '--fill-percent': '100%' },
+              [steps.subtitle + end]: { '--fill-percent': '0%' },
             },
           },
           0,
@@ -127,20 +156,91 @@ export function ObjectSection() {
         {
           ease: 'none',
           keyframes: {
-            [steps.sideBarsEnd]: { opacity: 0 },
-            [steps.sideBarsBackStart]: { opacity: 1 },
+            [steps.asideEnd]: { opacity: 0 },
+            [steps.subtitle]: { opacity: 1 },
           },
         },
         0,
       )
 
+      // slide image 1
       tl.to(
-        bg.current,
+        bg1.current,
         {
           ease: 'sine.inOut',
           keyframes: {
-            [steps.imgOpacityStart]: { opacity: 0 },
-            [steps.imgOpacityEnd]: { opacity: 1 },
+            [steps.bg1]: { height: 0 },
+            [steps.bg1End]: { height: '100vh' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        bg1Img.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.bg1]: { scale: 1.05 },
+            [steps.bg1End]: { scale: 1 },
+          },
+        },
+        0,
+      )
+      // slide image 2
+      tl.to(
+        bg2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.bg2]: { height: 0 },
+            [steps.bg2End]: { height: '100vh' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        bg2Img.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.bg2]: { scale: 1.05 },
+            [steps.bg2End]: { scale: 1 },
+          },
+        },
+        0,
+      )
+      // slide image 3
+      tl.to(
+        bg3.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.bg3]: { height: 0 },
+            [steps.bg3End]: { height: '100vh' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        bg3Img.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.bg3]: { scale: 1.05 },
+            [steps.bg3End]: { scale: 1 },
+          },
+        },
+        0,
+      )
+
+      // list img
+      tl.to(
+        listImg.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.bg2]: { height: 0 },
+            [steps.bg3]: { height: '100%' },
           },
         },
         0,
@@ -173,7 +273,7 @@ export function ObjectSection() {
         subtitle.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.subtitle2Start]: { x: '-12rem' }, [steps.slide2End]: { x: 0 } },
+          keyframes: { [steps.subtitle2]: { x: '-12rem' }, [steps.slide2End]: { x: 0 } },
         },
         0,
       )
@@ -181,7 +281,7 @@ export function ObjectSection() {
         img.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.subtitle2Start]: { x: '5rem' }, [steps.slide2End]: { x: 0 } },
+          keyframes: { [steps.subtitle2]: { x: '5rem' }, [steps.slide2End]: { x: 0 } },
         },
         0,
       )
@@ -189,7 +289,7 @@ export function ObjectSection() {
         text.current,
         {
           ease: 'sine.inOut',
-          keyframes: { [steps.subtitle2Start]: { x: '25rem' }, [steps.slide2End]: { x: 0 } },
+          keyframes: { [steps.subtitle2]: { x: '25rem' }, [steps.slide2End]: { x: 0 } },
         },
         0,
       )
@@ -213,8 +313,8 @@ export function ObjectSection() {
               />
               <div className={styles.imageOverlay}>
                 <div className={clsx(styles.imageText, 'container')}>
-                  <h2 className="h2 m1-videSubtitle2">Ваша привилегия</h2>
                   <p className="subtitle m1-videSubtitle2">Этот объект — не для всех</p>
+                  <h2 className="h2 m1-videSubtitle2">Ваша привилегия</h2>
                 </div>
               </div>
             </div>
@@ -233,42 +333,54 @@ export function ObjectSection() {
 
             {/* isDesktop */}
             <div className="min-1024">
-              <div className={styles.imgBg} ref={bg}>
-                <MyImage src={BeachImg} alt="" />
+              <div className={styles.imgBgWrap}>
+                <div className={styles.imgBg} ref={bg1}>
+                  <div className={styles.imgBgImg} ref={bg1Img}>
+                    <MyImage src={BeachImg} alt="" />
+                  </div>
+                </div>
+                <div className={styles.imgBg} ref={bg2}>
+                  <div className={styles.imgBgImg} ref={bg2Img}>
+                    <MyImage src={Swim1Img} alt="" />
+                  </div>
+                </div>
+                <div className={styles.imgBg} ref={bg3}>
+                  <div className={styles.imgBgImg} ref={bg3Img}>
+                    <MyImage src={Swim2Img} alt="" />
+                  </div>
+                </div>
               </div>
               <div className={styles.leftBlock} ref={leftSide}>
                 <div className={styles.img1}>
                   <MyImage src={RichManImg} alt="" />
                 </div>
-                <div className={styles.img2}>
-                  <MyImage src={FriendsImg} alt="" />
+                <div className={clsx(styles.img2, styles.list)}>
+                  <MyImage src={ListImg1} alt="" />
+                  <div className={styles.listImgWrap} ref={listImg}>
+                    <div className={styles.listImg}>
+                      <MyImage src={ListImg2} alt="" />
+                    </div>
+                  </div>
+                </div>
+                <div className={styles.img3}>
+                  <MyImage src={FeetImg} alt="" />
                 </div>
               </div>
             </div>
 
             <div className={clsx(styles.container2, 'container m2-slide4-text')} ref={rightSide}>
+              <div className={clsx(styles.img4, 'min-1024')}>
+                <MyImage src={CoffeeImg} alt="" />
+              </div>
               <h3 className="h3 max-1024 m1-videTitle2">
                 Быть может, вам ближе джаз, а может — классика
               </h3>
               <h3 className={clsx('h3 min-1024', styles.subtitle)} ref={subtitle}>
-                <span ref={t1} data-text="Быть">
-                  Быть
-                </span>
-                <span ref={t2} data-text="может,">
-                  может,
-                </span>
-                <span ref={t3} data-text="вам ближе">
-                  вам ближе
-                </span>
-                <span ref={t4} data-text="джаз,">
-                  джаз,
-                </span>
-                <span ref={t5} data-text="а может —">
-                  а может —
-                </span>
-                <span ref={t6} data-text="классика">
-                  классика
-                </span>
+                {title.map((str, index) => (
+                  <span className="t-item" data-text={str} key={index}>
+                    {str}
+                  </span>
+                ))}
               </h3>
               <p>
                 Может быть, вы цените изысканную кухню, и ваш любимый предмет интерьера — канделябр.

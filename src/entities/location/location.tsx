@@ -138,7 +138,7 @@ export function LocationSection() {
         { center: office, zoom: 15, controls: ['zoomControl'] },
         { suppressMapOpenBlock: true },
       )
-      map.behaviors.disable(['scrollZoom'])
+      map.behaviors.disable(['scrollZoom', 'drag'])
 
       // добавляем первую метку
       const firstPlacemark = new ymapsApi.Placemark(office, {})
