@@ -4,7 +4,7 @@ import clsx from 'clsx'
 import BasikImg from '@/images/basik.jpg'
 import RestikImg from '@/images/restik.jpg'
 import MapImg from '@/images/map.jpg'
-import { useRef, useState } from 'react'
+import { useCallback, useEffect, useRef, useState } from 'react'
 import gsap from 'gsap'
 import { ScrollTrigger } from 'gsap/dist/ScrollTrigger'
 import { useGSAP } from '@gsap/react'
@@ -22,6 +22,39 @@ import { SafetyIcon } from '@/shared/ui/icons/safety'
 import { ServiceIcon } from '@/shared/ui/icons/service'
 import { SpaIcon } from '@/shared/ui/icons/spa'
 import { EatIcon } from '@/shared/ui/icons/eat'
+import { useMediaQuery } from 'react-responsive'
+import Script from 'next/script'
+
+type YMapInstance = {
+  destroy: () => void
+  geoObjects: { add: (placemark: unknown) => void }
+  behaviors: { disable: (behaviors: string[]) => void }
+}
+
+type YMapsGlobal = {
+  ready: (cb: () => void) => void
+  Map: new (
+    element: string | HTMLElement,
+    state: { center: [number, number]; zoom: number; controls?: string[] },
+    options?: Record<string, unknown>,
+  ) => YMapInstance
+  Placemark: new (
+    coords: [number, number],
+    properties?: Record<string, unknown>,
+    options?: {
+      iconLayout?: string
+      iconImageHref?: string
+      iconImageSize?: [number, number]
+      iconImageOffset?: [number, number]
+    },
+  ) => unknown
+}
+
+declare global {
+  interface Window {
+    ymaps?: YMapsGlobal
+  }
+}
 
 gsap.registerPlugin(ScrollTrigger)
 
@@ -40,6 +73,9 @@ const steps = {
 
 export function LocationSection() {
   const [isMapLoad, setIsMapLoad] = useState(false)
+  const [isYMapLoaded, setIsYMapLoaded] = useState(false)
+  const isDesktop = useMediaQuery({ query: '(min-width: 1024px)' })
+  const isMobile = useMediaQuery({ query: '(max-width: 1023px)' })
 
   const content = useRef(null)
   const slide2 = useRef<HTMLDivElement>(null)
@@ -58,6 +94,67 @@ export function LocationSection() {
   const imgWrap = useRef(null)
   const img = useRef(null)
   const title = useRef(null)
+  const mapInstanceRef = useRef<YMapInstance | null>(null)
+
+  const handleMapScriptLoad = useCallback(() => {
+    setIsYMapLoaded(true)
+  }, [])
+
+  useEffect(() => {
+    if (!isMobile || !isYMapLoaded) {
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.destroy()
+        mapInstanceRef.current = null
+      }
+      return
+    }
+
+    if (typeof window === 'undefined') {
+      return
+    }
+
+    const ymapsApi = window.ymaps
+    if (!ymapsApi) {
+      return
+    }
+
+    const container = document.getElementById('map')
+    if (!container || mapInstanceRef.current) {
+      return
+    }
+
+    let isCancelled = false
+
+    ymapsApi.ready(() => {
+      if (isCancelled || mapInstanceRef.current || !document.getElementById('map')) {
+        return
+      }
+
+      const office: [number, number] = [45.198483, 33.389584]
+
+      // Инициализируем карту
+      const map = new ymapsApi.Map(
+        'map',
+        { center: office, zoom: 15, controls: ['zoomControl'] },
+        { suppressMapOpenBlock: true },
+      )
+      map.behaviors.disable(['scrollZoom'])
+
+      // добавляем первую метку
+      const firstPlacemark = new ymapsApi.Placemark(office, {})
+      map.geoObjects.add(firstPlacemark)
+
+      mapInstanceRef.current = map
+    })
+
+    return () => {
+      isCancelled = true
+      if (mapInstanceRef.current) {
+        mapInstanceRef.current.destroy()
+        mapInstanceRef.current = null
+      }
+    }
+  }, [isMobile, isYMapLoaded])
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -311,19 +408,29 @@ export function LocationSection() {
           </div>
 
           <div className={clsx(styles.slide3, 'mobile-slide m2-slide8')} ref={slide3}>
-            <CustomScrollbar
-              isReady={isMapLoad}
-              contentClassName={styles.imageWrapper}
-              scrollbarClassName={styles.scrollbar}
-            >
-              <MyImage src={MapImg} onLoad={() => setIsMapLoad(true)} alt="" />
-              <a href="https://yandex.ru/maps/-/CHx9MRNM" target="_blank" className={styles.btn}>
-                <span>
-                  Смотреть <br />
-                  на карте
-                </span>
-              </a>
-            </CustomScrollbar>
+            {isDesktop && (
+              <CustomScrollbar
+                isReady={isMapLoad}
+                contentClassName={styles.imageWrapper}
+                scrollbarClassName={styles.scrollbar}
+              >
+                <MyImage src={MapImg} onLoad={() => setIsMapLoad(true)} alt="" />
+                <a href="https://yandex.ru/maps/-/CHx9MRNM" target="_blank" className={styles.btn}>
+                  <span>
+                    Смотреть <br />
+                    на карте
+                  </span>
+                </a>
+              </CustomScrollbar>
+            )}
+            {isMobile && <div id="map" style={{ width: '100%', height: '100%' }}></div>}
+            {isMobile && (
+              <Script
+                src="https://api-maps.yandex.ru/2.1/?load=package.full&lang=ru-RU"
+                strategy="afterInteractive"
+                onLoad={handleMapScriptLoad}
+              />
+            )}
           </div>
 
           <div className={clsx(styles.slide4, 'white-section mobile-slide m2-slide9')} ref={slide4}>
