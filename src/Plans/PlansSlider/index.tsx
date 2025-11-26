@@ -105,7 +105,7 @@ export const PlansSlider: React.FC<{ data: PlanType }> = ({ data }) => {
                       const plan = typeof slide.plan === 'number' ? null : slide.plan
 
                       return {
-                        className: clsx(styles.planSlide, 'bullet-link-card'),
+                        className: styles.planSlide,
                         content: plan && (
                           <Slide plan={plan} callback={() => handleSlideClick(plan)} />
                         ),
