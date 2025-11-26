@@ -108,6 +108,9 @@ export function SectionLoaderMobile() {
         0: { y: isLoadPreviousUrl ? '-100%' : '100%' },
         100: { y: 0 },
       },
+      onComplete: () => {
+        document.documentElement.classList.remove('is-load')
+      },
     })
 
     setTimeout(() => {
@@ -129,6 +132,7 @@ export function SectionLoaderMobile() {
       keyframes: keyframes,
       onComplete: () => {
         stopLoading()
+        document.documentElement.classList.add('is-load')
       },
     })
   }, [isLoadingAnimation])

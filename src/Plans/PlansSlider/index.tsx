@@ -106,8 +106,9 @@ export const PlansSlider: React.FC<{ data: PlanType }> = ({ data }) => {
 
                       return {
                         className: clsx(styles.planSlide, 'bullet-link-card'),
-                        onClick: () => handleSlideClick(plan),
-                        content: plan && <Slide plan={plan} />,
+                        content: plan && (
+                          <Slide plan={plan} callback={() => handleSlideClick(plan)} />
+                        ),
                       }
                     })}
                   />
@@ -125,7 +126,7 @@ export const PlansSlider: React.FC<{ data: PlanType }> = ({ data }) => {
   )
 }
 
-function Slide({ plan }: { plan: FloorType }) {
+function Slide({ plan, callback }: { plan: FloorType; callback: () => void }) {
   const image = typeof plan.poster === 'number' ? '' : plan.poster.url
 
   return (
@@ -134,7 +135,18 @@ function Slide({ plan }: { plan: FloorType }) {
       <div className={styles.planImg}>
         <MyImage src={getMediaUrl(image)} width={410} height={314} alt="" />
       </div>
-      <span className="bullet-link bullet-link--lg h4">подробнее</span>
+      <span className="bullet-link bullet-link--lg h4" onClick={callback}>
+        подробнее
+      </span>
+      {plan.tourUrl && (
+        <a
+          href={plan.tourUrl}
+          target="_blank"
+          className="bullet-link bullet-link--xl bullet-link--expand"
+        >
+          Погрузиться в интерьер
+        </a>
+      )}
     </>
   )
 }

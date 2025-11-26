@@ -317,7 +317,7 @@ export function LocationSection() {
               scrollbarClassName={styles.scrollbar}
             >
               <MyImage src={MapImg} onLoad={() => setIsMapLoad(true)} alt="" />
-              <a href="https://yandex.ru/maps/-/CLBrAPnR" target="_blank" className={styles.btn}>
+              <a href="https://yandex.ru/maps/-/CHx9MRNM" target="_blank" className={styles.btn}>
                 <span>
                   Смотреть <br />
                   на карте

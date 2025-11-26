@@ -213,8 +213,8 @@ export function ObjectSection() {
               />
               <div className={styles.imageOverlay}>
                 <div className={clsx(styles.imageText, 'container')}>
-                  <h2 className="h2">Ваша привилегия</h2>
-                  <p className="subtitle">Этот объект — не для всех</p>
+                  <h2 className="h2 m1-videSubtitle2">Ваша привилегия</h2>
+                  <p className="subtitle m1-videSubtitle2">Этот объект — не для всех</p>
                 </div>
               </div>
             </div>

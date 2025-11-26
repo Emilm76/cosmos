@@ -155,8 +155,8 @@ export function WelcomeSection() {
           </div>
           <div className={clsx(styles.rep, 'mobile-slide m1-slide2')} ref={side}>
             <div className={clsx(styles.repContainer, 'container')}>
-              <h2 className="h2">Ваши гарантии — наша репутация</h2>
-              <p>
+              <h2 className="h2 m1-videTitle2">Ваши гарантии — наша репутация</h2>
+              <p className="m1-videSubtitle2">
                 Проект реализует федеральный застройщик{' '}
                 <a href="https://интерстрой.рф" target="_blank">
                   ГК Интерстрой

@@ -174,17 +174,17 @@ export function CitySection() {
       ref={wrapper}
     >
       <div className={styles.content} ref={content}>
-        <div className={styles.wrapper}>
+        <div className={clsx(styles.wrapper, 'm2-slide1')}>
           <div className={styles.imageWrapper}>
             <div className={styles.image} ref={imageBg}>
               <ImagePriority src={DeminImg} alt="" />
             </div>
             <div className={styles.imageOverlay}>
               <div className={clsx(styles.imageText, 'container')}>
-                <h2 className="h2" ref={title}>
+                <h2 className="h2 m1-videTitle2" ref={title}>
                   Евпатория — курорт будущего
                 </h2>
-                <p ref={text}>
+                <p className="m1-videSubtitle2" ref={text}>
                   Это город с историей и один из самых солнечных в Крыму. Культурная столица
                   западного побережья, где более 280 солнечных дней в году, мягкий климат, тёплое
                   море и всеми любимые песчаные пляжи создают идеальные условия сравнимые с Ниццей.

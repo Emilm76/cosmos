@@ -22,7 +22,7 @@ export function MobileSlider({
 }) {
   const [emblaRef, emblaApi] = useEmblaCarousel({ loop: true, duration: 22 }, [
     Fade(),
-    Autoplay({ stopOnInteraction: false }),
+    Autoplay({ stopOnInteraction: false, delay: 3000 }),
   ])
 
   const { selectedIndex, scrollSnaps, onDotButtonClick } = useDotButton(emblaApi)
