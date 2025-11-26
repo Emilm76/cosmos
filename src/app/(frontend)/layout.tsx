@@ -15,7 +15,18 @@ export const metadata: Metadata = {
 }
 
 const TTFirstNeue = localFont({
-  src: './TTFirstNeue-Regular.woff2',
+  src: [
+    {
+      path: './TTFirstNeue-Regular.woff2',
+      weight: '400',
+      style: 'normal',
+    },
+    {
+      path: './TTFirstNeue-Bold.woff2',
+      weight: '600',
+      style: 'normal',
+    },
+  ],
 })
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
