@@ -106,6 +106,8 @@ export function ObjectSection() {
         },
       })
 
+      const asideYOffset = window.innerWidth >= 1600 ? -1500 : -900
+
       tl.to(
         leftSide.current,
         {
@@ -114,7 +116,7 @@ export function ObjectSection() {
             [steps.aside]: { x: '-100%' },
             [steps.asideEnd]: { x: 0 },
             [steps.subtitle]: { y: 0 },
-            [steps.asideBackEnd]: { y: -900 },
+            [steps.asideBackEnd]: { y: asideYOffset },
           },
         },
         0,
@@ -127,7 +129,7 @@ export function ObjectSection() {
             [steps.aside]: { x: '100%' },
             [steps.asideEnd]: { x: 0 },
             [steps.subtitle]: { y: 0 },
-            [steps.asideBackEnd]: { y: window.innerWidth >= 1600 ? -1400 : -900 },
+            [steps.asideBackEnd]: { y: asideYOffset },
           },
         },
         0,
