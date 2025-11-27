@@ -9,7 +9,7 @@ import { LogoWithDescriptor } from '@/shared/ui/icons/logo-with-descriptor'
 
 gsap.registerPlugin(ScrollTrigger)
 
-const animationHeightCount = 2
+const animationHeightCount = 2.2
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function WelcomeSection() {
@@ -117,7 +117,7 @@ export function WelcomeSection() {
         title2.current,
         {
           ease: 'sine.inOut',
-          keyframes: { 65: { x: '20rem' }, 95: { x: 0 } },
+          keyframes: { 80: { x: '20rem', opacity: 0 }, 99: { x: 0, opacity: 1 } },
         },
         0,
       )
@@ -125,7 +125,7 @@ export function WelcomeSection() {
         text2.current,
         {
           ease: 'sine.inOut',
-          keyframes: { 75: { x: '7rem', opacity: 0 }, 99: { x: 0, opacity: 1 } },
+          keyframes: { 80: { x: '15rem', opacity: 0 }, 99: { x: 0, opacity: 1 } },
         },
         0,
       )
