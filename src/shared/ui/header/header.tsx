@@ -158,7 +158,7 @@ export function Header() {
             </div>
             <div className={styles.li} onClick={handleLinkClick}>
               <MyLink className={styles.liInner} href="/apartments">
-                <div className={clsx(styles.burgerTitle, 'h2')}>Выбор квартир</div>
+                <div className={clsx(styles.burgerTitle, 'h2')}>Выбор номеров</div>
                 <div className="green">Глава 3</div>
               </MyLink>
             </div>

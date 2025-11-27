@@ -22,11 +22,13 @@
 
   .title {
     position: absolute;
-    bottom: rem(45px);
+    bottom: rem(70px);
     left: 0;
     padding: 0 rem(20px);
     color: var(--color-white);
-    width: rem(950px);
+    width: auto;
+    text-align: center;
+    line-height: 1.1;
     @media (min-width: 1024px) {
       width: rem(1900px);
       bottom: rem(40px);

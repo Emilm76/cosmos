@@ -359,11 +359,11 @@ export function RelaxSection() {
     <section className={styles.section} style={{ marginBottom: animationHeightCSS }} ref={wrapper}>
       <div className={styles.content} ref={content}>
         <div className={styles.wrapper}>
-          <div className={clsx(styles.slide1, 'slide mobile-slide')}>
+          <div className={clsx(styles.slide1, 'slide mobile-slide m3-slide1')}>
             <div className={styles.seaImage} ref={seaImage}>
               <ImagePriority src={SeaImg} sizes="(max-width: 768px) 100vh, 100vw" alt="" />
             </div>
-            <h2 className={clsx(styles.title, 'h1')} ref={title}>
+            <h2 className={clsx(styles.title, 'h1 m1-videTitle2')} ref={title}>
               <span>Когда каждый день — открытие</span>
             </h2>
           </div>

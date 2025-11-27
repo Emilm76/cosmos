@@ -1092,6 +1092,13 @@ main {
     translate: none;
     transition-delay: 0s;
   }
+  // /comfort
+  .is-load .m3-slide1 .m1-videTitle2,
+  .is-load .m3-slide1 .m1-videSubtitle2 {
+    opacity: 1;
+    translate: none;
+    transition-delay: 0s;
+  }
 }
 
 .chart {

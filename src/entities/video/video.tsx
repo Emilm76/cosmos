@@ -65,6 +65,9 @@ export function VideoSection() {
   const galleryGrid = useRef<DivRef>(null)
   const slide1 = useRef<DivRef>(null)
   const slide2 = useRef<DivRef>(null)
+  const li1 = useRef<DivRef>(null)
+  const li2 = useRef<DivRef>(null)
+  const li3 = useRef<DivRef>(null)
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -126,6 +129,24 @@ export function VideoSection() {
         },
         0,
       )
+
+      const blocks: HTMLElement[] = gsap.utils.toArray('.card-li')
+      blocks.forEach((t, index) => {
+        const x = {
+          0: '20rem',
+          1: '40rem',
+          2: '60rem',
+        }[index]
+
+        tl.to(
+          t,
+          {
+            ease: 'sine.inOut',
+            keyframes: { 50: { x: x }, 99: { x: 0 } },
+          },
+          0,
+        )
+      })
     })
   })
 
@@ -218,7 +239,7 @@ export function VideoSection() {
               {isDesktop && (
                 <div className={clsx(styles.desktopContent, 'container')}>
                   {slides.map((slide, index) => (
-                    <div className={styles.card} key={index}>
+                    <div className={clsx(styles.card, 'card-li')} key={index}>
                       <div className={styles.cardImg}>{slide.img}</div>
 
                       <div className={styles.cardContent}>

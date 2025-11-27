@@ -28,6 +28,8 @@ const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 const steps = {
   aside: 0,
+  span1: 1,
+  span2: 4,
   asideEnd: 10,
   subtitle: 11,
   bg1: 11,
@@ -79,6 +81,8 @@ export function ObjectSection() {
   const bg3 = useRef(null)
   const bg3Img = useRef(null)
   const listImg = useRef(null)
+  const span1 = useRef(null)
+  const span2 = useRef(null)
 
   useGSAP(() => {
     if (isLoading) return
@@ -130,6 +134,30 @@ export function ObjectSection() {
             [steps.asideEnd]: { x: 0 },
             [steps.subtitle]: { y: 0 },
             [steps.asideBackEnd]: { y: asideYOffset },
+          },
+        },
+        0,
+      )
+
+      // text in center
+      tl.to(
+        span1.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.span1]: { y: 0 },
+            [steps.span1 + 5]: { y: '-160%' },
+          },
+        },
+        0,
+      )
+      tl.to(
+        span2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: {
+            [steps.span2]: { y: 0 },
+            [steps.span2 + 5]: { y: '-160%' },
           },
         },
         0,
@@ -315,8 +343,12 @@ export function ObjectSection() {
               />
               <div className={styles.imageOverlay}>
                 <div className={clsx(styles.imageText, 'container')}>
-                  <p className="subtitle m1-videSubtitle2">Этот объект — не для всех</p>
-                  <h2 className="h2 m1-videSubtitle2">Ваша привилегия</h2>
+                  <p className="subtitle m1-videSubtitle2">
+                    <span ref={span1}>Этот объект — не для всех</span>
+                  </p>
+                  <h2 className="h2 m1-videSubtitle2">
+                    <span ref={span2}>Ваша привилегия</span>
+                  </h2>
                 </div>
               </div>
             </div>

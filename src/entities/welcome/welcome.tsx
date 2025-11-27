@@ -9,21 +9,21 @@ import { LogoWithDescriptor } from '@/shared/ui/icons/logo-with-descriptor'
 
 gsap.registerPlugin(ScrollTrigger)
 
-type DivRef = HTMLDivElement | null
-
 const animationHeightCount = 2
 const animationHeightCSS = animationHeightCount * 100 + 'vh'
 
 export function WelcomeSection() {
-  const content = useRef<DivRef>(null)
-  const wrapper = useRef<DivRef>(null)
-  const curtainInner = useRef<DivRef>(null)
-  const overlay = useRef<DivRef>(null)
-  const title = useRef<DivRef>(null)
-  const text = useRef<DivRef>(null)
-  const video = useRef<DivRef>(null)
-  const logo = useRef<DivRef>(null)
-  const side = useRef<DivRef>(null)
+  const content = useRef(null)
+  const wrapper = useRef(null)
+  const curtainInner = useRef(null)
+  const overlay = useRef(null)
+  const title = useRef(null)
+  const text = useRef(null)
+  const video = useRef(null)
+  const logo = useRef(null)
+  const side = useRef(null)
+  const title2 = useRef(null)
+  const text2 = useRef(null)
 
   useGSAP(() => {
     const mm = gsap.matchMedia()
@@ -112,6 +112,23 @@ export function WelcomeSection() {
         },
         0,
       )
+
+      tl.to(
+        title2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { 65: { x: '20rem' }, 95: { x: 0 } },
+        },
+        0,
+      )
+      tl.to(
+        text2.current,
+        {
+          ease: 'sine.inOut',
+          keyframes: { 75: { x: '7rem', opacity: 0 }, 99: { x: 0, opacity: 1 } },
+        },
+        0,
+      )
     })
   })
 
@@ -155,8 +172,10 @@ export function WelcomeSection() {
           </div>
           <div className={clsx(styles.rep, 'mobile-slide m1-slide2')} ref={side}>
             <div className={clsx(styles.repContainer, 'container')}>
-              <h2 className="h2 m1-videTitle2">Ваши гарантии — наша репутация</h2>
-              <p className="m1-videSubtitle2">
+              <h2 className="h2 m1-videTitle2" ref={title2}>
+                Ваши гарантии — наша репутация
+              </h2>
+              <p className="m1-videSubtitle2" ref={text2}>
                 Проект реализует федеральный застройщик{' '}
                 <a href="https://интерстрой.рф" target="_blank">
                   ГК Интерстрой
