@@ -125,7 +125,10 @@ export function RelaxSection() {
           ease: 'sine.inOut',
           keyframes: {
             [steps.start]: { x: 0, y: 0 },
-            [steps.slide2]: { x: '-25rem', y: () => window.innerHeight * -1 },
+            [steps.slide2]: {
+              x: () => window.innerWidth - (title.current?.offsetWidth || 0),
+              y: () => window.innerHeight * -1,
+            },
           },
         },
         0,

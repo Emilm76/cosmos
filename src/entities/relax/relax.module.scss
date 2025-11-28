@@ -24,24 +24,23 @@
     position: absolute;
     bottom: rem(70px);
     left: 0;
-    padding: 0 rem(20px);
+    padding: 0 rem(10px) 0 rem(20px);
     color: var(--color-white);
     width: auto;
-    text-align: center;
     line-height: 1.1;
     @media (min-width: 1024px) {
       width: rem(1900px);
       bottom: rem(40px);
-      padding: 0 rem(40px);
+      padding: 0 rem(10px) 0 rem(40px);
     }
     @media (min-width: 1300px) {
-      width: rem(2600px);
-      padding: 0 rem(740px) 0 rem(40px);
+      width: rem(1890px);
+      padding: 0 rem(10px) 0 rem(40px);
     }
     @media (min-width: 1600px) {
-      width: rem(3530px);
+      width: rem(2630px);
       bottom: rem(67px);
-      padding: 0 rem(920px) 0 rem(60px);
+      padding: 0 rem(10px) 0 rem(60px);
     }
     span {
       display: inline-block;
