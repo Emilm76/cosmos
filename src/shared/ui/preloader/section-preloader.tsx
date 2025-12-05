@@ -206,7 +206,13 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
     // TODO: check if preloader animation end && loading page end
 
     lenis.start() // for fix bug, with ScrollTrigger when routing
-    lenis.scrollTo('#root-main', { immediate: true, force: true })
+    if (isLoadPreviousUrl) {
+      const mainNode: HTMLDivElement | null = document.querySelector('#root-main')
+      const offset = (mainNode?.offsetHeight || 0) - window.innerHeight
+      lenis.scrollTo('#root-main', { offset: offset, immediate: true, force: true })
+    } else {
+      lenis.scrollTo('#root-main', { immediate: true, force: true })
+    }
     lenis.stop()
 
     const keyframes = {

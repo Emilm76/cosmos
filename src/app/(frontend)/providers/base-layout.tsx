@@ -13,6 +13,7 @@ import {
   SectionLoaderMobile,
   SectionPreloader,
 } from '@/shared/ui/preloader/section-preloader'
+import { Url } from 'next/dist/shared/lib/router/router'
 
 type SwipeOptions = {
   direction: number
@@ -36,6 +37,13 @@ type HammerStatic = {
   DIRECTION_VERTICAL: number
 }
 
+const statesCountArray: { [url: string]: number } = {
+  '/': 2,
+  '/location': 18,
+  '/comfort': 15,
+  '/apartments': 0,
+}
+
 export function BaseLayout({
   children,
 }: Readonly<{
@@ -54,6 +62,7 @@ export function BaseLayout({
   const isLoading = useIsLoadingStore((s) => s.isLoading)
   const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
   const setLoadingUrl = useSectionLoaderStore((s) => s.set)
+  const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
 
   const url = {
     '/': { prev: undefined, next: '/location' },
@@ -62,13 +71,7 @@ export function BaseLayout({
     '/apartments': { prev: '/comfort', next: undefined },
   }[pathname]
 
-  const statesCount =
-    {
-      '/': 2,
-      '/location': 18,
-      '/comfort': 15,
-      '/apartments': 0,
-    }[pathname] ?? 0
+  const statesCount = statesCountArray[pathname] ?? 0
 
   // Ensure server and first client render match; compute media after mount
   useEffect(() => {
@@ -140,9 +143,12 @@ export function BaseLayout({
   }, [index])
 
   useEffect(() => {
-    indexRef.current = 0
-    setTimeout(() => setIndex(0), 800)
-  }, [loadingUrl])
+    console.log(loadingUrl, isLoadPreviousUrl, statesCountArray)
+
+    const index = isLoadPreviousUrl && loadingUrl ? statesCountArray[loadingUrl as string] : 0
+    indexRef.current = index
+    setTimeout(() => setIndex(index), 800)
+  }, [loadingUrl, isLoadPreviousUrl])
 
   return (
     <FontSizeProvider>

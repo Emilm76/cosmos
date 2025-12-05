@@ -140,7 +140,7 @@ function Round1({ className, ref }: { className?: string; ref?: Ref<SVGSVGElemen
           y2="1739"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#404040" />
+          <stop stopColor="#535353" />
           <stop offset="1" stopColor="#737373" />
         </linearGradient>
       </defs>
@@ -160,7 +160,7 @@ function Round2({ className, ref }: { className?: string; ref?: Ref<SVGSVGElemen
       <circle cx="460.5" cy="460.5" r="460" stroke="url(#a)" />
       <defs>
         <linearGradient id="a" x1="460.5" x2="460.5" y1="0" y2="921" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#404040" />
+          <stop stopColor="#535353" />
           <stop offset="1" stopColor="#737373" />
         </linearGradient>
       </defs>
@@ -180,7 +180,7 @@ function Round3({ className, ref }: { className?: string; ref?: Ref<SVGSVGElemen
       <circle cx="191" cy="191" r="190.5" stroke="url(#a)" />
       <defs>
         <linearGradient id="a" x1="191" x2="191" y1="0" y2="382" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#404040" />
+          <stop stopColor="#535353" />
           <stop offset="1" stopColor="#737373" />
         </linearGradient>
       </defs>
@@ -202,7 +202,7 @@ function RoundDotted1({ className, ref }: { className?: string; ref?: Ref<SVGSVG
       <circle cx="671" cy="671" r="670.5" stroke="url(#a)" strokeDasharray="16 16" />
       <defs>
         <linearGradient id="a" x1="671" x2="671" y1="0" y2="1342" gradientUnits="userSpaceOnUse">
-          <stop stopColor="#404040" />
+          <stop stopColor="#535353" />
           <stop offset="1" stopColor="#737373" />
         </linearGradient>
       </defs>
@@ -236,7 +236,7 @@ function RoundDotted2({ className, ref }: { className?: string; ref?: Ref<SVGSVG
           y2="574.038"
           gradientUnits="userSpaceOnUse"
         >
-          <stop stopColor="#404040" />
+          <stop stopColor="#535353" />
           <stop offset="1" stopColor="#737373" />
         </linearGradient>
       </defs>
