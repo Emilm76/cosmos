@@ -143,40 +143,21 @@
   display: none;
   @media (min-width: 1300px) {
     display: block;
-    position: fixed;
-    z-index: 100;
-    top: rem(27px);
+    position: absolute;
+    top: 50%;
     left: 50%;
-    translate: -50% 0;
+    translate: -50% -50%;
     opacity: 0;
     pointer-events: none;
     transition: opacity 0.3s ease;
     transition-delay: 0.3s;
-    mix-blend-mode: difference;
-
+    svg {
+      width: rem(145px);
+    }
     &.show {
       opacity: 1;
       pointer-events: auto;
     }
-  }
-}
-
-.logoItem {
-  // svg font
-  font-family: var(--logo-font);
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-  speak: never;
-  font-display: block;
-  font-style: normal;
-  font-weight: normal;
-  font-variant: normal;
-  text-transform: none;
-  line-height: 1;
-  color: var(--color-white);
-  &:before {
-    content: '\e900';
-    font-size: 22px;
   }
 }
 

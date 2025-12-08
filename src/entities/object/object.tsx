@@ -111,7 +111,8 @@ export function ObjectSection() {
       })
 
       const asideHeight = window.innerWidth >= 1600 ? 2500 : 1900
-      const asideYOffset = window.innerHeight - asideHeight
+      const asideYOffsetPx = window.innerHeight - asideHeight
+      const asideYOffset = `${asideYOffsetPx / 16}rem`
 
       tl.to(
         leftSide.current,

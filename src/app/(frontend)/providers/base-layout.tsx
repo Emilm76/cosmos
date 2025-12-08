@@ -63,6 +63,7 @@ export function BaseLayout({
   const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
   const setLoadingUrl = useSectionLoaderStore((s) => s.set)
   const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
+  const isStartFromEnd = useSectionLoaderStore((s) => s.isStartFromEnd)
 
   const url = {
     '/': { prev: undefined, next: '/location' },
@@ -123,7 +124,7 @@ export function BaseLayout({
         if (isLoading) return
         const nextIndex = indexRef.current - 1
         if (nextIndex < 0) {
-          if (url?.prev) setLoadingUrl(url.prev, true)
+          if (url?.prev) setLoadingUrl(url.prev, true, true)
           return
         }
         setIndex(nextIndex)
@@ -143,12 +144,10 @@ export function BaseLayout({
   }, [index])
 
   useEffect(() => {
-    console.log(loadingUrl, isLoadPreviousUrl, statesCountArray)
-
-    const index = isLoadPreviousUrl && loadingUrl ? statesCountArray[loadingUrl as string] : 0
+    const index = isStartFromEnd && loadingUrl ? statesCountArray[loadingUrl as string] : 0
     indexRef.current = index
     setTimeout(() => setIndex(index), 800)
-  }, [loadingUrl, isLoadPreviousUrl])
+  }, [loadingUrl, isStartFromEnd])
 
   return (
     <FontSizeProvider>

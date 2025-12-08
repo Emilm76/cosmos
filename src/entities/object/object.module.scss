@@ -98,14 +98,14 @@
     top: 0;
     left: 0;
     translate: 100% 0;
-    height: 1900px;
+    height: rem(1900px);
     translate: none;
     background: none;
   }
   @media (min-width: 1300px) {
   }
   @media (min-width: 1600px) {
-    height: 2500px;
+    height: rem(2500px);
   }
 }
 

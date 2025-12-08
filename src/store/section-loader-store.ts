@@ -4,14 +4,21 @@ import { create } from 'zustand'
 interface LoaderState {
   loadingUrl: Url | null
   isLoadPreviousUrl: boolean | null
+  isStartFromEnd: boolean
   isFromLink: boolean
-  set: (url: Url, isPreviousUrl: boolean, isFromLink?: boolean) => void
+  set: (url: Url, isPreviousUrl: boolean, isStartFromEnd?: boolean, isFromLink?: boolean) => void
 }
 
 export const useSectionLoaderStore = create<LoaderState>((set) => ({
   loadingUrl: null,
   isLoadPreviousUrl: null,
+  isStartFromEnd: false,
   isFromLink: false,
-  set: (url, isLoadPreviousUrl, isFromLink = false) =>
-    set({ loadingUrl: url, isLoadPreviousUrl: isLoadPreviousUrl, isFromLink: isFromLink }),
+  set: (url, isLoadPreviousUrl, isStartFromEnd = false, isFromLink = false) =>
+    set({
+      loadingUrl: url,
+      isLoadPreviousUrl: isLoadPreviousUrl,
+      isStartFromEnd: isStartFromEnd,
+      isFromLink: isFromLink,
+    }),
 }))

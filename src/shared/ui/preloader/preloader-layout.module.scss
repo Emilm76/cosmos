@@ -29,8 +29,8 @@
     height: 90vw;
   }
   @media (min-width: 1850px) {
-    width: 1800px;
-    height: 1800px;
+    width: rem(1800px);
+    height: rem(1800px);
   }
 }
 

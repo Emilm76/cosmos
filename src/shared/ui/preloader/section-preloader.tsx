@@ -31,7 +31,7 @@ export function PrevSectionLoaderDesktop({ prevUrl }: { prevUrl?: string }) {
         entries.forEach((entry) => {
           if (entry.isIntersecting) {
             //startLoading()
-            setLoadingUrl(prevUrl, true)
+            setLoadingUrl(prevUrl, true, true)
             console.log('PREV IntersectionObserver', entry.isIntersecting)
           }
         })
@@ -158,6 +158,7 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
   const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
   const isFromLink = useSectionLoaderStore((s) => s.isFromLink)
   const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
+  const isStartFromEnd = useSectionLoaderStore((s) => s.isStartFromEnd)
 
   const isPrevDirection = (url?.prev && !isSecondHalf) || !url?.next
 
@@ -206,7 +207,9 @@ export function SectionPreloader({ url }: { url?: { prev?: string; next?: string
     // TODO: check if preloader animation end && loading page end
 
     lenis.start() // for fix bug, with ScrollTrigger when routing
-    if (isLoadPreviousUrl) {
+
+    // scroll to end page
+    if (isStartFromEnd) {
       const mainNode: HTMLDivElement | null = document.querySelector('#root-main')
       const offset = (mainNode?.offsetHeight || 0) - window.innerHeight
       lenis.scrollTo('#root-main', { offset: offset, immediate: true, force: true })

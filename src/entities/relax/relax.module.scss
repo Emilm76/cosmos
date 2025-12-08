@@ -108,8 +108,8 @@
       max-width: 100vw;
     }
     @media (min-width: 1300px) {
-      padding-left: 90px;
-      padding-right: 90px;
+      padding-left: rem(90px);
+      padding-right: rem(90px);
     }
     h2 {
       @media (min-width: 1024px) {

@@ -82,14 +82,6 @@ export function Header() {
 
   return (
     <>
-      <div
-        className={clsx(styles.logo, (showLogo || isCurtainOpen) && styles.show)}
-        onClick={handleLogoClick}
-      >
-        <MyLink className={styles.logoItem} href="/" isPreviousUrl={true}>
-          {/* <LogoIcon /> */}
-        </MyLink>
-      </div>
       <header
         className={clsx(
           styles.header,
@@ -131,6 +123,15 @@ export function Header() {
               aria-label="Открыть или закрыть меню"
             ></button>
           </div>
+        </div>
+
+        <div
+          className={clsx(styles.logo, (showLogo || isCurtainOpen) && styles.show)}
+          onClick={handleLogoClick}
+        >
+          <MyLink href="/" isPreviousUrl={true}>
+            <LogoIcon />
+          </MyLink>
         </div>
       </header>
 

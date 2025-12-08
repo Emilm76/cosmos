@@ -13,7 +13,7 @@ function setFontSizeByHeight(bpHeight: number) {
 }
 
 function setFontSizeByWidth(bpWidth: number) {
-  const newSize = Math.min(24, Math.round(window.innerWidth / (bpWidth / defaultFontSize)))
+  const newSize = Math.min(20, Math.round(window.innerWidth / (bpWidth / defaultFontSize)))
   console.log(newSize, currentFontSize)
   if (newSize !== currentFontSize) {
     document.documentElement.style.fontSize = `${newSize}px`

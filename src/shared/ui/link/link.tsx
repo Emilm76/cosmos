@@ -17,7 +17,7 @@ export function MyLink({
     e.preventDefault()
 
     if (href !== pathname) {
-      setLoadingUrl(href, isPreviousUrl, true)
+      setLoadingUrl(href, isPreviousUrl, false, true)
     }
   }
 
