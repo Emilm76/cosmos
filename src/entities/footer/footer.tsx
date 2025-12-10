@@ -31,10 +31,16 @@ export function Footer() {
         <div className={styles.wrapper}>
           <Video />
           <LogoWithDescriptor3 className={styles.logo} />
-          <p className={styles.text}>
-            ООО &quot;Интерстрой&quot; 295051, Республика Крым, г.&nbsp;Симферополь,
-            б-р&nbsp;Ленина, д.&nbsp;12
-          </p>
+
+          <div className={styles.text}>
+            <a href="mailto:info@interstroi.com.ru" className="bullet-link">
+              info@interstroi.com.ru
+            </a>
+            <p>
+              ООО &quot;Интерстрой&quot; 295051, Республика Крым, г.&nbsp;Симферополь,
+              б-р&nbsp;Ленина, д.&nbsp;12
+            </p>
+          </div>
         </div>
       </div>
     </section>

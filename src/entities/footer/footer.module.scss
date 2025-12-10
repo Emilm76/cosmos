@@ -42,6 +42,9 @@
   bottom: rem(67px);
   left: 0;
   width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: rem(20px);
   text-align: center;
   padding: 0 rem(20px);
   color: var(--color-white);
@@ -52,12 +55,18 @@
   }
   @media (min-width: 1024px) {
     bottom: rem(35px);
-    right: rem(40px);
+    right: 0;
+    padding-right: rem(40px);
     left: auto;
     text-align: right;
     max-width: rem(410px);
   }
   @media (min-width: 1300px) {
     max-width: none;
+  }
+  @media (min-width: 1760px) {
+    flex-direction: row;
+    justify-content: flex-end;
+    gap: rem(220px);
   }
 }

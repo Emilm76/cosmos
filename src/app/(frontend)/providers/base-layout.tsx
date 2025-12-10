@@ -168,7 +168,9 @@ export function BaseLayout({
 
         <Modal />
 
-        <InterstroyLogo className="interstroy-logo" />
+        <a className="interstroy-logo" href="https://интерстрой.рф" target="_blank">
+          <InterstroyLogo />
+        </a>
       </LenisScrollProvider>
     </FontSizeProvider>
   )

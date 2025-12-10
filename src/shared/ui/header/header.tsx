@@ -128,9 +128,17 @@ export function Header() {
             </div>
 
             <div className={clsx(styles.blockWrapper, footer && styles.show)}>
-              <span className={styles.footerItem}>Политика обработки персональных данных</span>
-              <a href="mailto:info@interstroi.com.ru" className={styles.footerItem}>
-                info@interstroi.com.ru
+              <a
+                href="https://интерстрой.рф/page/politic"
+                className={clsx(styles.footerItem, 'bullet-link')}
+              >
+                Политика обработки персональных данных
+              </a>
+              <a
+                href="https://интерстрой.рф/page/use-terms"
+                className={clsx(styles.footerItem, 'bullet-link')}
+              >
+                Условия пользования сайтом
               </a>
             </div>
           </div>
