@@ -129,13 +129,15 @@ export function Header() {
 
             <div className={clsx(styles.blockWrapper, footer && styles.show)}>
               <a
-                href="https://интерстрой.рф/page/politic"
+                href="/politika-konfidentsialnosti.pdf"
+                target="_blank"
                 className={clsx(styles.footerItem, 'bullet-link')}
               >
                 Политика обработки персональных данных
               </a>
               <a
-                href="https://интерстрой.рф/page/use-terms"
+                href="/usloviya-polzovaniya-saytom.pdf"
+                target="_blank"
                 className={clsx(styles.footerItem, 'bullet-link')}
               >
                 Условия пользования сайтом
