@@ -195,17 +195,10 @@
 }
 
 .burgerWrapper {
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
   height: 100%;
   padding-top: rem(40px);
   padding-bottom: rem(20px);
   overflow: auto;
-  gap: rem(48px);
-  @media (min-width: 768px) {
-    flex-direction: row;
-  }
   @media (min-width: 1024px) {
     padding-top: rem(60px);
     padding-bottom: rem(60px);
@@ -216,6 +209,35 @@
   @media (min-width: 1600px) {
     padding-top: rem(110px);
     padding-bottom: rem(40px);
+  }
+}
+
+.burgerInner {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  gap: rem(48px);
+  height: 100%;
+  @media (min-width: 768px) {
+    flex-direction: row;
+  }
+}
+
+.interstroylogo {
+  position: absolute;
+  right: 0;
+  bottom: 0;
+  font-size: 23px;
+  color: var(--color-grey);
+
+  @media (min-width: 768px) {
+    right: auto;
+    bottom: 0;
+    left: 0;
+  }
+  @media (min-width: 1024px) {
+    font-size: 39px;
   }
 }
 

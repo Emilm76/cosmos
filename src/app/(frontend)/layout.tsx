@@ -29,14 +29,18 @@ const TTFirstNeue = localFont({
     },
   ],
 })
-/*const LogoFont = localFont({
+const LogoFont = localFont({
   src: './logo.woff2',
   variable: '--logo-font',
-})*/
+})
 
 export default async function RootLayout({ children }: { children: ReactNode }) {
   return (
-    <html lang="ru" className={TTFirstNeue.className} suppressHydrationWarning>
+    <html
+      lang="ru"
+      className={clsx(TTFirstNeue.className, LogoFont.variable)}
+      suppressHydrationWarning
+    >
       <head>
         <script>{`history.scrollRestoration = "manual"`}</script>
       </head>

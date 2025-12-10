@@ -5,7 +5,6 @@ import { FontSizeProvider } from './font-size-provider'
 import { usePathname } from 'next/navigation'
 import clsx from 'clsx'
 import { useIsLoadingStore, useSectionLoaderStore } from '@/store'
-import { InterstroyLogo } from '@/shared/ui/logo/logo'
 import { Modal } from '@/shared/ui/modal/modal'
 import {
   NextSectionLoaderDesktop,
@@ -13,6 +12,7 @@ import {
   SectionLoaderMobile,
   SectionPreloader,
 } from '@/shared/ui/preloader/section-preloader'
+import { InterstroyLogo } from '@/shared/ui/icons/interstroy-logo'
 
 type SwipeOptions = {
   direction: number
@@ -168,7 +168,7 @@ export function BaseLayout({
 
         <Modal />
 
-        <InterstroyLogo />
+        <InterstroyLogo className="interstroy-logo" />
       </LenisScrollProvider>
     </FontSizeProvider>
   )

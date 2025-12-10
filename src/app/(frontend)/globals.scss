@@ -1160,3 +1160,43 @@ main {
     opacity: 1;
   }
 }
+
+.interstroy-icon {
+  font-family: var(--logo-font);
+  speak: never;
+  font-style: normal;
+  font-weight: normal;
+  font-variant: normal;
+  text-transform: none;
+  line-height: 1;
+  // Better Font Rendering
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+
+  &:before {
+    content: '\e900';
+  }
+}
+
+.interstroy-logo {
+  position: fixed;
+  z-index: 90;
+  left: 50%;
+  bottom: rem(20px);
+  translate: -50% 0;
+  display: block;
+  // width: rem(142px);
+  font-size: rem(23.3px);
+  pointer-events: none;
+
+  mix-blend-mode: difference;
+  color: #fff;
+
+  @media (min-width: 1024px) {
+    left: rem(40px);
+    bottom: rem(40px);
+    translate: none;
+    // width: rem(237px);
+    font-size: rem(39px);
+  }
+}
