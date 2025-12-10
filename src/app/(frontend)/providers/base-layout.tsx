@@ -13,7 +13,6 @@ import {
   SectionLoaderMobile,
   SectionPreloader,
 } from '@/shared/ui/preloader/section-preloader'
-import { Url } from 'next/dist/shared/lib/router/router'
 
 type SwipeOptions = {
   direction: number
@@ -41,7 +40,7 @@ const statesCountArray: { [url: string]: number } = {
   '/': 2,
   '/location': 18,
   '/comfort': 15,
-  '/apartments': 0,
+  '/apartments': 1,
 }
 
 export function BaseLayout({
@@ -62,7 +61,6 @@ export function BaseLayout({
   const isLoading = useIsLoadingStore((s) => s.isLoading)
   const loadingUrl = useSectionLoaderStore((s) => s.loadingUrl)
   const setLoadingUrl = useSectionLoaderStore((s) => s.set)
-  const isLoadPreviousUrl = useSectionLoaderStore((s) => s.isLoadPreviousUrl)
   const isStartFromEnd = useSectionLoaderStore((s) => s.isStartFromEnd)
 
   const url = {

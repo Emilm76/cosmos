@@ -42,64 +42,67 @@ export const PlansSlider: React.FC<{ data: PlanType }> = ({ data }) => {
     if (isLoading) return
 
     const tl = gsap.timeline()
+    const mm = gsap.matchMedia()
 
-    tl.to(
-      shadow.current,
-      {
-        ease: 'sine.inOut',
-        duration: 0.8,
-        keyframes: {
-          0: { opacity: 0 },
-          90: { opacity: 1 },
+    mm.add('(min-width: 1024px)', () => {
+      tl.to(
+        shadow.current,
+        {
+          ease: 'sine.inOut',
+          duration: 0.8,
+          keyframes: {
+            0: { opacity: 0 },
+            90: { opacity: 1 },
+          },
         },
-      },
-      0,
-    )
-    tl.to(
-      title.current,
-      {
-        ease: 'sine.inOut',
-        duration: 0.8,
-        keyframes: {
-          0: { y: '10rem', opacity: 0 },
-          100: { y: 0, opacity: 1 },
+        0,
+      )
+      tl.to(
+        title.current,
+        {
+          ease: 'sine.inOut',
+          duration: 0.8,
+          keyframes: {
+            0: { y: '10rem', opacity: 0 },
+            100: { y: 0, opacity: 1 },
+          },
         },
-      },
-      0,
-    )
-    tl.to(
-      slider.current,
-      {
-        ease: 'sine.inOut',
-        duration: 0.8,
-        keyframes: {
-          0: { y: '20rem', opacity: 0 },
-          100: { y: 0, opacity: 1 },
+        0,
+      )
+      tl.to(
+        slider.current,
+        {
+          ease: 'sine.inOut',
+          duration: 0.8,
+          keyframes: {
+            0: { y: '20rem', opacity: 0 },
+            100: { y: 0, opacity: 1 },
+          },
         },
-      },
-      0,
-    )
+        0,
+      )
+    })
   }, [isLoading])
 
   const slides = data?.plansSlider || []
 
   return (
     <>
-      <section className={styles.section}>
+      <section className={clsx(styles.section, 'mobile-slide m4-slide1')}>
         <div className={styles.content} ref={content}>
           <div className={styles.wrapper}>
             <div className={clsx(styles.slide, 'slide mobile-slide')}>
               <div className={styles.bg}>
                 <ImagePriority src={BgImg} alt="" />
-                <div className={styles.shadow} ref={shadow}></div>
+                <div className={clsx(styles.shadow, 'm1-shadow')} ref={shadow}></div>
               </div>
 
               <div className={clsx(styles.slideInner, 'container')}>
-                <h2 className="h2" ref={title}>
+                <h2 className="h2 m1-videTitle2" ref={title}>
                   меню планировок
                 </h2>
 
-                <div className={styles.sliderWrapper} ref={slider}>
+                <div className={clsx(styles.sliderWrapper, 'm1-videSubtitle2')} ref={slider}>
                   <Slider
                     slides={slides.map((slide) => {
                       const plan = typeof slide.plan === 'number' ? null : slide.plan

@@ -26,7 +26,7 @@ export function Header() {
   const isMobile = useMediaQuery({ query: '(max-width: 767px)' })
   const pathname = usePathname()
   const openModal = useModalStore((s) => s.open)
-  const { transparent } = useHeader()
+  const { transparent, footer } = useHeader()
   const lenis = useLenis(
     (lenis) => {
       if (pathname !== '/') return
@@ -90,38 +90,47 @@ export function Header() {
           transparent && styles.transparent,
         )}
       >
-        <div className={clsx(styles.container, 'container')}>
-          <div className={styles.left}>
-            <button className={styles.phoneBtn} type="button" onClick={openModal}>
-              <PhoneIcon />
-              <span className="bullet-link">Заказать звонок</span>
-            </button>
-            <button
-              className={clsx(styles.backBtn, !isBurgerOpen && isCurtainOpen && styles.show)}
-              onClick={handleBackButtonClick}
-              type="button"
-            >
-              <ArrowLeftIcon />
-              <span>Назад</span>
-            </button>
-          </div>
-
-          <div className={styles.right}>
-            <div onClick={handleLinkClick}>
-              <MyLink
-                href="/apartments"
-                className={clsx('bullet-link', isMobile && isCurtainOpen && styles.displayNone)}
+        <div className="container">
+          <div className={styles.containerInner}>
+            <div className={clsx(styles.left, footer && styles.transparent)}>
+              <button className={styles.phoneBtn} type="button" onClick={openModal}>
+                <PhoneIcon />
+                <span className="bullet-link">Заказать звонок</span>
+              </button>
+              <button
+                className={clsx(styles.backBtn, !isBurgerOpen && isCurtainOpen && styles.show)}
+                onClick={handleBackButtonClick}
+                type="button"
               >
-                Выбрать планировку
-              </MyLink>
+                <ArrowLeftIcon />
+                <span>Назад</span>
+              </button>
             </div>
 
-            <button
-              type="button"
-              className={clsx(styles.burgerBtn, isBurgerOpen ? styles.close : styles.open)}
-              onClick={toggleBurger}
-              aria-label="Открыть или закрыть меню"
-            ></button>
+            <div className={clsx(styles.right, footer && styles.transparent)}>
+              <div onClick={handleLinkClick}>
+                <MyLink
+                  href="/apartments"
+                  className={clsx('bullet-link', isMobile && isCurtainOpen && styles.displayNone)}
+                >
+                  Выбрать планировку
+                </MyLink>
+              </div>
+
+              <button
+                type="button"
+                className={clsx(styles.burgerBtn, isBurgerOpen ? styles.close : styles.open)}
+                onClick={toggleBurger}
+                aria-label="Открыть или закрыть меню"
+              ></button>
+            </div>
+
+            <div className={clsx(styles.blockWrapper, footer && styles.show)}>
+              <span className={styles.footerItem}>Политика обработки персональных данных</span>
+              <a href="mailto:info@interstroi.com.ru" className={styles.footerItem}>
+                info@interstroi.com.ru
+              </a>
+            </div>
           </div>
         </div>
 

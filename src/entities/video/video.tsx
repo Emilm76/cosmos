@@ -262,11 +262,10 @@ function Video() {
   const isDev = process.env.NODE_ENV === 'development'
 
   if (isDev) {
-    // if dev
+    // eslint-disable-next-line
     return <img src="/video-preview.jpg" alt="" />
   }
 
-  // if prod
   return (
     <iframe
       src="https://kinescope.io/embed/i6BH3exsTVaH2EPmWue32J"

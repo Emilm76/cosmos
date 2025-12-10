@@ -459,6 +459,10 @@ main {
         translate 0.5s ease,
         opacity 0.3s ease;
     }
+    .m1-shadow {
+      opacity: 0;
+      transition: opacity 0.3s ease;
+    }
     .m1-slide2 {
       translate: 0 100%;
       transition: translate 0.8s var(--easeInOutQuart);
@@ -689,6 +693,12 @@ main {
       transition: translate 0.8s var(--easeInOutQuart);
     }
 
+    // /apartments
+    .m4-slide2 {
+      translate: 0 100%;
+      transition: translate 0.8s var(--easeInOutQuart);
+    }
+
     &.state-1 {
       // /
       .m1-curtainInner {
@@ -718,6 +728,11 @@ main {
         transition-delay: 0.3s;
       }
       .m3-slide2 {
+        translate: none;
+      }
+
+      // /apartments
+      .m4-slide2 {
         translate: none;
       }
     }
@@ -1095,6 +1110,14 @@ main {
   // /comfort
   .is-load .m3-slide1 .m1-videTitle2,
   .is-load .m3-slide1 .m1-videSubtitle2 {
+    opacity: 1;
+    translate: none;
+    transition-delay: 0s;
+  }
+  // /apartments
+  .is-load .m4-slide1 .m1-videTitle2,
+  .is-load .m4-slide1 .m1-videSubtitle2,
+  .is-load .m4-slide1 .m1-shadow {
     opacity: 1;
     translate: none;
     transition-delay: 0s;

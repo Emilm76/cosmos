@@ -20,16 +20,6 @@
       opacity: 1;
     }
   }
-  &.transparent {
-    opacity: 0;
-  }
-}
-
-.container {
-  height: var(--header-height);
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
 }
 
 .phoneBtn {
@@ -50,13 +40,56 @@
   }
 }
 
+.transparent {
+  opacity: 0;
+  pointer-events: none;
+}
+
+.left,
 .right {
   display: flex;
   align-items: center;
   gap: rem(20px);
+  transition: opacity 0.3s ease;
   @media (min-width: 1024px) {
     gap: rem(40px);
   }
+}
+.containerInner {
+  position: relative;
+  width: 100%;
+  height: var(--header-height);
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+.blockWrapper {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  display: flex;
+  flex-direction: column;
+  gap: rem(24px);
+  text-align: center;
+  padding-top: rem(20px);
+  opacity: 0;
+  pointer-events: none;
+  transition: opacity 0.3s ease;
+  @media (min-width: 768px) {
+    flex-direction: row;
+    justify-content: space-between;
+    padding: 0;
+    height: 100%;
+    align-items: center;
+  }
+}
+.footerItem {
+  text-transform: uppercase;
+}
+.show {
+  opacity: 1;
+  pointer-events: auto;
 }
 
 // Burger
@@ -257,14 +290,6 @@
   }
 }
 
-.left {
-  display: flex;
-  align-items: center;
-  gap: rem(20px);
-  @media (min-width: 1024px) {
-    gap: rem(40px);
-  }
-}
 .backBtn {
   display: flex;
   gap: rem(10px);
