@@ -12,7 +12,7 @@ import { useCurtainStore, useModalStore } from '@/store'
 import { PhoneIcon } from '../icons/phone'
 import { ArrowLeftIcon } from '../icons/arrow-left'
 import { MyLink } from '../link/link'
-import { LogoIcon } from '../icons/logo'
+import { LogoWithDescriptor3 } from '../icons/logo-with-descriptor-3'
 
 export function Header() {
   const [isBurgerOpen, setIsBurgerOpen] = useState(false)
@@ -139,7 +139,7 @@ export function Header() {
           onClick={handleLogoClick}
         >
           <MyLink href="/" isPreviousUrl={true}>
-            <LogoIcon />
+            <LogoWithDescriptor3 />
           </MyLink>
         </div>
       </header>
